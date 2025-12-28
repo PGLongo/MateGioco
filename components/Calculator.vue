@@ -127,6 +127,8 @@ defineEmits<{
   align-items: center;
   justify-content: center;
   font-style: normal;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .number-btn:hover {
@@ -176,6 +178,8 @@ defineEmits<{
   text-transform: uppercase;
   font-style: normal;
   flex-shrink: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-submit:hover:not(:disabled) {

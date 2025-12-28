@@ -112,6 +112,8 @@ defineEmits<{
   align-items: center;
   justify-content: center;
   font-style: normal;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .footer-btn:hover {
