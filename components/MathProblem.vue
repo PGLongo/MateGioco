@@ -25,49 +25,53 @@ defineProps<Props>()
 <style scoped>
 .math-problem {
   text-align: center;
-  padding: 18px;
+  padding: 12px;
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 15px;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
 }
 
 .problem-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   width: 100%;
 }
 
 .number {
-  font-size: 3.25rem;
-  font-weight: bold;
+  font-size: 2.5rem;
+  font-weight: 700;
   color: var(--color-blue-primary);
-  text-shadow: 2px 2px 4px rgba(93, 173, 226, 0.2);
+  font-style: normal;
 }
 
 .operator {
-  font-size: 2.75rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 700;
   color: #F39C12;
+  font-style: normal;
 }
 
 .equals {
-  font-size: 2.75rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 700;
   color: var(--color-blue-primary);
+  font-style: normal;
 }
 
 .question-mark {
-  font-size: 3.5rem;
-  font-weight: bold;
+  font-size: 2.5rem;
+  font-weight: 700;
   color: #F39C12;
   animation: pulse 1.5s ease-in-out infinite;
+  font-style: normal;
 }
 
 @media (min-width: 600px) {

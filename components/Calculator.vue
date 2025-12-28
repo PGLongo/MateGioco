@@ -79,47 +79,54 @@ defineEmits<{
 
 <style scoped>
 .calculator {
-  padding: 24px;
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .display {
   background: linear-gradient(135deg, var(--color-blue-lighter), #85C1E2);
-  border-radius: 15px;
-  padding: 18px;
-  margin-bottom: 15px;
-  min-height: 70px;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
-  font-weight: bold;
+  font-size: 2.2rem;
+  font-weight: 700;
   color: #2874A6;
-  box-shadow: inset 0 3px 6px rgba(52, 152, 219, 0.15);
+  box-shadow: inset 0 2px 4px rgba(52, 152, 219, 0.15);
+  font-style: normal;
+  flex-shrink: 0;
 }
 
 .number-pad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex: 1;
 }
 
 .number-btn {
-  aspect-ratio: 1;
-  min-height: 60px;
-  font-size: 2rem;
-  font-weight: bold;
+  min-height: 50px;
+  font-size: 1.6rem;
+  font-weight: 700;
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   background: linear-gradient(135deg, var(--color-orange-light), var(--color-orange-medium));
   color: var(--color-orange-dark);
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 3px 10px rgba(248, 196, 113, 0.25);
+  box-shadow: 0 2px 6px rgba(248, 196, 113, 0.25);
   font-family: inherit;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-style: normal;
 }
 
 .number-btn:hover {
@@ -135,7 +142,7 @@ defineEmits<{
 .btn-help {
   background: linear-gradient(135deg, #D5F4E6, var(--color-green-light));
   color: #239B56;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   line-height: 1.2;
 }
 
@@ -146,7 +153,7 @@ defineEmits<{
 .btn-delete {
   background: linear-gradient(135deg, #D5F4E6, var(--color-green-light));
   color: #239B56;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 
 .btn-delete:hover {
@@ -155,18 +162,20 @@ defineEmits<{
 
 .btn-submit {
   width: 100%;
-  padding: 20px;
-  font-size: 1.75rem;
-  font-weight: bold;
+  padding: 14px;
+  font-size: 1.4rem;
+  font-weight: 700;
   border: none;
-  border-radius: 15px;
+  border-radius: 12px;
   background: linear-gradient(135deg, var(--color-green-light), var(--color-green-medium));
   color: var(--color-green-dark);
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 5px 15px rgba(125, 206, 160, 0.3);
+  box-shadow: 0 4px 10px rgba(125, 206, 160, 0.3);
   font-family: inherit;
   text-transform: uppercase;
+  font-style: normal;
+  flex-shrink: 0;
 }
 
 .btn-submit:hover:not(:disabled) {

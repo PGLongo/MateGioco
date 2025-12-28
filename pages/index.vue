@@ -187,27 +187,31 @@ onMounted(() => {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background: white;
+  overflow: hidden;
 }
 
 .main-content {
   flex: 1;
-  padding: 16px;
+  padding: 8px 12px;
   background: linear-gradient(to bottom, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .question-title {
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--color-blue-primary);
-  margin-bottom: 16px;
+  margin-bottom: 6px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  font-style: normal;
 }
 
 .feedback-message {

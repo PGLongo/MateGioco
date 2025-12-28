@@ -30,29 +30,30 @@ withDefaults(defineProps<Props>(), {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
+  padding: 10px 12px;
   background: linear-gradient(135deg, var(--color-blue-primary), var(--color-blue-light));
-  border-radius: 24px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(93, 173, 226, 0.3);
+  border-radius: 0;
+  box-shadow: 0 2px 8px rgba(93, 173, 226, 0.2);
+  flex-shrink: 0;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .avatar {
-  font-size: 2rem;
-  animation: bounce 2s ease-in-out infinite;
+  font-size: 1.5rem;
+  font-style: normal;
 }
 
 .greeting {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: white;
-  font-weight: bold;
+  font-weight: 600;
   margin: 0;
+  font-style: normal;
 }
 
 .header-right {
@@ -63,37 +64,38 @@ withDefaults(defineProps<Props>(), {
 .stars-container {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: rgba(255, 255, 255, 0.2);
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 6px 12px;
+  border-radius: 16px;
   backdrop-filter: blur(10px);
 }
 
 .star-icon {
-  font-size: 1.5rem;
-  animation: pulse 1.5s ease-in-out infinite;
+  font-size: 1.2rem;
+  font-style: normal;
 }
 
 .stars-count {
-  font-size: 1.3rem;
-  font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: 600;
   color: white;
-  min-width: 30px;
+  min-width: 24px;
   text-align: center;
+  font-style: normal;
 }
 
 @media (max-width: 480px) {
   .greeting {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .avatar {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .stars-count {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 }
 </style>

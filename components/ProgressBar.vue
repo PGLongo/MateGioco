@@ -57,21 +57,23 @@ defineEmits<{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 15px;
+  padding: 8px 12px;
   background: #F8F9F9;
-  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
 }
 
 .progress-info {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.875rem;
+  gap: 8px;
+  font-size: 0.85rem;
   color: #5D6D7E;
 }
 
 .progress-text {
-  font-weight: normal;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .progress-dots {
@@ -98,17 +100,18 @@ defineEmits<{
 }
 
 .footer-btn {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   border: 2px solid #D5DBDB;
-  border-radius: 10px;
+  border-radius: 8px;
   background: white;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-style: normal;
 }
 
 .footer-btn:hover {
