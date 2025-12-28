@@ -121,10 +121,32 @@ npm run generate
 
 # Preview del build locale
 npm run preview
-
-# Deploy automatico su GitHub Pages
-# Avviene automaticamente al push su branch main o claude/create-mategioco-app-XigRk
 ```
+
+### 🏷️ Release e Deploy
+
+Il deploy su GitHub Pages avviene automaticamente quando si crea un nuovo tag di versione.
+
+```bash
+# 1. Crea una release automatica (incrementa patch: 1.0.0 -> 1.0.1)
+npm run release
+
+# 2. Oppure specifica il tipo di release:
+npm run release:patch  # 1.0.0 -> 1.0.1 (bug fixes)
+npm run release:minor  # 1.0.0 -> 1.1.0 (new features)
+npm run release:major  # 1.0.0 -> 2.0.0 (breaking changes)
+
+# 3. Pusha il tag per triggerare il deploy
+git push --follow-tags origin develop
+```
+
+**Standard-version automaticamente**:
+- ✅ Analizza i commit conventional
+- ✅ Incrementa la versione in package.json
+- ✅ Genera/aggiorna CHANGELOG.md
+- ✅ Crea un commit di release
+- ✅ Crea un tag git (v1.0.0, v1.1.0, etc.)
+- ✅ Deploy automatico su GitHub Pages al push del tag
 
 ## 🎨 Palette Colori
 
