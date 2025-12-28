@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - claude/develop-XigRk
       - claude/create-mategioco-app-XigRk
   workflow_dispatch:
 
