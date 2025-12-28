@@ -22,7 +22,7 @@ MateGioco è un'applicazione web interattiva progettata per aiutare i bambini di
 
 ### 🎨 Design & UX
 - **Palette colori pastello** stile Bluey (azzurro, arancione, verde acqua)
-- **Font Comic Sans MS** per un'esperienza kid-friendly
+- **Font Quicksand** - rotondo, leggibile e perfetto per bambini
 - **Animazioni fluide** (bounce, pulse, celebrate)
 - **Feedback tattile** con vibrazione su mobile
 - **Mobile-first responsive** - ottimizzato per tablet e smartphone
