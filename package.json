@@ -1,6 +1,6 @@
 {
   "name": "mate-gioco",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "App educativa di matematica per bambini",
   "private": true,
   "type": "module",
@@ -9,7 +9,11 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:major": "standard-version --release-as major",
+    "release:patch": "standard-version --release-as patch"
   },
   "dependencies": {
     "@nuxt/ui": "^3.0.0",
@@ -18,6 +22,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "standard-version": "^9.5.0",
     "typescript": "^5.6.0"
   }
 }

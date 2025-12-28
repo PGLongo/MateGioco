@@ -1,0 +1,23 @@
+{
+  "types": [
+    {"type": "feat", "section": "✨ Features"},
+    {"type": "fix", "section": "🐛 Bug Fixes"},
+    {"type": "docs", "section": "📝 Documentation", "hidden": false},
+    {"type": "style", "section": "💄 Styles", "hidden": true},
+    {"type": "refactor", "section": "♻️ Refactoring", "hidden": true},
+    {"type": "perf", "section": "⚡ Performance", "hidden": false},
+    {"type": "test", "section": "✅ Tests", "hidden": true},
+    {"type": "build", "section": "🏗️ Build", "hidden": true},
+    {"type": "ci", "section": "👷 CI/CD", "hidden": true},
+    {"type": "chore", "section": "🔧 Chores", "hidden": true}
+  ],
+  "commitUrlFormat": "https://github.com/PGLongo/MateGioco/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/PGLongo/MateGioco/compare/{{previousTag}}...{{currentTag}}",
+  "issueUrlFormat": "https://github.com/PGLongo/MateGioco/issues/{{id}}",
+  "userUrlFormat": "https://github.com/{{user}}",
+  "releaseCommitMessageFormat": "chore(release): {{currentTag}}",
+  "issuePrefixes": ["#"],
+  "skip": {
+    "changelog": false
+  }
+}
