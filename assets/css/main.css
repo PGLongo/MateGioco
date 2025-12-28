@@ -1,0 +1,155 @@
+/* MateGioco - Stile Bluey Pastello */
+
+:root {
+  /* Colori Azzurro/Celeste */
+  --color-blue-primary: #5DADE2;
+  --color-blue-light: #7EC8E3;
+  --color-blue-lighter: #AED6F1;
+
+  /* Colori Arancione Pastello */
+  --color-orange-light: #FAD7A0;
+  --color-orange-medium: #F8C471;
+  --color-orange-dark: #D68910;
+
+  /* Colori Verde Acqua */
+  --color-green-light: #A9DFBF;
+  --color-green-medium: #7DCEA0;
+  --color-green-dark: #1E8449;
+
+  /* Sfondi */
+  --color-bg-primary: #EBF4F6;
+  --color-bg-secondary: #D6EAF8;
+  --color-bg-white: #F8F9F9;
+
+  /* Altri colori */
+  --color-error: #E74C3C;
+  --color-success: var(--color-green-medium);
+  --color-text: #2C3E50;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+  background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  color: var(--color-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Animazioni */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+@keyframes celebrate {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-10deg) scale(1.2); }
+  75% { transform: rotate(10deg) scale(1.2); }
+}
+
+/* Classi utility */
+.bounce {
+  animation: bounce 0.5s ease-in-out;
+}
+
+.pulse {
+  animation: pulse 0.3s ease-in-out;
+}
+
+.shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+.celebrate {
+  animation: celebrate 0.5s ease-in-out;
+}
+
+/* Bottoni base */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 44px;
+  min-height: 44px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-blue-primary), var(--color-blue-light));
+  color: white;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--color-green-medium), var(--color-green-dark));
+  color: white;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, var(--color-orange-light), var(--color-orange-medium));
+  color: var(--color-text);
+}
+
+/* Container responsive */
+.container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    max-width: 100%;
+    padding: 12px;
+  }
+}
+
+/* Card */
+.card {
+  background: var(--color-bg-white);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+/* Touch-friendly */
+@media (hover: none) and (pointer: coarse) {
+  .btn {
+    min-width: 50px;
+    min-height: 50px;
+    font-size: 1.3rem;
+  }
+}
