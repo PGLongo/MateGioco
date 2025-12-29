@@ -57,7 +57,7 @@ defineEmits<{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px;
+  padding: 8px 12px 16px 12px;
   background: #F8F9F9;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
@@ -128,7 +128,7 @@ defineEmits<{
 
 @media (min-width: 600px) {
   .progress-bar {
-    padding: 15px 25px;
+    padding: 15px 25px 24px 25px;
   }
 
   .progress-info {
@@ -143,7 +143,7 @@ defineEmits<{
 
 @media (max-width: 480px) {
   .progress-bar {
-    padding: 10px 12px;
+    padding: 10px 12px 18px 12px;
   }
 
   .progress-info {
