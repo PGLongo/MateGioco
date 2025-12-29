@@ -89,13 +89,13 @@ defineEmits<{
 .display {
   background: linear-gradient(135deg, var(--color-blue-lighter), #85C1E2);
   border-radius: 12px;
-  padding: 12px;
+  padding: 20px 12px;
   margin-bottom: 10px;
-  height: 50px;
+  min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: #2874A6;
   box-shadow: inset 0 2px 4px rgba(52, 152, 219, 0.15);
@@ -203,9 +203,9 @@ defineEmits<{
   }
 
   .display {
-    font-size: 3.5rem;
-    height: 80px;
-    padding: 22px;
+    font-size: 4.5rem;
+    min-height: 100px;
+    padding: 24px 20px;
   }
 
   .number-btn {
@@ -225,9 +225,9 @@ defineEmits<{
   }
 
   .display {
-    font-size: 2.5rem;
-    height: 60px;
-    padding: 14px;
+    font-size: 3rem;
+    min-height: 70px;
+    padding: 16px 12px;
   }
 
   .number-btn {
@@ -247,9 +247,9 @@ defineEmits<{
   }
 
   .display {
-    font-size: 2rem;
-    height: 50px;
-    padding: 12px;
+    font-size: 2.5rem;
+    min-height: 65px;
+    padding: 14px 10px;
   }
 
   .number-btn {
