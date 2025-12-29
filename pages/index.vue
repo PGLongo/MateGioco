@@ -59,6 +59,7 @@ import { ref, onMounted } from 'vue'
 // Composables
 const { settings, loadSettings } = useSettings()
 const { totalStars, loadStars, addStars } = useStars()
+const { playSuccess, playError, playClick } = useSound()
 const {
   currentExercise,
   userAnswer,
@@ -91,6 +92,7 @@ const vibrate = (pattern: number | number[]) => {
 // Gestione input digitale
 const handleAddDigit = (digit: string) => {
   addDigit(digit)
+  playClick()
   vibrate(20)
 }
 
@@ -125,7 +127,8 @@ const submitAnswer = () => {
   const correct = checkAnswer()
 
   if (correct) {
-    // Risposta corretta! - Vibrazione celebrativa
+    // Risposta corretta! - Suono + Vibrazione celebrativa
+    playSuccess()
     feedbackMessage.value = '🎉 Bravo!'
     feedbackState.value = 'success'
     vibrate([100, 50, 100, 50, 100])
@@ -148,7 +151,8 @@ const submitAnswer = () => {
       nextExercise()
     }, 2500)
   } else {
-    // Risposta sbagliata - Vibrazione più lunga
+    // Risposta sbagliata - Suono + Vibrazione più lunga
+    playError()
     feedbackMessage.value = '❌ Riprova!'
     feedbackState.value = 'error'
     vibrate([300])
