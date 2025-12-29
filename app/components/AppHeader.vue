@@ -27,11 +27,13 @@ withDefaults(defineProps<AppHeaderProps>(), {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 12px;
-  background: linear-gradient(135deg, var(--color-blue-primary), var(--color-blue-light));
-  border-radius: 0;
-  box-shadow: 0 2px 8px rgba(93, 173, 226, 0.2);
+  padding: 16px 20px;
+  background: var(--color-blue-primary);
+  border-bottom: 4px solid var(--color-blue-dark);
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.05);
   flex-shrink: 0;
+  z-index: 100;
 }
 
 .header-left {
