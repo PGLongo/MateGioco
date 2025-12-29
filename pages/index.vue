@@ -93,19 +93,20 @@ const vibrate = (pattern: number | number[]) => {
 // Gestione input digitale
 const handleAddDigit = (digit: string) => {
   addDigit(digit)
-  vibrate(10)
+  vibrate(20)
 }
 
 // Gestione cancellazione
 const handleDeleteDigit = () => {
   deleteDigit()
-  vibrate(10)
+  vibrate(30)
 }
 
 // Mostra suggerimento
 const showHelp = () => {
   if (!currentExercise.value) return
 
+  vibrate([30, 20, 30])
   const hint = getHint()
   feedbackMessage.value = `Suggerimento: ${hint} 🤔`
   feedbackClass.value = 'info'
@@ -120,14 +121,17 @@ const showHelp = () => {
 const submitAnswer = () => {
   if (!userAnswer.value) return
 
+  // Vibrazione al click del pulsante OK
+  vibrate(50)
+
   const correct = checkAnswer()
 
   if (correct) {
-    // Risposta corretta!
+    // Risposta corretta! - Vibrazione celebrativa
     feedbackMessage.value = '🎉 Bravo! Risposta esatta!'
     feedbackClass.value = 'success'
     showFeedback.value = true
-    vibrate([100, 50, 100])
+    vibrate([100, 50, 100, 50, 100])
 
     // Aggiungi stellina
     addStars(1)
@@ -139,11 +143,11 @@ const submitAnswer = () => {
       nextExercise()
     }, 2000)
   } else {
-    // Risposta sbagliata
+    // Risposta sbagliata - Vibrazione più lunga
     feedbackMessage.value = '🤔 Riprova! Pensa bene...'
     feedbackClass.value = 'error'
     showFeedback.value = true
-    vibrate(200)
+    vibrate([300])
 
     setTimeout(() => {
       showFeedback.value = false
