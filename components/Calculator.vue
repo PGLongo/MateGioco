@@ -91,7 +91,7 @@ defineEmits<{
   border-radius: 12px;
   padding: 20px 16px;
   margin-bottom: 10px;
-  height: 80px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,7 +205,7 @@ defineEmits<{
 
   .display {
     font-size: 4.5rem;
-    height: 100px;
+    height: 120px;
     padding: 24px 20px;
   }
 
@@ -227,7 +227,7 @@ defineEmits<{
 
   .display {
     font-size: 3rem;
-    height: 70px;
+    height: 90px;
     padding: 16px 12px;
   }
 
@@ -249,7 +249,7 @@ defineEmits<{
 
   .display {
     font-size: 2.5rem;
-    height: 65px;
+    height: 85px;
     padding: 14px 10px;
   }
 
