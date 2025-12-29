@@ -9,12 +9,6 @@ export default defineNuxtConfig({
 
   modules: ['@nuxt/ui', '@vite-pwa/nuxt', '@nuxtjs/color-mode', '@nuxt/icon'],
 
-  icon: {
-    serverBundle: {
-      collections: ['mdi']
-    }
-  },
-
   ui: {
     fonts: false
   },
