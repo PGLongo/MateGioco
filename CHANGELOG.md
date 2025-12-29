@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/PGLongo/MateGioco/compare/v1.2.1...v1.3.0) (2025-12-29)
+
+
+### 🐛 Bug Fixes
+
+* ensure exact same height for math problem and answer display ([9d9c59b](https://github.com/PGLongo/MateGioco/commit/9d9c59bbd57d3308910ad54a54c9d89dc48c2932))
+* improve feedback message positioning and replace native alert ([a4d9037](https://github.com/PGLongo/MateGioco/commit/a4d9037b3e8e1d300b37adb3d62d5e78da359c7e))
+* prevent text selection for child-friendly touch interactions ([1b94278](https://github.com/PGLongo/MateGioco/commit/1b942788ca0f33553adf49a482ae0d155b2deff9))
+
+
+### ✨ Features
+
+* enhance haptic feedback with comprehensive vibration patterns ([a7cd309](https://github.com/PGLongo/MateGioco/commit/a7cd309df139bf68de22c5cc66bd58f89a4dc34c))
+
 ### [1.2.1](https://github.com/PGLongo/MateGioco/compare/v1.2.0...v1.2.1) (2025-12-29)
 
 
