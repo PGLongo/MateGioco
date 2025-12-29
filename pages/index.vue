@@ -163,7 +163,13 @@ const goHome = () => {
 }
 
 const changeTheme = () => {
-  alert('Cambio tema - Coming soon! 🎨')
+  feedbackMessage.value = 'Cambio tema - Coming soon! 🎨'
+  feedbackClass.value = 'info'
+  showFeedback.value = true
+
+  setTimeout(() => {
+    showFeedback.value = false
+  }, 2500)
 }
 
 const openSettings = () => {
@@ -216,9 +222,9 @@ onMounted(() => {
 
 .feedback-message {
   position: fixed;
-  top: 50%;
+  bottom: 100px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   padding: 16px 24px;
   border-radius: 16px;
   text-align: center;
