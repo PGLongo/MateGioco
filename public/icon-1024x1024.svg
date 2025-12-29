@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="#5DADE2" rx="172"/>
+
+  <!-- Inner circle -->
+  <circle cx="512" cy="512" r="372" fill="#E8F8F5" opacity="0.95"/>
+
+  <!-- Math expression -->
+  <text x="512" y="600" font-family="Quicksand, Arial, sans-serif" font-size="300" font-weight="700" fill="#D68910" text-anchor="middle">1+1</text>
+
+  <!-- Star decorations -->
+  <circle cx="800" cy="224" r="44" fill="#FAD7A0"/>
+  <circle cx="224" cy="800" r="44" fill="#A9DFBF"/>
+</svg>
