@@ -1,23 +1,24 @@
-import { defineConfig } from '@vite-pwa/assets-generator/config'
+import { defineConfig, minimal2023Preset } from '@vite-pwa/assets-generator/config'
 
 export default defineConfig({
-    images: ['public/icon-1024x1024.svg'],
     preset: {
-        transparent: {
-            sizes: [64, 192, 512],
-            favicons: [
-                [16, 'favicon-16x16.png'],
-                [32, 'favicon-32x32.png'],
-                [48, 'favicon.ico']
-            ]
-        },
-        maskable: {
-            sizes: [192, 512],
+        ...minimal2023Preset,
+        // Aggiungi configurazioni iOS e Android specifiche
+        apple: {
+            sizes: [180, 167, 152, 144, 120],
             padding: 0.1
         },
-        apple: {
-            sizes: [120, 152, 167, 180],
-            padding: 0
+        maskable: {
+            sizes: [512, 192],
+            padding: 0.1,
+            resizeOptions: {
+                background: '#78CBE8'
+            }
+        },
+        transparent: {
+            sizes: [512, 192, 144, 96, 72, 48],
+            favicons: [[48, 'favicon.ico']]
         }
-    }
+    },
+    images: ['public/icon-1024x1024.svg']
 })
