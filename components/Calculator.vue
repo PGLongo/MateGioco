@@ -89,9 +89,9 @@ defineEmits<{
 .display {
   background: linear-gradient(135deg, var(--color-blue-lighter), #85C1E2);
   border-radius: 12px;
-  padding: 20px 12px;
+  padding: 20px 16px;
   margin-bottom: 10px;
-  min-height: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,6 +102,7 @@ defineEmits<{
   font-style: normal;
   flex-shrink: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .number-pad {
@@ -204,7 +205,7 @@ defineEmits<{
 
   .display {
     font-size: 4.5rem;
-    min-height: 100px;
+    height: 100px;
     padding: 24px 20px;
   }
 
@@ -226,7 +227,7 @@ defineEmits<{
 
   .display {
     font-size: 3rem;
-    min-height: 70px;
+    height: 70px;
     padding: 16px 12px;
   }
 
@@ -248,7 +249,7 @@ defineEmits<{
 
   .display {
     font-size: 2.5rem;
-    min-height: 65px;
+    height: 65px;
     padding: 14px 10px;
   }
 

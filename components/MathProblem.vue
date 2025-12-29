@@ -34,7 +34,8 @@ defineProps<Props>()
   gap: 0;
   margin-bottom: 8px;
   flex-shrink: 0;
-  min-height: 80px;
+  height: 80px;
+  box-sizing: border-box;
 }
 
 .problem-row {
@@ -82,7 +83,7 @@ defineProps<Props>()
   .math-problem {
     padding: 24px 20px;
     margin-bottom: 20px;
-    min-height: 100px;
+    height: 100px;
   }
 
   .number {
@@ -106,7 +107,7 @@ defineProps<Props>()
 @media (max-width: 480px) {
   .math-problem {
     padding: 16px 12px;
-    min-height: 70px;
+    height: 70px;
   }
 
   .number {
@@ -130,7 +131,7 @@ defineProps<Props>()
 @media (max-width: 360px) {
   .math-problem {
     padding: 14px 10px;
-    min-height: 65px;
+    height: 65px;
   }
 
   .number {
