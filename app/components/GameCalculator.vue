@@ -19,7 +19,7 @@
       <!-- Riga inferiore -->
       <button
         class="number-btn btn-help"
-        title="Aiuto"
+        :title="$t('game.help')"
         @click="$emit('help')"
       >
         <Icon name="mdi:lightbulb-on" class="btn-icon" />
@@ -34,7 +34,7 @@
 
       <button
         class="number-btn btn-delete"
-        title="Cancella"
+        :title="$t('game.delete')"
         @click="$emit('delete')"
       >
         <Icon name="mdi:backspace" class="btn-icon" />

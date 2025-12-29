@@ -17,20 +17,20 @@
         target="_blank"
         rel="noopener noreferrer"
         class="footer-btn footer-link"
-        title="GitHub Repository"
+        :title="$t('footer.github')"
       >
         <Icon name="mdi:github" class="footer-icon" />
       </a>
       <button
         class="footer-btn"
-        title="Cambia tema"
+        :title="$t('footer.theme')"
         @click="$emit('theme')"
       >
         <Icon name="mdi:theme-light-dark" class="footer-icon" />
       </button>
       <button
         class="footer-btn"
-        title="Impostazioni"
+        :title="$t('footer.settings')"
         @click="$emit('settings')"
       >
         <Icon name="mdi:cog" class="footer-icon" />
