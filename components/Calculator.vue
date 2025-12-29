@@ -1,7 +1,7 @@
 <template>
   <div class="calculator card">
     <!-- Display -->
-    <div class="display">
+    <div class="display" :class="displayClass">
       {{ displayValue }}
     </div>
 
@@ -58,15 +58,31 @@ import { computed } from 'vue'
 interface Props {
   disabled?: boolean
   userAnswer?: string
+  feedbackState?: 'success' | 'error' | 'info' | null
+  feedbackMessage?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
-  userAnswer: ''
+  userAnswer: '',
+  feedbackState: null,
+  feedbackMessage: ''
 })
 
 const displayValue = computed(() => {
+  // Se c'è un feedback, mostra il messaggio
+  if (props.feedbackState && props.feedbackMessage) {
+    return props.feedbackMessage
+  }
+  // Altrimenti mostra la risposta dell'utente
   return props.userAnswer || ''
+})
+
+const displayClass = computed(() => {
+  if (props.feedbackState === 'success') return 'display-success'
+  if (props.feedbackState === 'error') return 'display-error'
+  if (props.feedbackState === 'info') return 'display-info'
+  return ''
 })
 
 defineEmits<{
@@ -103,6 +119,24 @@ defineEmits<{
   flex-shrink: 0;
   overflow: hidden;
   box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.display-success {
+  background: linear-gradient(135deg, var(--color-green-light), var(--color-green-medium)) !important;
+  color: var(--color-green-dark) !important;
+  animation: celebrate 0.5s ease;
+}
+
+.display-error {
+  background: linear-gradient(135deg, #FFE5E5, #FFB3B3) !important;
+  color: var(--color-error) !important;
+  animation: shake 0.5s ease;
+}
+
+.display-info {
+  background: linear-gradient(135deg, var(--color-orange-light), var(--color-orange-medium)) !important;
+  color: var(--color-orange-dark) !important;
 }
 
 .number-pad {

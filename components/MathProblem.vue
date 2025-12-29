@@ -5,7 +5,8 @@
       <span class="operator">{{ operator }}</span>
       <span class="number">{{ num2 }}</span>
       <span class="equals">=</span>
-      <span class="question-mark">?</span>
+      <span v-if="showAnswer" class="answer-reveal">{{ correctAnswer }}</span>
+      <span v-else class="question-mark">?</span>
     </div>
   </div>
 </template>
@@ -15,9 +16,14 @@ interface Props {
   num1: number
   num2: number
   operator: string
+  showAnswer?: boolean
+  correctAnswer?: number
 }
 
-defineProps<Props>()
+withDefaults(defineProps<Props>(), {
+  showAnswer: false,
+  correctAnswer: 0
+})
 </script>
 
 <style scoped>
@@ -77,6 +83,15 @@ defineProps<Props>()
   animation: pulse 1.5s ease-in-out infinite;
   font-style: normal;
   line-height: 1;
+}
+
+.answer-reveal {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-green-dark);
+  font-style: normal;
+  line-height: 1;
+  animation: celebrate 0.5s ease;
 }
 
 @media (min-width: 600px) {

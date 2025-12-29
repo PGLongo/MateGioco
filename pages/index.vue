@@ -13,23 +13,20 @@
         :num1="currentExercise.num1"
         :num2="currentExercise.num2"
         :operator="currentExercise.operator"
+        :show-answer="showCorrectAnswer"
+        :correct-answer="correctAnswerValue"
       />
 
       <Calculator
         :user-answer="userAnswer"
         :disabled="!userAnswer"
+        :feedback-state="feedbackState"
+        :feedback-message="feedbackMessage"
         @digit="handleAddDigit"
         @delete="handleDeleteDigit"
         @help="showHelp"
         @submit="submitAnswer"
       />
-
-      <!-- Feedback messages -->
-      <Transition name="fade">
-        <div v-if="showFeedback" class="feedback-message" :class="feedbackClass">
-          {{ feedbackMessage }}
-        </div>
-      </Transition>
 
       <!-- Completion modal -->
       <Transition name="modal">
@@ -78,10 +75,11 @@ const {
 } = useExercises()
 
 // State
-const showFeedback = ref(false)
 const feedbackMessage = ref('')
-const feedbackClass = ref('')
+const feedbackState = ref<'success' | 'error' | 'info' | null>(null)
 const sessionStars = ref(0)
+const showCorrectAnswer = ref(false)
+const correctAnswerValue = ref(0)
 
 // Vibrazione helper
 const vibrate = (pattern: number | number[]) => {
@@ -108,12 +106,12 @@ const showHelp = () => {
 
   vibrate([30, 20, 30])
   const hint = getHint()
-  feedbackMessage.value = `Suggerimento: ${hint} 🤔`
-  feedbackClass.value = 'info'
-  showFeedback.value = true
+  feedbackMessage.value = `💡 ${hint}`
+  feedbackState.value = 'info'
 
   setTimeout(() => {
-    showFeedback.value = false
+    feedbackState.value = null
+    feedbackMessage.value = ''
   }, 3000)
 }
 
@@ -128,10 +126,15 @@ const submitAnswer = () => {
 
   if (correct) {
     // Risposta corretta! - Vibrazione celebrativa
-    feedbackMessage.value = '🎉 Bravo! Risposta esatta!'
-    feedbackClass.value = 'success'
-    showFeedback.value = true
+    feedbackMessage.value = '🎉 Bravo!'
+    feedbackState.value = 'success'
     vibrate([100, 50, 100, 50, 100])
+
+    // Mostra la risposta corretta nel problema
+    if (currentExercise.value) {
+      correctAnswerValue.value = currentExercise.value.correctAnswer
+      showCorrectAnswer.value = true
+    }
 
     // Aggiungi stellina
     addStars(1)
@@ -139,18 +142,20 @@ const submitAnswer = () => {
 
     // Vai al prossimo dopo 2 secondi
     setTimeout(() => {
-      showFeedback.value = false
+      feedbackState.value = null
+      feedbackMessage.value = ''
+      showCorrectAnswer.value = false
       nextExercise()
-    }, 2000)
+    }, 2500)
   } else {
     // Risposta sbagliata - Vibrazione più lunga
-    feedbackMessage.value = '🤔 Riprova! Pensa bene...'
-    feedbackClass.value = 'error'
-    showFeedback.value = true
+    feedbackMessage.value = '❌ Riprova!'
+    feedbackState.value = 'error'
     vibrate([300])
 
     setTimeout(() => {
-      showFeedback.value = false
+      feedbackState.value = null
+      feedbackMessage.value = ''
     }, 2000)
   }
 }
@@ -167,12 +172,12 @@ const goHome = () => {
 }
 
 const changeTheme = () => {
-  feedbackMessage.value = 'Cambio tema - Coming soon! 🎨'
-  feedbackClass.value = 'info'
-  showFeedback.value = true
+  feedbackMessage.value = '🎨 Coming soon!'
+  feedbackState.value = 'info'
 
   setTimeout(() => {
-    showFeedback.value = false
+    feedbackState.value = null
+    feedbackMessage.value = ''
   }, 2500)
 }
 
@@ -222,37 +227,6 @@ onMounted(() => {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-style: normal;
-}
-
-.feedback-message {
-  position: fixed;
-  bottom: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 16px 24px;
-  border-radius: 16px;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: bold;
-  animation: bounce 0.5s ease;
-  z-index: 999;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  max-width: 90%;
-}
-
-.feedback-message.success {
-  background: linear-gradient(135deg, var(--color-green-light), var(--color-green-medium));
-  color: var(--color-green-dark);
-}
-
-.feedback-message.error {
-  background: linear-gradient(135deg, #FFE5E5, #FFB3B3);
-  color: var(--color-error);
-}
-
-.feedback-message.info {
-  background: linear-gradient(135deg, var(--color-orange-light), var(--color-orange-medium));
-  color: var(--color-orange-dark);
 }
 
 /* Modal */
