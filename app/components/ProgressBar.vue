@@ -55,10 +55,13 @@ defineEmits<{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px 16px 12px;
-  background: #F8F9F9;
-  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
   flex-shrink: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  margin-top: auto;
 }
 
 .progress-info {
@@ -101,32 +104,33 @@ defineEmits<{
   width: 44px;
   height: 44px;
   border: none;
-  border-radius: 12px;
-  background: var(--color-bg-white);
-  color: var(--color-text);
+  border-radius: 14px;
+  background: white;
+  color: var(--color-blue-dark);
   font-size: 1.1rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   align-items: center;
   justify-content: center;
   font-style: normal;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 0 var(--color-blue-lighter);
   text-decoration: none;
+  position: relative;
 }
 
 .footer-btn:hover {
-  background: var(--color-blue-lighter);
+  background: white;
   color: var(--color-blue-primary);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(93, 173, 226, 0.2);
+  box-shadow: 0 6px 0 var(--color-blue-lighter);
 }
 
 .footer-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--color-blue-lighter);
 }
 
 .footer-link {

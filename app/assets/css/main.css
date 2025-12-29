@@ -1,68 +1,71 @@
-/* MateGioco - Stile Bluey Pastello */
+/* MateGioco - Stile Bluey Moderno & Giocoso */
 
 :root {
-  /* Colori Azzurro/Celeste */
-  --color-blue-primary: #5DADE2;
-  --color-blue-light: #7EC8E3;
-  --color-blue-lighter: #AED6F1;
+  /* Colori Azzurro/Celeste - Bluey Style (Pastello & Flat) */
+  --color-blue-primary: #78CBE8;
+  /* Bluey light blue */
+  --color-blue-light: #A8DFF0;
+  --color-blue-lighter: #E1F4FA;
+  --color-blue-dark: #4F9BCC;
+  /* Bluey darker blue stroke */
 
-  /* Colori Arancione Pastello */
-  --color-orange-light: #FAD7A0;
-  --color-orange-medium: #F8C471;
-  --color-orange-dark: #D68910;
+  /* Colori Arancione - Bingo Style */
+  --color-orange-light: #FAD4A8;
+  --color-orange-medium: #F5C082;
+  --color-orange-primary: #E88C4B;
+  /* Bingo orange */
+  --color-orange-dark: #C67435;
 
-  /* Colori Verde Acqua */
-  --color-green-light: #A9DFBF;
-  --color-green-medium: #7DCEA0;
-  --color-green-dark: #1E8449;
+  /* Colori Verde - Pastello Soft */
+  --color-green-light: #D4F0C0;
+  --color-green-medium: #B2E592;
+  --color-green-primary: #91D371;
+  --color-green-dark: #6EAB50;
 
-  /* Colori Rosa/Lavanda Pastello */
-  --color-pink-light: #F8E7F5;
-  --color-pink-medium: #E8DAEF;
-  --color-pink-dark: #BB8FCE;
+  /* Colori Rosa/Viola - Pastello */
+  --color-pink-light: #FAD1E6;
+  --color-pink-medium: #F5A8D0;
+  --color-pink-primary: #E87AB5;
+  --color-pink-dark: #C05890;
 
-  /* Sfondi - Light Mode */
-  --color-bg-primary: #EBF4F6;
-  --color-bg-secondary: #D6EAF8;
-  --color-bg-white: #F8F9F9;
+  /* Sfondi - Toni caldi/crema per ridurre l'affaticamento */
+  --color-bg-primary: #FFF9F0;
+  /* Crema chiarissimo */
+  --color-bg-secondary: #FFFdf7;
+  --color-bg-white: #FFFFFF;
 
-  /* Altri colori */
-  --color-error: #E74C3C;
-  --color-success: var(--color-green-medium);
-  --color-text: #2C3E50;
+  /* Text & UI */
+  --color-error: #FF6B6B;
+  --color-success: var(--color-green-primary);
+  --color-text: #454555;
+  /* Grigio-blu scuro più morbido del nero */
+  --section-shadow: 0 8px 0 rgba(0, 0, 0, 0.05);
+  /* Ombra solida piatta */
+  --btn-shadow: 0 6px 0;
+  /* Ombra bottoni solida */
 }
 
-/* Dark Mode */
+/* Dark Mode - Manteniamo pastello ma su toni scuri */
 .dark {
-  /* Colori Azzurro/Celeste - mantenuti vivaci */
-  --color-blue-primary: #4A90E2;
-  --color-blue-light: #6BA5E7;
-  --color-blue-lighter: #7AB8EA;
+  --color-blue-primary: #5BA8D6;
+  --color-blue-light: #70B8E0;
+  --color-blue-lighter: #2C3E50;
+  --color-blue-dark: #3A7CA5;
 
-  /* Colori Arancione Pastello - più caldi e vivaci */
-  --color-orange-light: #FFB366;
-  --color-orange-medium: #FF9A4D;
-  --color-orange-dark: #E67E22;
+  --color-orange-light: #EBB57A;
+  --color-orange-medium: #E09F5A;
+  --color-orange-primary: #D6893A;
 
-  /* Colori Verde Acqua - vivaci */
-  --color-green-light: #72E5A1;
-  --color-green-medium: #52D98B;
-  --color-green-dark: #2ECC71;
+  --color-green-light: #98C980;
+  --color-green-medium: #7AB560;
 
-  /* Colori Rosa/Lavanda - più saturi */
-  --color-pink-light: #E8C4F5;
-  --color-pink-medium: #D8A8E8;
-  --color-pink-dark: #C77FDD;
+  --color-bg-primary: #2C3338;
+  --color-bg-secondary: #323A40;
+  --color-bg-white: #3A444B;
 
-  /* Sfondi - Dark Mode (più chiari e meno grigi) */
-  --color-bg-primary: #2C3E50;
-  --color-bg-secondary: #34495E;
-  --color-bg-white: #3F5266;
-
-  /* Altri colori */
-  --color-error: #E74C3C;
-  --color-success: var(--color-green-medium);
-  --color-text: #FAFAFA;
+  --color-text: #F0F4F8;
+  --section-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+  --btn-shadow: 0 6px 0;
 }
 
 * {
@@ -74,132 +77,224 @@
   -ms-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
+  /* Smooth scrolling */
+  scroll-behavior: smooth;
 }
 
 body {
   font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  background-color: var(--color-bg-primary);
+  /* Pattern a pois semplice e piatto */
+  background-image:
+    radial-gradient(var(--color-blue-lighter) 15%, transparent 16%),
+    radial-gradient(var(--color-blue-lighter) 15%, transparent 16%);
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 30px;
+  background-attachment: fixed;
   color: var(--color-text);
   min-height: 100vh;
   overflow-x: hidden;
-  font-weight: 500;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  font-weight: 600;
 }
 
-/* Animazioni */
+/* Animazioni Globali */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-}
+  0%,
+  100% {
+    transform: translateY(0);
+  }
 
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-10px); }
-  75% { transform: translateX(10px); }
+  50% {
+    transform: translateY(-8px);
+  }
 }
 
 @keyframes celebrate {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(-10deg) scale(1.2); }
-  75% { transform: rotate(10deg) scale(1.2); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
-/* Classi utility */
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px) rotate(-3deg);
+  }
+
+  75% {
+    transform: translateX(6px) rotate(3deg);
+  }
+}
+
+/* Classi Utility Animazioni */
 .bounce {
-  animation: bounce 0.5s ease-in-out;
-}
-
-.pulse {
-  animation: pulse 0.3s ease-in-out;
+  animation: bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .shake {
-  animation: shake 0.3s ease-in-out;
+  animation: shake 0.4s ease-in-out;
 }
 
 .celebrate {
   animation: celebrate 0.5s ease-in-out;
 }
 
-/* Bottoni base */
+.pop-in {
+  animation: popIn 0.4s ease-out forwards;
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Bottoni "Gommosi" 3D */
 .btn {
   padding: 12px 24px;
   border: none;
   border-radius: 20px;
   font-family: inherit;
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 44px;
-  min-height: 44px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-width: 50px;
+  min-height: 50px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+  /* Effetto 3D Base */
+  transform: translateY(0);
 }
 
 .btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(4px);
+  box-shadow: none !important;
+  filter: brightness(0.95);
 }
 
+/* Varianti Bottoni */
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-blue-primary), var(--color-blue-light));
+  background: var(--color-blue-primary);
   color: white;
+  box-shadow: 0 4px 0 var(--color-blue-dark);
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-blue-dark);
 }
 
 .btn-success {
-  background: linear-gradient(135deg, var(--color-green-medium), var(--color-green-dark));
+  background: var(--color-green-primary);
   color: white;
+  box-shadow: 0 4px 0 var(--color-green-dark);
+}
+
+.btn-success:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-green-dark);
 }
 
 .btn-warning {
-  background: linear-gradient(135deg, var(--color-orange-light), var(--color-orange-medium));
-  color: var(--color-text);
+  background: var(--color-orange-medium);
+  color: white;
+  /* Testo bianco per contrasto migliore */
+  box-shadow: 0 4px 0 var(--color-orange-dark);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Container responsive */
+.btn-warning:hover {
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-orange-dark);
+}
+
+.btn-danger {
+  background: var(--color-error);
+  color: white;
+  box-shadow: 0 4px 0 #D32F2F;
+}
+
+/* Container & Cards con Glass Look */
 .container {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 20px;
 }
 
+.card {
+  background: var(--color-bg-white);
+  border-radius: 32px;
+  /* Molto arrotondato */
+  padding: 24px;
+  box-shadow: var(--section-shadow);
+  border: 4px solid rgba(255, 255, 255, 0.5);
+  /* Bordo semi-trasparente */
+  backdrop-filter: blur(10px);
+}
+
+/* Responsive */
 @media (max-width: 600px) {
   .container {
-    max-width: 100%;
-    padding: 12px;
+    padding: 16px;
+  }
+
+  .card {
+    border-radius: 24px;
+    padding: 20px;
+  }
+
+  .btn {
+    font-size: 1.4rem;
+    /* Bottoni più grandi su mobile */
   }
 }
 
-/* Card */
-.card {
-  background: var(--color-bg-white);
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  margin-bottom: 16px;
-}
-
-/* Touch-friendly */
+/* Accessibilità Touch */
 @media (hover: none) and (pointer: coarse) {
   .btn {
-    min-width: 50px;
-    min-height: 50px;
-    font-size: 1.3rem;
+    min-width: 56px;
+    min-height: 56px;
   }
 }

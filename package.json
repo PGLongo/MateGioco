@@ -13,7 +13,8 @@
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
-    "release:patch": "standard-version --release-as patch"
+    "release:patch": "standard-version --release-as patch",
+    "generate-assets": "pwa-assets-generator"
   },
   "dependencies": {
     "@nuxt/hints": "^1.0.0-alpha.5",

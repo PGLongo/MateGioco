@@ -99,6 +99,16 @@ npm run dev
 
 L'applicazione sarà disponibile su `http://localhost:3000`.
 
+### Gestione Assets (PWA)
+
+Per rigenerare le icone e la favicon a partire dal file sorgente `public/icon-1024x1024.svg`:
+
+```bash
+# Genera tutte le icone (PWA, iOS, Favicon)
+npm run generate-assets
+```
+Questo comando utilizza `@vite-pwa/assets-generator` e la configurazione in `pwa-assets.config.ts`.
+
 ### Build & Produzione
 
 ```bash
