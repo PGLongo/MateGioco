@@ -10,9 +10,11 @@ const defaultSettings: Settings = {
   userName: 'Amico'
 }
 
+// Stato globale condiviso (singleton)
+const settings = ref<Settings>({ ...defaultSettings })
+const isLoaded = ref(false)
+
 export const useSettings = () => {
-  const settings = ref<Settings>({ ...defaultSettings })
-  const isLoaded = ref(false)
 
   // Carica impostazioni da localStorage
   const loadSettings = () => {
@@ -48,9 +50,6 @@ export const useSettings = () => {
     saveSettings()
   }
 
-  // Watch per auto-save
-  watch(settings, saveSettings, { deep: true })
-
   // Carica all'inizializzazione
   if (typeof window !== 'undefined' && !isLoaded.value) {
     loadSettings()
@@ -62,4 +61,15 @@ export const useSettings = () => {
     loadSettings,
     setUserName
   }
+}
+
+// Watch per auto-save (eseguito una sola volta)
+if (typeof window !== 'undefined') {
+  watch(settings, () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(settings.value))
+    } catch (error) {
+      console.error('Errore nel salvare le impostazioni:', error)
+    }
+  }, { deep: true })
 }
