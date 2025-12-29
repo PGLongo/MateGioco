@@ -23,15 +23,15 @@
       </a>
       <button
         class="footer-btn"
-        @click="$emit('theme')"
         title="Cambia tema"
+        @click="$emit('theme')"
       >
         <Icon name="mdi:theme-light-dark" class="footer-icon" />
       </button>
       <button
         class="footer-btn"
-        @click="$emit('settings')"
         title="Impostazioni"
+        @click="$emit('settings')"
       >
         <Icon name="mdi:cog" class="footer-icon" />
       </button>
