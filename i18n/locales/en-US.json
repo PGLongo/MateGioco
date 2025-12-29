@@ -1,0 +1,44 @@
+{
+  "app": {
+    "title": "MathGame - Learn Math!",
+    "description": "Educational math app for 4-year-old children"
+  },
+  "header": {
+    "greeting": "Hello {name}! ⭐"
+  },
+  "game": {
+    "question": "What is?",
+    "help": "Help",
+    "delete": "Delete",
+    "submit": "✓ OK!"
+  },
+  "feedback": {
+    "success": "🎉 Great!",
+    "error": "❌ Try again!",
+    "hint": "💡 {hint}"
+  },
+  "completion": {
+    "title": "🎉 Congratulations!",
+    "message": "You completed all the exercises!",
+    "stars": "You earned {count} stars! ⭐",
+    "newSession": "New Session"
+  },
+  "settings": {
+    "title": "⚙️ Settings",
+    "namePrompt": "What's your name?",
+    "namePlaceholder": "Your name...",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "footer": {
+    "progress": "{current} of {total}",
+    "github": "GitHub Repository",
+    "theme": "Change theme",
+    "settings": "Settings"
+  },
+  "pwa": {
+    "name": "MathGame - Learn Math",
+    "shortName": "MathGame",
+    "description": "Educational math app for 4-year-old children"
+  }
+}

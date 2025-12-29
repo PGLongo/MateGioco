@@ -1,0 +1,44 @@
+{
+  "app": {
+    "title": "MateGioco - Impara la Matematica!",
+    "description": "App educativa di matematica per bambini di 4 anni"
+  },
+  "header": {
+    "greeting": "Ciao {name}! ⭐"
+  },
+  "game": {
+    "question": "Quanto fa?",
+    "help": "Aiuto",
+    "delete": "Cancella",
+    "submit": "✓ OK!"
+  },
+  "feedback": {
+    "success": "🎉 Bravo!",
+    "error": "❌ Riprova!",
+    "hint": "💡 {hint}"
+  },
+  "completion": {
+    "title": "🎉 Complimenti!",
+    "message": "Hai completato tutti gli esercizi!",
+    "stars": "Hai guadagnato {count} stelline! ⭐",
+    "newSession": "Nuova Sessione"
+  },
+  "settings": {
+    "title": "⚙️ Impostazioni",
+    "namePrompt": "Come ti chiami?",
+    "namePlaceholder": "Il tuo nome...",
+    "save": "Salva",
+    "cancel": "Annulla"
+  },
+  "footer": {
+    "progress": "{current} di {total}",
+    "github": "GitHub Repository",
+    "theme": "Cambia tema",
+    "settings": "Impostazioni"
+  },
+  "pwa": {
+    "name": "MateGioco - Impara la Matematica",
+    "shortName": "MateGioco",
+    "description": "App educativa di matematica per bambini di 4 anni"
+  }
+}

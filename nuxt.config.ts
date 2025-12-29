@@ -11,7 +11,32 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  modules: ['@nuxt/ui', '@vite-pwa/nuxt', '@nuxtjs/color-mode', '@nuxt/icon', '@nuxt/hints'],
+  modules: ['@nuxt/ui', '@vite-pwa/nuxt', '@nuxtjs/color-mode', '@nuxt/icon', '@nuxt/hints', '@nuxtjs/i18n'],
+
+  i18n: {
+    locales: [
+      {
+        code: 'it',
+        language: 'it-IT',
+        file: 'it-IT.json',
+        name: 'Italiano'
+      },
+      {
+        code: 'en',
+        language: 'en-US',
+        file: 'en-US.json',
+        name: 'English'
+      }
+    ],
+    langDir: 'i18n/locales',
+    defaultLocale: 'it',
+    strategy: 'no_prefix',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root'
+    }
+  },
 
   ui: {
     fonts: false
