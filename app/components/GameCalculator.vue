@@ -54,15 +54,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { GameCalculatorProps } from '~/types/GameCalculator'
 
-interface Props {
-  disabled?: boolean
-  userAnswer?: string
-  feedbackState?: 'success' | 'error' | 'info' | null
-  feedbackMessage?: string
-}
-
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<GameCalculatorProps>(), {
   disabled: false,
   userAnswer: '',
   feedbackState: null,

@@ -14,12 +14,9 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  userName?: string
-  stars?: number
-}
+import type { AppHeaderProps } from '~/types/AppHeader'
 
-withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<AppHeaderProps>(), {
   userName: 'Amico',
   stars: 0
 })

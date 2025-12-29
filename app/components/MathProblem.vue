@@ -12,15 +12,9 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  num1: number
-  num2: number
-  operator: string
-  showAnswer?: boolean
-  correctAnswer?: number
-}
+import type { MathProblemProps } from '~/types/MathProblem'
 
-withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<MathProblemProps>(), {
   showAnswer: false,
   correctAnswer: 0
 })

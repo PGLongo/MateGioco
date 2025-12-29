@@ -40,12 +40,9 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  current: number
-  total: number
-}
+import type { ProgressBarProps } from '~/types/ProgressBar'
 
-defineProps<Props>()
+defineProps<ProgressBarProps>()
 
 defineEmits<{
   theme: []
