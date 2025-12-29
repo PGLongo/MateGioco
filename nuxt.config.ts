@@ -4,10 +4,61 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  modules: ['@nuxt/ui'],
+  modules: ['@nuxt/ui', '@vite-pwa/nuxt'],
 
   ui: {
     fonts: false
+  },
+
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'MateGioco - Impara la Matematica',
+      short_name: 'MateGioco',
+      description: 'App educativa di matematica per bambini di 4 anni',
+      theme_color: '#5DADE2',
+      background_color: '#E8F8F5',
+      display: 'standalone',
+      orientation: 'portrait',
+      lang: 'it',
+      icons: [
+        {
+          src: '/icon-192x192.svg',
+          sizes: '192x192',
+          type: 'image/svg+xml',
+          purpose: 'any'
+        },
+        {
+          src: '/icon-512x512.svg',
+          sizes: '512x512',
+          type: 'image/svg+xml',
+          purpose: 'any'
+        },
+        {
+          src: '/icon-192x192-maskable.svg',
+          sizes: '192x192',
+          type: 'image/svg+xml',
+          purpose: 'maskable'
+        },
+        {
+          src: '/icon-512x512-maskable.svg',
+          sizes: '512x512',
+          type: 'image/svg+xml',
+          purpose: 'maskable'
+        }
+      ]
+    },
+    workbox: {
+      navigateFallback: undefined,
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}']
+    },
+    client: {
+      installPrompt: true
+    },
+    devOptions: {
+      enabled: true,
+      type: 'module'
+    }
   },
 
   ssr: false,
