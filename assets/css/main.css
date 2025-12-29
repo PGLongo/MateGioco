@@ -34,35 +34,35 @@
 
 /* Dark Mode */
 .dark {
-  /* Colori Azzurro/Celeste - più scuri */
-  --color-blue-primary: #3498DB;
-  --color-blue-light: #5DADE2;
-  --color-blue-lighter: #85C1E2;
+  /* Colori Azzurro/Celeste - mantenuti vivaci */
+  --color-blue-primary: #4A90E2;
+  --color-blue-light: #6BA5E7;
+  --color-blue-lighter: #7AB8EA;
 
-  /* Colori Arancione Pastello - leggermente scuri */
-  --color-orange-light: #E59866;
-  --color-orange-medium: #DC7633;
-  --color-orange-dark: #CA6F1E;
+  /* Colori Arancione Pastello - più caldi e vivaci */
+  --color-orange-light: #FFB366;
+  --color-orange-medium: #FF9A4D;
+  --color-orange-dark: #E67E22;
 
-  /* Colori Verde Acqua - più scuri */
-  --color-green-light: #82E0AA;
-  --color-green-medium: #58D68D;
-  --color-green-dark: #28B463;
+  /* Colori Verde Acqua - vivaci */
+  --color-green-light: #72E5A1;
+  --color-green-medium: #52D98B;
+  --color-green-dark: #2ECC71;
 
-  /* Colori Rosa/Lavanda - più scuri */
-  --color-pink-light: #D7BDE2;
-  --color-pink-medium: #C39BD3;
-  --color-pink-dark: #A569BD;
+  /* Colori Rosa/Lavanda - più saturi */
+  --color-pink-light: #E8C4F5;
+  --color-pink-medium: #D8A8E8;
+  --color-pink-dark: #C77FDD;
 
-  /* Sfondi - Dark Mode */
-  --color-bg-primary: #1a1f2e;
-  --color-bg-secondary: #252b3b;
-  --color-bg-white: #2d3548;
+  /* Sfondi - Dark Mode (più chiari e meno grigi) */
+  --color-bg-primary: #2C3E50;
+  --color-bg-secondary: #34495E;
+  --color-bg-white: #3F5266;
 
   /* Altri colori */
-  --color-error: #EC7063;
+  --color-error: #E74C3C;
   --color-success: var(--color-green-medium);
-  --color-text: #E8E8E8;
+  --color-text: #FAFAFA;
 }
 
 * {

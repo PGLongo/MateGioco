@@ -16,34 +16,63 @@ MateGioco è un'applicazione web interattiva progettata per aiutare i bambini di
 
 ### 🧮 Sistema Esercizi
 - **5 esercizi per sessione** con somme random (numeri da 1 a 10)
-- **Feedback immediato** con animazioni e vibrazione
+- **Feedback visivo integrato** - il display della calcolatrice cambia colore:
+  - 🟢 Verde per risposte corrette
+  - 🔴 Rosso per risposte sbagliate
+  - 🟠 Arancione per notifiche di sistema
 - **Sistema di stelline** - guadagna ⭐ per ogni risposta corretta
 - **Tasto Aiuto** 🤔 per suggerimenti
+- **Mostra risposta corretta** prima di passare all'esercizio successivo
 
 ### 🎨 Design & UX
-- **Palette colori pastello** stile Bluey (azzurro, arancione, verde acqua)
+- **Palette colori pastello** stile Bluey (azzurro, arancione, verde acqua, rosa/lavanda)
+- **Dark Mode** 🌙 - modalità scura con palette ottimizzata per la sera
 - **Font Quicksand** - rotondo, leggibile e perfetto per bambini
-- **Animazioni fluide** (bounce, pulse, celebrate)
+- **Animazioni fluide** (bounce, pulse, celebrate, shake)
 - **Feedback tattile** con vibrazione su mobile
 - **Mobile-first responsive** - ottimizzato per tablet e smartphone
+- **Testo non selezionabile** - previene selezioni accidentali su touch screen
+
+### 🎵 Feedback Audio & Visivo
+- **Web Audio API** - suoni generati proceduralmente:
+  - 🎼 Arpeggio C-E-G per successo
+  - 📉 Tono discendente per errore
+  - 🎺 Fanfara per completamento sessione
+  - 🔊 Click per interazioni
+- **Animazioni confetti** 🎉 - esplosioni colorate per celebrare:
+  - Mini-celebrazione per ogni risposta corretta
+  - Celebrazione completa (3 secondi) al completamento della sessione
 
 ### 💾 Persistenza Dati
 - **localStorage** per salvare:
   - Stelline totali guadagnate
   - Nome dell'utente
-  - Progressi nel tempo
+  - Preferenza tema (light/dark)
 
 ### 🎯 Interfaccia Intuitiva
 - **Header** con avatar 🎈, saluto personalizzato e contatore stelline
-- **Display problema** con layout verticale chiaro
-- **Calcolatrice** con tastierino 0-9 e display integrato
-- **Footer** con progresso (pallini ●●●○○) e pulsanti navigazione 🏠 🎨 ⚙️
+- **Display problema** con layout orizzontale compatto (es. "4 + 9 = ?")
+- **Calcolatrice** con tastierino 0-9 e display integrato per feedback
+- **Footer** con progresso (pallini ●●●○○) e pulsanti navigazione 🏠 🌙 ⚙️
+- **Modali eleganti** per completamento sessione e impostazioni
+
+### 📱 Progressive Web App (PWA)
+- **Installabile** su dispositivi mobile e desktop
+- **Icone ottimizzate** per iOS e Android:
+  - Apple Touch Icons (120-180px)
+  - Android PWA Icons (48-512px)
+  - Maskable Icons per adaptive icons
+- **Offline-ready** - funziona anche senza connessione
+- **Manifest completo** con nome, descrizione e colori del tema
 
 ## 🛠️ Stack Tecnologico
 
 - **[Nuxt 3](https://nuxt.com/)** - Framework Vue.js full-stack
 - **[Vue 3](https://vuejs.org/)** - Composition API + TypeScript
-- **[Nuxt UI](https://ui.nuxt.com/)** - Component library
+- **[@nuxtjs/color-mode](https://color-mode.nuxtjs.org/)** - Dark mode support
+- **[@vite-pwa/nuxt](https://vite-pwa-org.netlify.app/)** - PWA configuration
+- **[canvas-confetti](https://www.npmjs.com/package/canvas-confetti)** - Confetti animations
+- **Web Audio API** - Sound generation
 - **TypeScript** - Type safety
 - **GitHub Pages** - Hosting statico gratuito
 - **GitHub Actions** - CI/CD automatico
@@ -57,22 +86,29 @@ MateGioco/
 │       └── deploy.yml         # GitHub Actions workflow
 ├── assets/
 │   └── css/
-│       └── main.css          # Stili globali + variabili colori
+│       └── main.css          # Stili globali + variabili colori (light/dark)
 ├── components/
 │   ├── AppHeader.vue         # Header con nome utente e stelline
-│   ├── Calculator.vue        # Tastierino numerico + display
+│   ├── Calculator.vue        # Tastierino numerico + display con feedback
 │   ├── MathProblem.vue       # Visualizzazione problema matematico
 │   └── ProgressBar.vue       # Footer con progresso e navigazione
 ├── composables/
+│   ├── useConfetti.ts        # Animazioni confetti con canvas-confetti
 │   ├── useExercises.ts       # Logica generazione esercizi e validazione
 │   ├── useSettings.ts        # Gestione impostazioni utente
+│   ├── useSound.ts           # Sistema audio con Web Audio API
 │   └── useStars.ts           # Sistema stelline + localStorage
 ├── pages/
-│   └── index.vue             # Pagina principale
+│   └── index.vue             # Pagina principale con modali
 ├── public/
-│   └── .nojekyll             # File per GitHub Pages
+│   ├── apple-touch-icon-*.png  # Icone iOS (120-180px)
+│   ├── pwa-*.png                # Icone Android (48-512px)
+│   ├── maskable-icon-*.png      # Maskable icons
+│   ├── favicon.ico
+│   ├── icon-1024x1024.svg       # Icona sorgente
+│   └── .nojekyll                # File per GitHub Pages
 ├── app.vue                   # Root component
-├── nuxt.config.ts            # Configurazione Nuxt
+├── nuxt.config.ts            # Configurazione Nuxt + PWA + Color Mode
 ├── package.json
 └── README.md
 ```
@@ -81,15 +117,33 @@ MateGioco/
 
 1. **Avvia una sessione** - L'app genera 5 esercizi casuali di somma
 2. **Risolvi i problemi** - Usa il tastierino per inserire la risposta
-3. **Ottieni feedback** - ✅ Risposta corretta = +1 stellina + animazione
+3. **Ottieni feedback** - ✅ Risposta corretta = +1 stellina + suono + confetti + animazione
 4. **Continua a giocare** - Completa tutti e 5 gli esercizi
 5. **Ricomincia** - Inizia una nuova sessione per guadagnare più stelline!
 
-### Feedback Interattivo
+### Feedback Multimodale
 
-- ✅ **Risposta corretta**: Animazione celebrate, vibrazione [100, 50, 100]ms, +1 ⭐
-- ❌ **Risposta sbagliata**: Vibrazione 200ms, messaggio "Riprova!", possibilità di ritentare
+- ✅ **Risposta corretta**:
+  - Display verde con "🎉 Bravo!"
+  - Suono di successo (arpeggio C-E-G)
+  - Mini-celebrazione con confetti
+  - Vibrazione [100, 50, 100, 50, 100]ms
+  - Mostra la risposta corretta per 2.5s
+  - +1 ⭐ guadagnata
+
+- ❌ **Risposta sbagliata**:
+  - Display rosso con "❌ Riprova!"
+  - Suono di errore (tono discendente)
+  - Vibrazione 300ms
+  - Possibilità di ritentare
+
 - 🤔 **Suggerimento**: Mostra metà della risposta corretta
+
+- 🎊 **Completamento sessione**:
+  - Modale celebrativo con totale stelline guadagnate
+  - Fanfara di completamento
+  - Celebrazione continua con confetti per 3 secondi
+  - Pulsante per iniziare nuova sessione
 
 ## 🚀 Development
 
@@ -150,8 +204,9 @@ git push --follow-tags origin develop
 
 ## 🎨 Palette Colori
 
-Il design utilizza toni pastello ispirati allo show Bluey:
+Il design utilizza toni pastello ispirati allo show Bluey, con supporto per modalità chiara e scura:
 
+### Light Mode (Default)
 | Colore | Hex | Uso |
 |--------|-----|-----|
 | Azzurro Primary | `#5DADE2` | Header, testi principali |
@@ -163,8 +218,22 @@ Il design utilizza toni pastello ispirati allo show Bluey:
 | Verde Light | `#A9DFBF` | Bottone OK, successo |
 | Verde Medium | `#7DCEA0` | Gradients verde |
 | Verde Dark | `#1E8449` | Testo successo |
+| Rosa Light | `#F8E7F5` | Pulsanti aiuto/cancella |
+| Rosa Medium | `#E8DAEF` | Gradients rosa |
+| Rosa Dark | `#BB8FCE` | Testo rosa |
 | Background Primary | `#EBF4F6` | Sfondo principale |
 | Background Secondary | `#D6EAF8` | Gradients sfondo |
+
+### Dark Mode
+| Colore | Hex | Uso |
+|--------|-----|-----|
+| Azzurro Primary | `#4A90E2` | Più vivace per dark mode |
+| Arancione Light | `#FFB366` | Pulsanti più visibili |
+| Verde Medium | `#52D98B` | Feedback successo |
+| Rosa Medium | `#D8A8E8` | Pulsanti aiuto/cancella |
+| Background Primary | `#2C3E50` | Sfondo scuro ma non troppo |
+| Background Secondary | `#34495E` | Gradients scuri |
+| Text Color | `#FAFAFA` | Testo chiaro ad alto contrasto |
 
 ## 📱 Responsive Design
 

@@ -41,6 +41,33 @@
           </div>
         </div>
       </Transition>
+
+      <!-- Settings modal -->
+      <Transition name="modal">
+        <div v-if="showSettingsModal" class="modal-overlay" @click="closeSettingsModal">
+          <div class="modal-content" @click.stop>
+            <h2 class="modal-title">⚙️ Impostazioni</h2>
+            <p class="modal-text">Come ti chiami?</p>
+            <input
+              ref="settingsInput"
+              v-model="settingsName"
+              type="text"
+              class="settings-input"
+              placeholder="Il tuo nome..."
+              maxlength="20"
+              @keyup.enter="saveSettings"
+            />
+            <div class="modal-buttons">
+              <button class="modal-btn" @click="saveSettings">
+                Salva
+              </button>
+              <button class="modal-btn modal-btn-secondary" @click="closeSettingsModal">
+                Annulla
+              </button>
+            </div>
+          </div>
+        </div>
+      </Transition>
     </main>
 
     <ProgressBar
@@ -82,6 +109,9 @@ const feedbackState = ref<'success' | 'error' | 'info' | null>(null)
 const sessionStars = ref(0)
 const showCorrectAnswer = ref(false)
 const correctAnswerValue = ref(0)
+const showSettingsModal = ref(false)
+const settingsName = ref('')
+const settingsInput = ref<HTMLInputElement | null>(null)
 
 // Vibrazione helper
 const vibrate = (pattern: number | number[]) => {
@@ -180,29 +210,37 @@ const goHome = () => {
 const changeTheme = () => {
   const colorMode = useColorMode()
 
-  // Toggle tra light e dark
+  // Toggle tra light e dark (senza notifica)
   if (colorMode.preference === 'dark') {
     colorMode.preference = 'light'
-    feedbackMessage.value = '☀️ Modalità chiara'
   } else {
     colorMode.preference = 'dark'
-    feedbackMessage.value = '🌙 Modalità scura'
   }
-
-  feedbackState.value = 'info'
-
-  setTimeout(() => {
-    feedbackState.value = null
-    feedbackMessage.value = ''
-  }, 2000)
 }
 
 const openSettings = () => {
-  const name = prompt('Come ti chiami?', settings.value.userName)
-  if (name && name.trim()) {
+  settingsName.value = settings.value.userName
+  showSettingsModal.value = true
+
+  // Focus sull'input dopo che il modale è renderizzato
+  setTimeout(() => {
+    settingsInput.value?.focus()
+    settingsInput.value?.select()
+  }, 100)
+}
+
+const closeSettingsModal = () => {
+  showSettingsModal.value = false
+  settingsName.value = ''
+}
+
+const saveSettings = () => {
+  if (settingsName.value && settingsName.value.trim()) {
     const { setUserName } = useSettings()
-    setUserName(name)
+    setUserName(settingsName.value.trim())
+    playClick()
   }
+  closeSettingsModal()
 }
 
 // Watch per celebrazione completamento sessione
@@ -314,6 +352,53 @@ onMounted(() => {
 .modal-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(30, 132, 73, 0.4);
+}
+
+.modal-btn-secondary {
+  background: linear-gradient(135deg, var(--color-orange-light), var(--color-orange-medium));
+  color: var(--color-orange-dark);
+  box-shadow: 0 4px 12px rgba(248, 196, 113, 0.3);
+}
+
+.modal-btn-secondary:hover {
+  box-shadow: 0 6px 16px rgba(248, 196, 113, 0.4);
+}
+
+.settings-input {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1.2rem;
+  border: 2px solid var(--color-blue-lighter);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-bg-white);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.settings-input:focus {
+  outline: none;
+  border-color: var(--color-blue-primary);
+  box-shadow: 0 0 0 4px rgba(93, 173, 226, 0.2);
+}
+
+.settings-input::placeholder {
+  color: var(--color-blue-light);
+  opacity: 0.6;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.modal-buttons .modal-btn {
+  width: 100%;
 }
 
 /* Transitions */
