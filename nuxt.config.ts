@@ -3,7 +3,11 @@ const isDev = process.env.NODE_ENV !== 'production'
 const baseURL = isDev ? '/' : '/MateGioco/'
 
 export default defineNuxtConfig({
-  compatibilityDate: '2024-12-28',
+  compatibilityDate: '2024-12-29',
+
+  future: {
+    compatibilityVersion: 4
+  },
 
   devtools: { enabled: true },
 
