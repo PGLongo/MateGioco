@@ -3,6 +3,10 @@
 ## Tech Stack & Ecosystem
 - **Nuxt**: Always prioritize using official Nuxt modules (`@nuxt/*`) or well-maintained community modules compatible with Nuxt 3 over custom implementations.
 - **Vue**: Use the Composition API with `<script setup lang="ts">`.
+- **VueUse**: Prioritize using VueUse for common functionality (sensors, browser integration, state extensions) instead of reinventing the wheel.
+- **Composables**:
+  - Separate business logic into composables (in `composables/` directory).
+  - Keep components focused on UI and binding.
 
 ## Code Quality & Typing
 - **TypeScript**:
@@ -20,6 +24,10 @@
 
 ## Version Control
 - **Atomic Commits**: Keep commits small and focused on a single context.
+- **Feature Branch Workflow**:
+  - Do not commit directly to `main`/`master`.
+  - Create branches for each task: `feature/name`, `bugfix/issue`, `chore/task`.
+  - Open Pull Requests (PRs) for review before merging.
 - **Conventional Commits**: Use the conventional commit format:
   - `feat`: New feature
   - `fix`: Bug fix
