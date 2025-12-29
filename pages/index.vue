@@ -130,6 +130,7 @@ const handleAddDigit = (digit: string) => {
 // Gestione cancellazione
 const handleDeleteDigit = () => {
   deleteDigit()
+  playClick()
   vibrate(30)
 }
 
@@ -137,6 +138,7 @@ const handleDeleteDigit = () => {
 const showHelp = () => {
   if (!currentExercise.value) return
 
+  playClick()
   vibrate([30, 20, 30])
   const hint = getHint()
   feedbackMessage.value = `💡 ${hint}`
