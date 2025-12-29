@@ -1,8 +1,7 @@
 <template>
   <header class="app-header">
     <div class="header-left">
-      <span class="avatar">🎈</span>
-      <h1 class="greeting">{{ $t('header.greeting', { name: userName }) }}</h1>
+      <h1 class="app-title">MateGioco</h1>
     </div>
     <div class="header-right">
       <div class="stars-container">
@@ -42,17 +41,14 @@ withDefaults(defineProps<AppHeaderProps>(), {
   gap: 8px;
 }
 
-.avatar {
+.app-title {
   font-size: 1.5rem;
-  font-style: normal;
-}
-
-.greeting {
-  font-size: 1.1rem;
   color: white;
-  font-weight: 600;
+  font-weight: 800;
   margin: 0;
   font-style: normal;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.1);
 }
 
 .header-right {
