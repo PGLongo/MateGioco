@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/PGLongo/MateGioco/compare/v1.3.0...v1.4.0) (2025-12-29)
+
+
+### ✨ Features
+
+* generate comprehensive PWA assets for iOS and Android ([5d5bcb9](https://github.com/PGLongo/MateGioco/commit/5d5bcb9536fb5b3089c1a9cb502579f71f1490f3))
+* integrate feedback into calculator display with dynamic colors ([486f574](https://github.com/PGLongo/MateGioco/commit/486f574bc4c65cd294f0a0cf2a7bcac11ce1e993))
+
 ## [1.3.0](https://github.com/PGLongo/MateGioco/compare/v1.2.1...v1.3.0) (2025-12-29)
 
 
