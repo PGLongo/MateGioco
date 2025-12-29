@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/PGLongo/MateGioco/compare/v1.2.0...v1.2.1) (2025-12-29)
+
+
+### 🐛 Bug Fixes
+
+* correct PWA asset paths for GitHub Pages deployment ([c0989e5](https://github.com/PGLongo/MateGioco/commit/c0989e5ab80f02fc2f4c5846f775e8b23f151476))
+* prevent alert from causing layout resize by using fixed positioning ([189bd7a](https://github.com/PGLongo/MateGioco/commit/189bd7a978c9fb9532cce16372684e15bd169ac3))
+* resolve input field resize issue and improve footer spacing ([a90dc96](https://github.com/PGLongo/MateGioco/commit/a90dc96d5eeb756cc24cb991081136f4f27ad666))
+
 ## [1.2.0](https://github.com/PGLongo/MateGioco/compare/v1.1.0...v1.2.0) (2025-12-29)
 
 
