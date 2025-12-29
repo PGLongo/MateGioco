@@ -19,21 +19,21 @@
         class="footer-btn footer-link"
         title="GitHub Repository"
       >
-        <Icon name="mdi:github" size="24" />
+        <Icon name="mdi:github" class="footer-icon" />
       </a>
       <button
         class="footer-btn"
         @click="$emit('theme')"
         title="Cambia tema"
       >
-        <Icon name="mdi:theme-light-dark" size="24" />
+        <Icon name="mdi:theme-light-dark" class="footer-icon" />
       </button>
       <button
         class="footer-btn"
         @click="$emit('settings')"
         title="Impostazioni"
       >
-        <Icon name="mdi:cog" size="24" />
+        <Icon name="mdi:cog" class="footer-icon" />
       </button>
     </div>
   </footer>
@@ -141,6 +141,12 @@ defineEmits<{
   background: #F6F8FA;
 }
 
+.footer-icon {
+  width: 28px;
+  height: 28px;
+  font-size: 28px;
+}
+
 @media (min-width: 600px) {
   .progress-bar {
     padding: 15px 25px 24px 25px;
@@ -153,6 +159,12 @@ defineEmits<{
   .footer-btn {
     width: 52px;
     height: 52px;
+  }
+
+  .footer-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
   }
 }
 
@@ -177,6 +189,12 @@ defineEmits<{
   .footer-btn {
     width: 40px;
     height: 40px;
+  }
+
+  .footer-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
   }
 }
 </style>
