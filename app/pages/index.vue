@@ -87,6 +87,7 @@ const { settings, loadSettings } = useSettings()
 const { totalStars, loadStars, addStars } = useStars()
 const { playSuccess, playError, playClick, playCelebration } = useSound()
 const { celebrate, miniCelebration } = useConfetti()
+const { vibrate } = useVibration()
 const {
   currentExercise,
   userAnswer,
@@ -110,13 +111,6 @@ const correctAnswerValue = ref(0)
 const showSettingsModal = ref(false)
 const settingsName = ref('')
 const settingsInput = ref<HTMLInputElement | null>(null)
-
-// Vibrazione helper
-const vibrate = (pattern: number | number[]) => {
-  if ('vibrate' in navigator) {
-    navigator.vibrate(pattern)
-  }
-}
 
 // Gestione input digitale
 const handleAddDigit = (digit: string) => {
