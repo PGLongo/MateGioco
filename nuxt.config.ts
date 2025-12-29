@@ -23,25 +23,25 @@ export default defineNuxtConfig({
       lang: 'it',
       icons: [
         {
-          src: '/icon-192x192.svg',
+          src: process.env.NODE_ENV === 'production' ? '/MateGioco/icon-192x192.svg' : '/icon-192x192.svg',
           sizes: '192x192',
           type: 'image/svg+xml',
           purpose: 'any'
         },
         {
-          src: '/icon-512x512.svg',
+          src: process.env.NODE_ENV === 'production' ? '/MateGioco/icon-512x512.svg' : '/icon-512x512.svg',
           sizes: '512x512',
           type: 'image/svg+xml',
           purpose: 'any'
         },
         {
-          src: '/icon-192x192-maskable.svg',
+          src: process.env.NODE_ENV === 'production' ? '/MateGioco/icon-192x192-maskable.svg' : '/icon-192x192-maskable.svg',
           sizes: '192x192',
           type: 'image/svg+xml',
           purpose: 'maskable'
         },
         {
-          src: '/icon-512x512-maskable.svg',
+          src: process.env.NODE_ENV === 'production' ? '/MateGioco/icon-512x512-maskable.svg' : '/icon-512x512-maskable.svg',
           sizes: '512x512',
           type: 'image/svg+xml',
           purpose: 'maskable'
@@ -73,7 +73,7 @@ export default defineNuxtConfig({
         { name: 'description', content: 'App educativa di matematica per bambini' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/svg+xml', href: process.env.NODE_ENV === 'production' ? '/MateGioco/favicon.svg' : '/favicon.svg' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap' }
