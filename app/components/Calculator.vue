@@ -22,7 +22,7 @@
         @click="$emit('help')"
         title="Aiuto"
       >
-        🤔
+        <Icon name="mdi:lightbulb-on" class="btn-icon" />
       </button>
 
       <button
@@ -37,7 +37,7 @@
         @click="$emit('delete')"
         title="Cancella"
       >
-        ⌫
+        <Icon name="mdi:backspace" class="btn-icon" />
       </button>
     </div>
 
@@ -198,6 +198,12 @@ defineEmits<{
 .btn-delete:hover {
   background: linear-gradient(135deg, var(--color-pink-medium), var(--color-pink-dark));
   color: white;
+}
+
+.btn-icon {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
 }
 
 .btn-submit {
