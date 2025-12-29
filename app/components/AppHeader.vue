@@ -2,6 +2,7 @@
   <header class="app-header">
     <div class="header-left">
       <h1 class="app-title">MateGioco</h1>
+      <span class="player-name">{{ userName }}</span>
     </div>
     <div class="header-right">
       <div class="stars-container">
@@ -37,18 +38,27 @@ withDefaults(defineProps<AppHeaderProps>(), {
 
 .header-left {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
 }
 
 .app-title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: white;
   font-weight: 800;
   margin: 0;
   font-style: normal;
   letter-spacing: 1px;
   text-shadow: 0 2px 0 rgba(0,0,0,0.1);
+  line-height: 1.1;
+}
+
+.player-name {
+  font-size: 1rem;
+  color: var(--color-blue-lighter);
+  font-weight: 600;
+  font-style: normal;
 }
 
 .header-right {
