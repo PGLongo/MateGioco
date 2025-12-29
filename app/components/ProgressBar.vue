@@ -1,7 +1,7 @@
 <template>
   <footer class="progress-bar">
     <div class="progress-info">
-      <span class="progress-text">{{ current }} di {{ total }}</span>
+      <span class="progress-text">{{ $t('footer.progress', { current, total }) }}</span>
       <div class="progress-dots">
         <div
           v-for="i in total"

@@ -2,7 +2,7 @@
   <header class="app-header">
     <div class="header-left">
       <span class="avatar">🎈</span>
-      <h1 class="greeting">Ciao {{ userName }}!</h1>
+      <h1 class="greeting">{{ $t('header.greeting', { name: userName }) }}</h1>
     </div>
     <div class="header-right">
       <div class="stars-container">
