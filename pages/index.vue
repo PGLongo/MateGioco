@@ -54,12 +54,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 
 // Composables
 const { settings, loadSettings } = useSettings()
 const { totalStars, loadStars, addStars } = useStars()
-const { playSuccess, playError, playClick } = useSound()
+const { playSuccess, playError, playClick, playCelebration } = useSound()
 const {
   currentExercise,
   userAnswer,
@@ -192,6 +192,13 @@ const openSettings = () => {
     setUserName(name)
   }
 }
+
+// Watch per celebrazione completamento sessione
+watch(sessionCompleted, (completed) => {
+  if (completed) {
+    playCelebration()
+  }
+})
 
 // Inizializzazione
 onMounted(() => {
