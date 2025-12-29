@@ -30,7 +30,7 @@ withDefaults(defineProps<AppHeaderProps>(), {
   padding: 16px 20px;
   background: var(--color-blue-primary);
   border-bottom: 4px solid var(--color-blue-dark);
-  border-radius: 0 0 24px 24px;
+  border-radius: 0;
   box-shadow: 0 4px 0 rgba(0,0,0,0.05);
   flex-shrink: 0;
   z-index: 100;
