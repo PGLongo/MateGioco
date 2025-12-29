@@ -144,24 +144,26 @@ defineEmits<{
 }
 
 .btn-help {
-  background: linear-gradient(135deg, #D5F4E6, var(--color-green-light));
-  color: #239B56;
+  background: linear-gradient(135deg, var(--color-pink-light), var(--color-pink-medium));
+  color: var(--color-pink-dark);
   font-size: 1.1rem;
   line-height: 1.2;
 }
 
 .btn-help:hover {
-  background: linear-gradient(135deg, var(--color-green-light), var(--color-green-medium));
+  background: linear-gradient(135deg, var(--color-pink-medium), var(--color-pink-dark));
+  color: white;
 }
 
 .btn-delete {
-  background: linear-gradient(135deg, #D5F4E6, var(--color-green-light));
-  color: #239B56;
+  background: linear-gradient(135deg, var(--color-pink-light), var(--color-pink-medium));
+  color: var(--color-pink-dark);
   font-size: 1.1rem;
 }
 
 .btn-delete:hover {
-  background: linear-gradient(135deg, var(--color-green-light), var(--color-green-medium));
+  background: linear-gradient(135deg, var(--color-pink-medium), var(--color-pink-dark));
+  color: white;
 }
 
 .btn-submit {
