@@ -6,7 +6,7 @@
     />
 
     <main class="main-content">
-      <h2 class="question-title">Quanto fa?</h2>
+      <h2 class="question-title">{{ $t('game.question') }}</h2>
 
       <MathProblem
         v-if="currentExercise"
@@ -17,7 +17,7 @@
         :correct-answer="correctAnswerValue"
       />
 
-      <Calculator
+      <GameCalculator
         :user-answer="userAnswer"
         :disabled="!userAnswer"
         :feedback-state="feedbackState"
@@ -32,11 +32,11 @@
       <Transition name="modal">
         <div v-if="sessionCompleted" class="modal-overlay" @click="startNewSession">
           <div class="modal-content" @click.stop>
-            <h2 class="modal-title">🎉 Complimenti!</h2>
-            <p class="modal-text">Hai completato tutti gli esercizi!</p>
-            <p class="modal-stars">Hai guadagnato {{ sessionStars }} stelline! ⭐</p>
+            <h2 class="modal-title">{{ $t('completion.title') }}</h2>
+            <p class="modal-text">{{ $t('completion.message') }}</p>
+            <p class="modal-stars">{{ $t('completion.stars', { count: sessionStars }) }}</p>
             <button class="modal-btn" @click="startNewSession">
-              Nuova Sessione
+              {{ $t('completion.newSession') }}
             </button>
           </div>
         </div>
@@ -46,23 +46,23 @@
       <Transition name="modal">
         <div v-if="showSettingsModal" class="modal-overlay" @click="closeSettingsModal">
           <div class="modal-content" @click.stop>
-            <h2 class="modal-title">⚙️ Impostazioni</h2>
-            <p class="modal-text">Come ti chiami?</p>
+            <h2 class="modal-title">{{ $t('settings.title') }}</h2>
+            <p class="modal-text">{{ $t('settings.namePrompt') }}</p>
             <input
               ref="settingsInput"
               v-model="settingsName"
               type="text"
               class="settings-input"
-              placeholder="Il tuo nome..."
+              :placeholder="$t('settings.namePlaceholder')"
               maxlength="20"
               @keyup.enter="saveSettings"
-            />
+            >
             <div class="modal-buttons">
               <button class="modal-btn" @click="saveSettings">
-                Salva
+                {{ $t('settings.save') }}
               </button>
               <button class="modal-btn modal-btn-secondary" @click="closeSettingsModal">
-                Annulla
+                {{ $t('settings.cancel') }}
               </button>
             </div>
           </div>
@@ -87,10 +87,10 @@ const { settings, loadSettings } = useSettings()
 const { totalStars, loadStars, addStars } = useStars()
 const { playSuccess, playError, playClick, playCelebration } = useSound()
 const { celebrate, miniCelebration } = useConfetti()
+const { vibrate } = useVibration()
 const {
   currentExercise,
   userAnswer,
-  isCorrect,
   sessionCompleted,
   progress,
   generateExercises,
@@ -102,6 +102,8 @@ const {
   resetSession
 } = useExercises()
 
+const { t } = useI18n()
+
 // State
 const feedbackMessage = ref('')
 const feedbackState = ref<'success' | 'error' | 'info' | null>(null)
@@ -111,13 +113,6 @@ const correctAnswerValue = ref(0)
 const showSettingsModal = ref(false)
 const settingsName = ref('')
 const settingsInput = ref<HTMLInputElement | null>(null)
-
-// Vibrazione helper
-const vibrate = (pattern: number | number[]) => {
-  if ('vibrate' in navigator) {
-    navigator.vibrate(pattern)
-  }
-}
 
 // Gestione input digitale
 const handleAddDigit = (digit: string) => {
@@ -140,7 +135,7 @@ const showHelp = () => {
   playClick()
   vibrate([30, 20, 30])
   const hint = getHint()
-  feedbackMessage.value = `💡 ${hint}`
+  feedbackMessage.value = t('feedback.hint', { hint })
   feedbackState.value = 'info'
 
   setTimeout(() => {
@@ -162,7 +157,7 @@ const submitAnswer = () => {
     // Risposta corretta! - Suono + Vibrazione + Mini confetti
     playSuccess()
     miniCelebration()
-    feedbackMessage.value = '🎉 Bravo!'
+    feedbackMessage.value = t('feedback.success')
     feedbackState.value = 'success'
     vibrate([100, 50, 100, 50, 100])
 
@@ -186,7 +181,7 @@ const submitAnswer = () => {
   } else {
     // Risposta sbagliata - Suono + Vibrazione più lunga
     playError()
-    feedbackMessage.value = '❌ Riprova!'
+    feedbackMessage.value = t('feedback.error')
     feedbackState.value = 'error'
     vibrate([300])
 

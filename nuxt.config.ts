@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-const isDev = process.env.NODE_ENV !== 'production'
-const baseURL = isDev ? '/' : '/MateGioco/'
+
+
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-12-29',
@@ -11,7 +11,7 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  modules: ['@nuxt/ui', '@vite-pwa/nuxt', '@nuxtjs/color-mode', '@nuxt/icon', '@nuxt/hints', '@nuxtjs/i18n'],
+  modules: ['@nuxt/ui', '@vite-pwa/nuxt', '@nuxtjs/color-mode', '@nuxt/icon', '@nuxt/hints', '@nuxtjs/i18n', '@nuxt/eslint'],
 
   i18n: {
     locales: [

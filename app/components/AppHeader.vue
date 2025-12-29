@@ -2,7 +2,7 @@
   <header class="app-header">
     <div class="header-left">
       <span class="avatar">🎈</span>
-      <h1 class="greeting">Ciao {{ userName }}!</h1>
+      <h1 class="greeting">{{ $t('header.greeting', { name: userName }) }}</h1>
     </div>
     <div class="header-right">
       <div class="stars-container">
@@ -14,12 +14,9 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  userName?: string
-  stars?: number
-}
+import type { AppHeaderProps } from '~/types/AppHeader'
 
-withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<AppHeaderProps>(), {
   userName: 'Amico',
   stars: 0
 })

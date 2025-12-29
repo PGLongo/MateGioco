@@ -19,8 +19,8 @@
       <!-- Riga inferiore -->
       <button
         class="number-btn btn-help"
+        :title="$t('game.help')"
         @click="$emit('help')"
-        title="Aiuto"
       >
         <Icon name="mdi:lightbulb-on" class="btn-icon" />
       </button>
@@ -34,8 +34,8 @@
 
       <button
         class="number-btn btn-delete"
+        :title="$t('game.delete')"
         @click="$emit('delete')"
-        title="Cancella"
       >
         <Icon name="mdi:backspace" class="btn-icon" />
       </button>
@@ -44,8 +44,8 @@
     <!-- Pulsante OK -->
     <button
       class="btn-submit"
-      @click="$emit('submit')"
       :disabled="disabled"
+      @click="$emit('submit')"
     >
       ✓ OK!
     </button>
@@ -54,15 +54,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { GameCalculatorProps } from '~/types/GameCalculator'
 
-interface Props {
-  disabled?: boolean
-  userAnswer?: string
-  feedbackState?: 'success' | 'error' | 'info' | null
-  feedbackMessage?: string
-}
-
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<GameCalculatorProps>(), {
   disabled: false,
   userAnswer: '',
   feedbackState: null,

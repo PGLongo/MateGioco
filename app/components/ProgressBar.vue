@@ -1,7 +1,7 @@
 <template>
   <footer class="progress-bar">
     <div class="progress-info">
-      <span class="progress-text">{{ current }} di {{ total }}</span>
+      <span class="progress-text">{{ $t('footer.progress', { current, total }) }}</span>
       <div class="progress-dots">
         <div
           v-for="i in total"
@@ -17,21 +17,21 @@
         target="_blank"
         rel="noopener noreferrer"
         class="footer-btn footer-link"
-        title="GitHub Repository"
+        :title="$t('footer.github')"
       >
         <Icon name="mdi:github" class="footer-icon" />
       </a>
       <button
         class="footer-btn"
+        :title="$t('footer.theme')"
         @click="$emit('theme')"
-        title="Cambia tema"
       >
         <Icon name="mdi:theme-light-dark" class="footer-icon" />
       </button>
       <button
         class="footer-btn"
+        :title="$t('footer.settings')"
         @click="$emit('settings')"
-        title="Impostazioni"
       >
         <Icon name="mdi:cog" class="footer-icon" />
       </button>
@@ -40,12 +40,9 @@
 </template>
 
 <script setup lang="ts">
-interface Props {
-  current: number
-  total: number
-}
+import type { ProgressBarProps } from '~/types/ProgressBar'
 
-defineProps<Props>()
+defineProps<ProgressBarProps>()
 
 defineEmits<{
   theme: []
