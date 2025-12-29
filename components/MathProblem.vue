@@ -4,8 +4,6 @@
       <span class="number">{{ num1 }}</span>
       <span class="operator">{{ operator }}</span>
       <span class="number">{{ num2 }}</span>
-    </div>
-    <div class="problem-row">
       <span class="equals">=</span>
       <span class="question-mark">?</span>
     </div>
@@ -25,14 +23,14 @@ defineProps<Props>()
 <style scoped>
 .math-problem {
   text-align: center;
-  padding: 12px;
+  padding: 8px 12px;
   background: white;
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 0;
   margin-bottom: 8px;
   flex-shrink: 0;
 }
@@ -41,33 +39,33 @@ defineProps<Props>()
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 12px;
   width: 100%;
 }
 
 .number {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: var(--color-blue-primary);
   font-style: normal;
 }
 
 .operator {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #F39C12;
   font-style: normal;
 }
 
 .equals {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--color-blue-primary);
   font-style: normal;
 }
 
 .question-mark {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: #F39C12;
   animation: pulse 1.5s ease-in-out infinite;
@@ -76,40 +74,21 @@ defineProps<Props>()
 
 @media (min-width: 600px) {
   .math-problem {
-    padding: 25px;
+    padding: 12px 20px;
     margin-bottom: 20px;
   }
 
   .number {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
 
   .operator,
   .equals {
-    font-size: 3.25rem;
+    font-size: 2.8rem;
   }
 
   .question-mark {
-    font-size: 4.25rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .math-problem {
-    padding: 16px;
-  }
-
-  .number {
-    font-size: 2.75rem;
-  }
-
-  .operator,
-  .equals {
-    font-size: 2.25rem;
-  }
-
-  .question-mark {
-    font-size: 3rem;
+    font-size: 3.5rem;
   }
 
   .problem-row {
@@ -117,22 +96,45 @@ defineProps<Props>()
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 480px) {
+  .math-problem {
+    padding: 8px 12px;
+  }
+
   .number {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 
   .operator,
   .equals {
-    font-size: 1.875rem;
+    font-size: 1.6rem;
   }
 
   .question-mark {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .problem-row {
-    gap: 12px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .number {
+    font-size: 1.8rem;
+  }
+
+  .operator,
+  .equals {
+    font-size: 1.4rem;
+  }
+
+  .question-mark {
+    font-size: 1.8rem;
+  }
+
+  .problem-row {
+    gap: 8px;
   }
 }
 </style>
