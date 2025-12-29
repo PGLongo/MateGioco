@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/PGLongo/MateGioco/compare/v1.4.0...v1.5.0) (2025-12-29)
+
+
+### ✨ Features
+
+* add audio feedback with useSound composable ([80f9403](https://github.com/PGLongo/MateGioco/commit/80f9403bdd0024349b8c612c234d30909782aa06))
+* add celebration fanfare sound for session completion ([79f41e9](https://github.com/PGLongo/MateGioco/commit/79f41e99624b67532e63b034bd3b0848a780a35f))
+* add confetti animations with useConfetti composable ([be3e281](https://github.com/PGLongo/MateGioco/commit/be3e2813d98708bbb61a8e24aa14701874d22dd3))
+* implement dark mode with @nuxtjs/color-mode ([94457d2](https://github.com/PGLongo/MateGioco/commit/94457d2993f75167fd66aff55e84919b1c73cc76)), closes [#EBF4F6](https://github.com/PGLongo/MateGioco/issues/EBF4F6) [#D6EAF8](https://github.com/PGLongo/MateGioco/issues/D6EAF8) [#F8F9F9](https://github.com/PGLongo/MateGioco/issues/F8F9F9) [#2C3E50](https://github.com/PGLongo/MateGioco/issues/2C3E50) [#1a1f2](https://github.com/PGLongo/MateGioco/issues/1a1f2) [#252b3](https://github.com/PGLongo/MateGioco/issues/252b3) [#2d3548](https://github.com/PGLongo/MateGioco/issues/2d3548) [#E8E8E8](https://github.com/PGLongo/MateGioco/issues/E8E8E8)
+* improve dark mode palette and settings modal UX ([14f52ed](https://github.com/PGLongo/MateGioco/commit/14f52edfaf7dd4b3a1c45413b21b3cc43d086f3d)), closes [#2C3E50](https://github.com/PGLongo/MateGioco/issues/2C3E50) [#1a1f2](https://github.com/PGLongo/MateGioco/issues/1a1f2)
+
+
+### 🐛 Bug Fixes
+
+* add click sound to delete and help buttons ([987e489](https://github.com/PGLongo/MateGioco/commit/987e489c6655d151addcc8e969f81dabd7b60934))
+* settings name not updating in header without refresh ([f4470c1](https://github.com/PGLongo/MateGioco/commit/f4470c1403feb2b9b07d2289f868b569358bb8ca))
+
 ## [1.4.0](https://github.com/PGLongo/MateGioco/compare/v1.3.0...v1.4.0) (2025-12-29)
 
 
