@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <!-- Full background for maskable -->
+  <rect width="192" height="192" fill="#5DADE2"/>
+
+  <!-- Content circle (safe area) -->
+  <circle cx="96" cy="96" r="50" fill="#E8F8F5" opacity="0.95"/>
+
+  <!-- Math expression (smaller for safe area) -->
+  <text x="96" y="106" font-family="Quicksand, Arial, sans-serif" font-size="40" font-weight="700" fill="#D68910" text-anchor="middle">1+1</text>
+</svg>

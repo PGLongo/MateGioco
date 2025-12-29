@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/PGLongo/MateGioco/compare/v1.1.0...v1.2.0) (2025-12-29)
+
+
+### ✨ Features
+
+* add PWA support with offline capability ([519a925](https://github.com/PGLongo/MateGioco/commit/519a9251589b6029e492d6863b09e734cb7ecc50))
+
 ## 1.1.0 (2025-12-28)
 
 
