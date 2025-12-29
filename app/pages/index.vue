@@ -1,8 +1,15 @@
 <template>
   <div class="page-container">
+    <div class="background-shapes">
+      <div class="shape shape-1 float"></div>
+      <div class="shape shape-2 float" style="animation-delay: 1s;"></div>
+      <div class="shape shape-3 float" style="animation-delay: 2s;"></div>
+    </div>
+
     <AppHeader
       :user-name="settings.userName"
       :stars="totalStars"
+      class="header-glass"
     />
 
     <main class="main-content">
@@ -258,17 +265,66 @@ onMounted(() => {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: white;
+  /* Glassmorphism base */
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   overflow: hidden;
+  position: relative;
+}
+
+.background-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+  filter: blur(40px);
+}
+
+.shape-1 {
+  width: 200px;
+  height: 200px;
+  background: var(--color-blue-light);
+  top: -50px;
+  left: -50px;
+}
+
+.shape-2 {
+  width: 300px;
+  height: 300px;
+  background: var(--color-orange-light);
+  bottom: -100px;
+  right: -50px;
+}
+
+.shape-3 {
+  width: 150px;
+  height: 150px;
+  background: var(--color-green-light);
+  top: 40%;
+  left: 60%;
 }
 
 .main-content {
   flex: 1;
-  padding: 8px 12px;
-  background: linear-gradient(to bottom, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  padding: 16px;
+  /* Transparent to show background */
+  background: transparent;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 10;
 }
 
 .question-title {

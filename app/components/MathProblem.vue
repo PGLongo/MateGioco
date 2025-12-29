@@ -24,18 +24,20 @@ withDefaults(defineProps<MathProblemProps>(), {
 .math-problem {
   text-align: center;
   padding: 20px 16px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
+  background: rgba(255, 255, 255, 0.9);
+  border: 4px solid var(--color-blue-lighter);
+  border-radius: 24px;
+  box-shadow: 0 8px 16px rgba(52, 152, 219, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   flex-shrink: 0;
-  height: 100px;
+  height: 120px;
   box-sizing: border-box;
+  backdrop-filter: blur(5px);
 }
 
 .problem-row {
@@ -57,7 +59,7 @@ withDefaults(defineProps<MathProblemProps>(), {
 .operator {
   font-size: 3rem;
   font-weight: 700;
-  color: #F39C12;
+  color: var(--color-orange-primary);
   font-style: normal;
   line-height: 1;
 }
@@ -73,7 +75,7 @@ withDefaults(defineProps<MathProblemProps>(), {
 .question-mark {
   font-size: 3.5rem;
   font-weight: 700;
-  color: #F39C12;
+  color: var(--color-orange-primary);
   animation: pulse 1.5s ease-in-out infinite;
   font-style: normal;
   line-height: 1;

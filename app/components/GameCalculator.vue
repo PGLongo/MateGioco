@@ -97,23 +97,25 @@ defineEmits<{
 }
 
 .display {
-  background: linear-gradient(135deg, var(--color-blue-lighter), #85C1E2);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid var(--color-blue-light);
+  border-bottom-width: 6px;
+  border-radius: 20px;
   padding: 20px 16px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3.5rem;
   font-weight: 700;
-  color: #2874A6;
-  box-shadow: inset 0 2px 4px rgba(52, 152, 219, 0.15);
+  color: var(--color-blue-dark);
   font-style: normal;
   flex-shrink: 0;
   overflow: hidden;
   box-sizing: border-box;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .display-success {
@@ -143,15 +145,15 @@ defineEmits<{
 
 .number-btn {
   min-height: 50px;
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.8rem;
+  font-weight: 800;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--color-orange-light), var(--color-orange-medium));
-  color: var(--color-orange-dark);
+  border-radius: 16px;
+  background: var(--color-orange-medium);
+  color: white;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 6px rgba(248, 196, 113, 0.25);
+  transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 0 var(--color-orange-dark);
   font-family: inherit;
   display: flex;
   align-items: center;
@@ -159,16 +161,19 @@ defineEmits<{
   font-style: normal;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  position: relative;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .number-btn:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(248, 196, 113, 0.35);
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-orange-dark);
 }
 
 .number-btn:active {
-  transform: scale(0.95);
-  box-shadow: 0 2px 5px rgba(248, 196, 113, 0.25);
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--color-orange-dark);
 }
 
 .btn-help {
@@ -202,31 +207,34 @@ defineEmits<{
 
 .btn-submit {
   width: 100%;
-  padding: 14px;
-  font-size: 1.4rem;
-  font-weight: 700;
+  padding: 16px;
+  font-size: 1.6rem;
+  font-weight: 800;
   border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--color-green-light), var(--color-green-medium));
-  color: var(--color-green-dark);
+  border-radius: 20px;
+  background: var(--color-green-primary);
+  color: white;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(125, 206, 160, 0.3);
+  transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 0 var(--color-green-dark);
   font-family: inherit;
   text-transform: uppercase;
   font-style: normal;
   flex-shrink: 0;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .btn-submit:hover:not(:disabled) {
+  filter: brightness(1.05);
   transform: translateY(-2px);
-  box-shadow: 0 7px 20px rgba(125, 206, 160, 0.4);
+  box-shadow: 0 6px 0 var(--color-green-dark);
 }
 
 .btn-submit:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: translateY(4px);
+  box-shadow: 0 0 0 var(--color-green-dark);
 }
 
 .btn-submit:disabled {
