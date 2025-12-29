@@ -16,6 +16,7 @@
     "release:patch": "standard-version --release-as patch"
   },
   "dependencies": {
+    "@nuxt/hints": "^1.0.0-alpha.5",
     "@nuxtjs/color-mode": "^4.0.0",
     "canvas-confetti": "^1.9.4",
     "nuxt": "^4.2.2",
