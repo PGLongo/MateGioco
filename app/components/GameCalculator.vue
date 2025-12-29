@@ -138,8 +138,8 @@ defineEmits<{
 .number-pad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 16px;
+  margin-bottom: 20px;
   flex: 1;
 }
 
@@ -300,7 +300,7 @@ defineEmits<{
 
 @media (max-width: 360px) {
   .number-pad {
-    gap: 8px;
+    gap: 12px;
   }
 
   .display {
