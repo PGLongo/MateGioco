@@ -17,7 +17,7 @@
         :correct-answer="correctAnswerValue"
       />
 
-      <Calculator
+      <GameCalculator
         :user-answer="userAnswer"
         :disabled="!userAnswer"
         :feedback-state="feedbackState"
@@ -56,7 +56,7 @@
               placeholder="Il tuo nome..."
               maxlength="20"
               @keyup.enter="saveSettings"
-            />
+            >
             <div class="modal-buttons">
               <button class="modal-btn" @click="saveSettings">
                 Salva
@@ -90,7 +90,6 @@ const { celebrate, miniCelebration } = useConfetti()
 const {
   currentExercise,
   userAnswer,
-  isCorrect,
   sessionCompleted,
   progress,
   generateExercises,

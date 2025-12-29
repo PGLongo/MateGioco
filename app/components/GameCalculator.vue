@@ -19,8 +19,8 @@
       <!-- Riga inferiore -->
       <button
         class="number-btn btn-help"
-        @click="$emit('help')"
         title="Aiuto"
+        @click="$emit('help')"
       >
         <Icon name="mdi:lightbulb-on" class="btn-icon" />
       </button>
@@ -34,8 +34,8 @@
 
       <button
         class="number-btn btn-delete"
-        @click="$emit('delete')"
         title="Cancella"
+        @click="$emit('delete')"
       >
         <Icon name="mdi:backspace" class="btn-icon" />
       </button>
@@ -44,8 +44,8 @@
     <!-- Pulsante OK -->
     <button
       class="btn-submit"
-      @click="$emit('submit')"
       :disabled="disabled"
+      @click="$emit('submit')"
     >
       ✓ OK!
     </button>
