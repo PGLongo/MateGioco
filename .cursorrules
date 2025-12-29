@@ -1,0 +1,34 @@
+# Project Rules & Standards
+
+## Tech Stack & Ecosystem
+- **Nuxt**: Always prioritize using official Nuxt modules (`@nuxt/*`) or well-maintained community modules compatible with Nuxt 3 over custom implementations.
+- **Vue**: Use the Composition API with `<script setup lang="ts">`.
+
+## Code Quality & Typing
+- **TypeScript**:
+  - Enforce strict typing. Avoid `any` whenever possible.
+  - Define explicit interfaces and types for props, emits, and data structures.
+- **ESLint**:
+  - Code must be lint-free.
+  - Follow the project's ESLint configuration strictly.
+- **SOLID Principles**:
+  - **Single Responsibility**: Components and functions should ideally do one thing.
+  - **Open/Closed**: Code should be open for extension but closed for modification.
+  - **Liskov Substitution**: Derived classes/components should be substitutable for their base.
+  - **Interface Segregation**: Clients should not be forced to depend on interfaces they do not use.
+  - **Dependency Inversion**: Depend upon abstractions, not concretions.
+
+## Version Control
+- **Atomic Commits**: Keep commits small and focused on a single context.
+- **Conventional Commits**: Use the conventional commit format:
+  - `feat`: New feature
+  - `fix`: Bug fix
+  - `docs`: Documentation changes
+  - `style`: Formatting, missing semi colons, etc; no production code change
+  - `refactor`: Refactoring production code, eg. renaming a variable
+  - `test`: Adding missing tests, refactoring tests
+  - `chore`: Updating build tasks, package manager configs, etc
+
+## General
+- Keep code clean, readable, and maintainable.
+- Document complex logic.
