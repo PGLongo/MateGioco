@@ -60,6 +60,7 @@ import { ref, onMounted, watch } from 'vue'
 const { settings, loadSettings } = useSettings()
 const { totalStars, loadStars, addStars } = useStars()
 const { playSuccess, playError, playClick, playCelebration } = useSound()
+const { celebrate, miniCelebration } = useConfetti()
 const {
   currentExercise,
   userAnswer,
@@ -127,8 +128,9 @@ const submitAnswer = () => {
   const correct = checkAnswer()
 
   if (correct) {
-    // Risposta corretta! - Suono + Vibrazione celebrativa
+    // Risposta corretta! - Suono + Vibrazione + Mini confetti
     playSuccess()
+    miniCelebration()
     feedbackMessage.value = '🎉 Bravo!'
     feedbackState.value = 'success'
     vibrate([100, 50, 100, 50, 100])
@@ -197,6 +199,7 @@ const openSettings = () => {
 watch(sessionCompleted, (completed) => {
   if (completed) {
     playCelebration()
+    celebrate() // 🎊 Esplosione di coriandoli!
   }
 })
 
