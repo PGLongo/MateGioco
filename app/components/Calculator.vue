@@ -201,9 +201,9 @@ defineEmits<{
 }
 
 .btn-icon {
-  width: 24px;
-  height: 24px;
-  font-size: 24px;
+  width: 36px;
+  height: 36px;
+  font-size: 36px;
 }
 
 .btn-submit {
@@ -256,6 +256,12 @@ defineEmits<{
     min-height: 75px;
   }
 
+  .btn-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 44px;
+  }
+
   .btn-submit {
     font-size: 2rem;
     padding: 22px;
@@ -278,6 +284,12 @@ defineEmits<{
     font-size: 1.8rem;
   }
 
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 32px;
+  }
+
   .btn-submit {
     font-size: 1.8rem;
     padding: 16px;
@@ -298,6 +310,12 @@ defineEmits<{
   .number-btn {
     min-height: 44px;
     font-size: 1.5rem;
+  }
+
+  .btn-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
   }
 
   .btn-submit {
