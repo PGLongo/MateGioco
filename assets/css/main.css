@@ -21,7 +21,7 @@
   --color-pink-medium: #E8DAEF;
   --color-pink-dark: #BB8FCE;
 
-  /* Sfondi */
+  /* Sfondi - Light Mode */
   --color-bg-primary: #EBF4F6;
   --color-bg-secondary: #D6EAF8;
   --color-bg-white: #F8F9F9;
@@ -30,6 +30,39 @@
   --color-error: #E74C3C;
   --color-success: var(--color-green-medium);
   --color-text: #2C3E50;
+}
+
+/* Dark Mode */
+.dark {
+  /* Colori Azzurro/Celeste - più scuri */
+  --color-blue-primary: #3498DB;
+  --color-blue-light: #5DADE2;
+  --color-blue-lighter: #85C1E2;
+
+  /* Colori Arancione Pastello - leggermente scuri */
+  --color-orange-light: #E59866;
+  --color-orange-medium: #DC7633;
+  --color-orange-dark: #CA6F1E;
+
+  /* Colori Verde Acqua - più scuri */
+  --color-green-light: #82E0AA;
+  --color-green-medium: #58D68D;
+  --color-green-dark: #28B463;
+
+  /* Colori Rosa/Lavanda - più scuri */
+  --color-pink-light: #D7BDE2;
+  --color-pink-medium: #C39BD3;
+  --color-pink-dark: #A569BD;
+
+  /* Sfondi - Dark Mode */
+  --color-bg-primary: #1a1f2e;
+  --color-bg-secondary: #252b3b;
+  --color-bg-white: #2d3548;
+
+  /* Altri colori */
+  --color-error: #EC7063;
+  --color-success: var(--color-green-medium);
+  --color-text: #E8E8E8;
 }
 
 * {

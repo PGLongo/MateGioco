@@ -178,13 +178,23 @@ const goHome = () => {
 }
 
 const changeTheme = () => {
-  feedbackMessage.value = '🎨 Coming soon!'
+  const colorMode = useColorMode()
+
+  // Toggle tra light e dark
+  if (colorMode.preference === 'dark') {
+    colorMode.preference = 'light'
+    feedbackMessage.value = '☀️ Modalità chiara'
+  } else {
+    colorMode.preference = 'dark'
+    feedbackMessage.value = '🌙 Modalità scura'
+  }
+
   feedbackState.value = 'info'
 
   setTimeout(() => {
     feedbackState.value = null
     feedbackMessage.value = ''
-  }, 2500)
+  }, 2000)
 }
 
 const openSettings = () => {

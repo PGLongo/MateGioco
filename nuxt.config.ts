@@ -7,10 +7,16 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  modules: ['@nuxt/ui', '@vite-pwa/nuxt'],
+  modules: ['@nuxt/ui', '@vite-pwa/nuxt', '@nuxtjs/color-mode'],
 
   ui: {
     fonts: false
+  },
+
+  colorMode: {
+    classSuffix: '',
+    preference: 'light',
+    fallback: 'light'
   },
 
   pwa: {
