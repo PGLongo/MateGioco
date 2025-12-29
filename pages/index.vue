@@ -73,7 +73,6 @@
     <ProgressBar
       :current="progress.current"
       :total="progress.total"
-      @home="goHome"
       @theme="changeTheme"
       @settings="openSettings"
     />
@@ -202,11 +201,6 @@ const submitAnswer = () => {
 const startNewSession = () => {
   sessionStars.value = 0
   resetSession()
-}
-
-// Footer actions
-const goHome = () => {
-  startNewSession()
 }
 
 const changeTheme = () => {
