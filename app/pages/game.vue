@@ -182,16 +182,14 @@ onMounted(() => {
 <style scoped>
 .game-page {
   width: 100%;
-  height: 100%;
+  flex: 1; 
+  height: 100%; /* Force fit to parent */
+  max-height: 100%; /* Prevent expanding beyond parent */
   display: flex;
   flex-direction: column;
   position: relative;
-  /* Disable scroll on this page specifically */
-  overflow: hidden !important; 
-  /* Ensure it takes full viewport height minus header/footer logic if needed, 
-     but standard layout handles the framing. 
-     To strictly prevent scroll, we rely on the parent container (main-content) 
-     or this component ensuring it doesn't overflow. */
+  overflow: hidden !important; /* Strict no scroll */
+  min-height: 0; 
 }
 
 /* Back Button */
@@ -227,21 +225,21 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* Centering logic */
+  min-height: 0; /* Allow shrinking */
 }
 
 .question-title {
   text-align: center;
-  font-size: 1.875rem; /* text-3xl */
+  font-size: 1.5rem; /* Reduced from 1.875rem */
   font-weight: 700;
   color: var(--color-dark-navy, #2A3C55);
-  margin-bottom: 32px;
+  margin-bottom: 8px; /* Reduced from 16px */
   animation: bounce-small 2s infinite;
 }
 
 .math-problem {
-  margin-bottom: 32px;
-  transform: scale(1.1);
+  margin-bottom: 16px; /* Reduced from 32px */
+  transform: scale(1); /* Removed scale 1.1 to save space */
 }
 
 /* Modal styles - same as before */
