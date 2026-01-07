@@ -1,14 +1,12 @@
 <template>
   <header class="app-header">
-    <div class="header-left">
-      <h1 class="app-title">MateGioco</h1>
-      <span class="player-name">{{ userName }}</span>
+    <div class="header-content">
+      <h1 class="greeting">Ciao,</h1>
+      <span class="username">{{ userName }}!</span>
     </div>
-    <div class="header-right">
-      <div class="stars-container">
-        <span class="star-icon">⭐</span>
-        <span class="stars-count">{{ stars }}</span>
-      </div>
+    
+    <div class="star-wrapper">
+      <StarCounter :count="stars" />
     </div>
   </header>
 </template>
@@ -24,93 +22,51 @@ withDefaults(defineProps<AppHeaderProps>(), {
 
 <style scoped>
 .app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 24px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
-  background: var(--color-blue-primary);
-  border-bottom: 4px solid var(--color-blue-dark);
-  border-radius: 0;
-  box-shadow: 0 4px 0 rgba(0,0,0,0.05);
-  flex-shrink: 0;
-  z-index: 100;
+  justify-content: space-between;
+  background-color: var(--color-blue-primary);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-.header-left {
+.header-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2px;
+  gap: 4px;
 }
 
-.app-title {
-  font-size: 1.4rem;
+.greeting {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 900;    /* font-black */
   color: white;
-  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.025em; /* tracking-wide */
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
   margin: 0;
-  font-style: normal;
-  letter-spacing: 1px;
-  text-shadow: 0 2px 0 rgba(0,0,0,0.1);
-  line-height: 1.1;
 }
 
-.player-name {
-  font-size: 1rem;
-  color: var(--color-blue-lighter);
-  font-weight: 600;
-  font-style: normal;
+.username {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 900;
+  color: white;
+  line-height: 1;
+  letter-spacing: 0.025em;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-}
-
-.stars-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px 16px;
-  border-radius: 20px;
-  border: 3px solid #FFD700;
-  box-shadow: 0 4px 0 #DAA520;
+.star-wrapper {
   transform: rotate(-2deg);
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 300ms;
 }
 
-.stars-container:hover {
-  transform: rotate(2deg) scale(1.05);
-}
-
-.star-icon {
-  font-size: 1.4rem;
-  font-style: normal;
-  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
-  animation: pulse 2s infinite ease-in-out;
-}
-
-.stars-count {
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: #DAA520; /* Color oro scuro */
-  min-width: 24px;
-  text-align: center;
-  font-style: normal;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-}
-
-@media (max-width: 480px) {
-  .greeting {
-    font-size: 1rem;
-  }
-
-  .avatar {
-    font-size: 1.3rem;
-  }
-
-  .stars-count {
-    font-size: 1rem;
-  }
+.star-wrapper:hover {
+  transform: rotate(2deg);
 }
 </style>
