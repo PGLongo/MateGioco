@@ -117,33 +117,33 @@ withDefaults(defineProps<MathProblemProps>(), {
 
 @media (max-width: 480px), (max-height: 950px) {
   .math-problem {
-    padding: 4px 12px; 
-    min-height: 40px; /* Allow shrinking */
+    padding: 10px 14px; 
+    min-height: 85px; /* Match Display Height */
     height: auto;
-    flex-shrink: 1;
-    margin-bottom: 8px; 
+    flex-shrink: 0; /* Try to maintain size */
+    margin-bottom: 12px; 
     display: flex;
-    align-items: center; /* Center content vertically */
+    align-items: center; 
   }
 
   .number {
-    font-size: 2.2rem; 
+    font-size: 2.5rem; 
     line-height: 1;
   }
 
   .operator,
   .equals {
-    font-size: 1.8rem; 
+    font-size: 2rem; 
     line-height: 1;
   }
 
   .question-mark {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     line-height: 1;
   }
 
   .problem-row {
-    gap: 6px;
+    gap: 8px;
   }
 }
 

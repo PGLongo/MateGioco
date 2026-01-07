@@ -278,39 +278,39 @@ defineEmits<{
 
 @media (max-width: 480px), (max-height: 950px) {
   .calculator {
-    padding: 6px; /* Aggressive reduction */
+    padding: 8px; /* Slightly more padding */
   }
 
   .display {
-    font-size: 2.2rem;
-    min-height: 40px; /* Allow shrinking */
-    flex-shrink: 1; /* Compress if needed */
-    height: auto; /* Remove fixed height */
-    padding: 8px 12px;
-    margin-bottom: 8px; /* Reduced margin */
+    font-size: 2.5rem;
+    min-height: 85px; /* Taller as requested */
+    flex-shrink: 0; /* Try to maintain size */
+    height: auto; 
+    padding: 10px 14px;
+    margin-bottom: 12px; /* More separation */
   }
 
   .number-pad {
-    gap: 4px; /* Tight gap */
-    margin-bottom: 8px;
-    flex-shrink: 2; /* Shrink more aggressively */
+    gap: 12px; /* Increased from 4px */
+    margin-bottom: 10px;
+    flex-shrink: 2; 
   }
 
   .number-btn, .btn-submit {
     min-height: 0;
     font-size: 1.5rem;
-    line-height: 1; /* Compact text */
-    border-radius: 12px;
+    line-height: 1;
+    border-radius: 14px;
   }
 
   .btn-icon {
-    width: 24px;
-    height: 24px;
-    font-size: 24px;
+    width: 26px;
+    height: 26px;
+    font-size: 26px;
   }
 
   .btn-submit {
-    padding: 8px; /* Reduced padding */
+    padding: 10px;
   }
 }
 
