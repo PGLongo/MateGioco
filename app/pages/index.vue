@@ -1,508 +1,76 @@
 <template>
   <div class="page-container">
-    <div class="background-shapes">
-      <div class="shape shape-1 float"></div>
-      <div class="shape shape-2 float" style="animation-delay: 1s;"></div>
-      <div class="shape shape-3 float" style="animation-delay: 2s;"></div>
+    
+    <!-- Hero Section -->
+    <div class="hero-section">
+      
+      <!-- Next Challenge Card with nested Play Button -->
+      <ChallengeCard 
+        :current-stars="totalStars"
+        :total-needed="100"
+      >
+        <GameButton 
+          variant="orange" 
+          size="xl" 
+          pill 
+          @click="startGame"
+          class="play-button-full"
+        >
+          <span class="btn-text">GIOCA ORA</span>
+          <Icon name="mdi:play" class="btn-icon" />
+        </GameButton>
+      </ChallengeCard>
+
     </div>
-
-    <AppHeader
-      :user-name="settings.userName"
-      :stars="totalStars"
-      class="header-glass"
-    />
-
-    <main class="main-content">
-      <h2 class="question-title">{{ $t('game.question') }}</h2>
-
-      <MathProblem
-        v-if="currentExercise"
-        :num1="currentExercise.num1"
-        :num2="currentExercise.num2"
-        :operator="currentExercise.operator"
-        :show-answer="showCorrectAnswer"
-        :correct-answer="correctAnswerValue"
-      />
-
-      <GameCalculator
-        :user-answer="userAnswer"
-        :disabled="!userAnswer"
-        :feedback-state="feedbackState"
-        :feedback-message="feedbackMessage"
-        @digit="handleAddDigit"
-        @delete="handleDeleteDigit"
-        @help="showHelp"
-        @submit="submitAnswer"
-      />
-
-      <!-- Completion modal -->
-      <Transition name="modal">
-        <div v-if="sessionCompleted" class="modal-overlay" @click="startNewSession">
-          <div class="modal-content" @click.stop>
-            <h2 class="modal-title">{{ $t('completion.title') }}</h2>
-            <p class="modal-text">{{ $t('completion.message') }}</p>
-            <p class="modal-stars">{{ $t('completion.stars', { count: sessionStars }) }}</p>
-            <button class="modal-btn" @click="startNewSession">
-              {{ $t('completion.newSession') }}
-            </button>
-          </div>
-        </div>
-      </Transition>
-
-      <!-- Settings modal -->
-      <Transition name="modal">
-        <div v-if="showSettingsModal" class="modal-overlay" @click="closeSettingsModal">
-          <div class="modal-content" @click.stop>
-            <h2 class="modal-title">{{ $t('settings.title') }}</h2>
-            <p class="modal-text">{{ $t('settings.namePrompt') }}</p>
-            <input
-              ref="settingsInput"
-              v-model="settingsName"
-              type="text"
-              class="settings-input"
-              :placeholder="$t('settings.namePlaceholder')"
-              maxlength="20"
-              @keyup.enter="saveSettings"
-            >
-            <div class="modal-buttons">
-              <button class="modal-btn" @click="saveSettings">
-                {{ $t('settings.save') }}
-              </button>
-              <button class="modal-btn modal-btn-secondary" @click="closeSettingsModal">
-                {{ $t('settings.cancel') }}
-              </button>
-            </div>
-          </div>
-        </div>
-      </Transition>
-    </main>
-
-    <ProgressBar
-      :current="progress.current"
-      :total="progress.total"
-      @theme="changeTheme"
-      @settings="openSettings"
-    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+const { totalStars } = useStars()
+const { playClick } = useSound()
+const router = useRouter()
 
-// Composables
-const { settings, loadSettings } = useSettings()
-const { totalStars, loadStars, addStars } = useStars()
-const { playSuccess, playError, playClick, playCelebration } = useSound()
-const { celebrate, miniCelebration } = useConfetti()
-const { vibrate } = useVibration()
-const {
-  currentExercise,
-  userAnswer,
-  sessionCompleted,
-  progress,
-  generateExercises,
-  addDigit,
-  deleteDigit,
-  checkAnswer,
-  nextExercise,
-  getHint,
-  resetSession
-} = useExercises()
-
-const { t } = useI18n()
-
-// State
-const feedbackMessage = ref('')
-const feedbackState = ref<'success' | 'error' | 'info' | null>(null)
-const sessionStars = ref(0)
-const showCorrectAnswer = ref(false)
-const correctAnswerValue = ref(0)
-const showSettingsModal = ref(false)
-const settingsName = ref('')
-const settingsInput = ref<HTMLInputElement | null>(null)
-
-// Gestione input digitale
-const handleAddDigit = (digit: string) => {
-  addDigit(digit)
-  playClick()
-  vibrate(20)
-}
-
-// Gestione cancellazione
-const handleDeleteDigit = () => {
-  deleteDigit()
-  playClick()
-  vibrate(30)
-}
-
-// Mostra suggerimento
-const showHelp = () => {
-  if (!currentExercise.value) return
-
-  playClick()
-  vibrate([30, 20, 30])
-  const hint = getHint()
-  feedbackMessage.value = t('feedback.hint', { hint })
-  feedbackState.value = 'info'
-
-  setTimeout(() => {
-    feedbackState.value = null
-    feedbackMessage.value = ''
-  }, 3000)
-}
-
-// Submit risposta
-const submitAnswer = () => {
-  if (!userAnswer.value) return
-
-  // Vibrazione al click del pulsante OK
-  vibrate(50)
-
-  const correct = checkAnswer()
-
-  if (correct) {
-    // Risposta corretta! - Suono + Vibrazione + Mini confetti
-    playSuccess()
-    miniCelebration()
-    feedbackMessage.value = t('feedback.success')
-    feedbackState.value = 'success'
-    vibrate([100, 50, 100, 50, 100])
-
-    // Mostra la risposta corretta nel problema
-    if (currentExercise.value) {
-      correctAnswerValue.value = currentExercise.value.correctAnswer
-      showCorrectAnswer.value = true
-    }
-
-    // Aggiungi stellina
-    addStars(1)
-    sessionStars.value++
-
-    // Vai al prossimo dopo 2 secondi
-    setTimeout(() => {
-      feedbackState.value = null
-      feedbackMessage.value = ''
-      showCorrectAnswer.value = false
-      nextExercise()
-    }, 2500)
-  } else {
-    // Risposta sbagliata - Suono + Vibrazione più lunga
-    playError()
-    feedbackMessage.value = t('feedback.error')
-    feedbackState.value = 'error'
-    vibrate([300])
-
-    setTimeout(() => {
-      feedbackState.value = null
-      feedbackMessage.value = ''
-    }, 2000)
-  }
-}
-
-// Nuova sessione
-const startNewSession = () => {
-  sessionStars.value = 0
-  resetSession()
-}
-
-const changeTheme = () => {
-  const colorMode = useColorMode()
-
-  // Toggle tra light e dark (senza notifica)
-  if (colorMode.preference === 'dark') {
-    colorMode.preference = 'light'
-  } else {
-    colorMode.preference = 'dark'
-  }
-}
-
-const openSettings = () => {
-  settingsName.value = settings.value.userName
-  showSettingsModal.value = true
-
-  // Focus sull'input dopo che il modale è renderizzato
-  setTimeout(() => {
-    settingsInput.value?.focus()
-    settingsInput.value?.select()
-  }, 100)
-}
-
-const closeSettingsModal = () => {
-  showSettingsModal.value = false
-  settingsName.value = ''
-}
-
-const saveSettings = () => {
-  if (settingsName.value && settingsName.value.trim()) {
-    const { setUserName } = useSettings()
-    setUserName(settingsName.value.trim())
+const startGame = () => {
     playClick()
-  }
-  closeSettingsModal()
+    router.push('/game')
 }
-
-// Watch per celebrazione completamento sessione
-watch(sessionCompleted, (completed) => {
-  if (completed) {
-    playCelebration()
-    celebrate() // 🎊 Esplosione di coriandoli!
-  }
-})
-
-// Inizializzazione
-onMounted(() => {
-  loadSettings()
-  loadStars()
-  generateExercises()
-})
 </script>
 
 <style scoped>
 .page-container {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  height: 100vh;
+  flex: 1; /* Fill the parent flex container (.main-content) */
   display: flex;
   flex-direction: column;
-  /* Glassmorphism base */
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  overflow: hidden;
-  position: relative;
-}
-
-.background-shapes {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
 }
 
-.shape {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.6;
-  filter: blur(40px);
-}
-
-.shape-1 {
-  width: 200px;
-  height: 200px;
-  background: var(--color-blue-light);
-  top: -50px;
-  left: -50px;
-}
-
-.shape-2 {
-  width: 300px;
-  height: 300px;
-  background: var(--color-orange-light);
-  bottom: -100px;
-  right: -50px;
-}
-
-.shape-3 {
-  width: 150px;
-  height: 150px;
-  background: var(--color-green-light);
-  top: 40%;
-  left: 60%;
-}
-
-.main-content {
-  flex: 1;
-  padding: 16px;
-  /* Transparent to show background */
-  background: transparent;
+.hero-section {
+  flex: 1; /* Grow to fill page-container */
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-  z-index: 10;
-}
-
-.question-title {
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-blue-primary);
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-style: normal;
-}
-
-/* Modal */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 20px;
+  max-width: 600px; /* Increased from 28rem (448px) to allow more growth, but kept to avoid extreme stretching */
+  margin: 0 auto; /* Center horizontally */
+  animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.modal-content {
-  background: white;
-  padding: 32px;
-  border-radius: 24px;
-  text-align: center;
-  max-width: 400px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  animation: celebrate 0.5s ease;
+.play-button-full {
+  width: 100%;
 }
 
-.modal-title {
-  font-size: 2rem;
-  color: var(--color-blue-primary);
-  margin-bottom: 16px;
-}
-
-.modal-text {
-  font-size: 1.3rem;
-  color: var(--color-text);
-  margin-bottom: 16px;
-}
-
-.modal-stars {
+.btn-text {
+  letter-spacing: 0.05em; /* tracking-wide */
+  font-family: 'Fredoka', sans-serif;
   font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--color-orange-dark);
-  margin-bottom: 24px;
 }
 
-.modal-btn {
-  padding: 16px 32px;
-  font-size: 1.3rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--color-green-medium), var(--color-green-dark));
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  box-shadow: 0 4px 12px rgba(30, 132, 73, 0.3);
+.btn-icon {
+  width: 32px;
+  height: 32px;
 }
 
-.modal-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(30, 132, 73, 0.4);
-}
-
-.modal-btn-secondary {
-  background: linear-gradient(135deg, var(--color-orange-light), var(--color-orange-medium));
-  color: var(--color-orange-dark);
-  box-shadow: 0 4px 12px rgba(248, 196, 113, 0.3);
-}
-
-.modal-btn-secondary:hover {
-  box-shadow: 0 6px 16px rgba(248, 196, 113, 0.4);
-}
-
-.settings-input {
-  width: 100%;
-  padding: 14px 18px;
-  font-size: 1.2rem;
-  border: 2px solid var(--color-blue-lighter);
-  border-radius: 12px;
-  margin-bottom: 24px;
-  font-family: inherit;
-  font-weight: 600;
-  color: var(--color-text);
-  background: var(--color-bg-white);
-  transition: all 0.3s ease;
-  text-align: center;
-}
-
-.settings-input:focus {
-  outline: none;
-  border-color: var(--color-blue-primary);
-  box-shadow: 0 0 0 4px rgba(93, 173, 226, 0.2);
-}
-
-.settings-input::placeholder {
-  color: var(--color-blue-light);
-  opacity: 0.6;
-}
-
-.modal-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-}
-
-.modal-buttons .modal-btn {
-  width: 100%;
-}
-
-/* Transitions */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-}
-
-@media (min-width: 600px) {
-  .page-container {
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(52, 152, 219, 0.2);
-    min-height: auto;
-    margin: 20px auto;
-  }
-
-  .question-title {
-    font-size: 1.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .question-title {
-    font-size: 1.3rem;
-  }
-
-  .feedback-message {
-    font-size: 1rem;
-    padding: 12px 16px;
-  }
-
-  .modal-title {
-    font-size: 1.6rem;
-  }
-
-  .modal-text {
-    font-size: 1.1rem;
-  }
-
-  .modal-stars {
-    font-size: 1.3rem;
-  }
+@keyframes pop-in {
+  0% { opacity: 0; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1); }
 }
 </style>

@@ -39,16 +39,16 @@
       >
         <Icon name="mdi:backspace" class="btn-icon" />
       </button>
-    </div>
 
-    <!-- Pulsante OK -->
-    <button
-      class="btn-submit"
-      :disabled="disabled"
-      @click="$emit('submit')"
-    >
-      ✓ OK!
-    </button>
+      <!-- Pulsante OK (Row 5) -->
+      <button
+        class="btn-submit"
+        :disabled="disabled"
+        @click="$emit('submit')"
+      >
+        ✓ OK!
+      </button>
+    </div>
   </div>
 </template>
 
@@ -138,13 +138,16 @@ defineEmits<{
 .number-pad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr); /* 5 equal rows (numbers + actions + ok) */
   gap: 16px;
   margin-bottom: 20px;
-  flex: 1;
+  flex: 1; /* Occupy all remaining vertical space */
+  min-height: 0; /* Allow shrinking below content size */
 }
 
 .number-btn {
-  min-height: 50px;
+  /* min-height removed to allow grid 1fr scaling */
+  height: 100%; /* Fill the grid cell */
   font-size: 1.8rem;
   font-weight: 800;
   border: none;
@@ -206,8 +209,9 @@ defineEmits<{
 }
 
 .btn-submit {
+  grid-column: 1 / -1; /* Span all columns */
   width: 100%;
-  padding: 16px;
+  height: 100%; /* Fill grid cell */
   font-size: 1.6rem;
   font-weight: 800;
   border: none;
@@ -220,10 +224,12 @@ defineEmits<{
   font-family: inherit;
   text-transform: uppercase;
   font-style: normal;
-  flex-shrink: 0;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  display: flex; /* Ensure centering text */
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-submit:hover:not(:disabled) {
@@ -270,37 +276,47 @@ defineEmits<{
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px), (max-height: 950px) {
   .calculator {
-    padding: 16px;
+    padding: 8px; /* Slightly more padding */
   }
 
   .display {
-    font-size: 3rem;
-    height: 90px;
-    padding: 16px 12px;
+    font-size: 2.5rem;
+    min-height: 85px; /* Taller as requested */
+    flex-shrink: 0; /* Try to maintain size */
+    height: auto; 
+    padding: 10px 14px;
+    margin-bottom: 12px; /* More separation */
   }
 
-  .number-btn {
-    min-height: 50px;
-    font-size: 1.8rem;
+  .number-pad {
+    gap: 12px; /* Increased from 4px */
+    margin-bottom: 10px;
+    flex-shrink: 2; 
+  }
+
+  .number-btn, .btn-submit {
+    min-height: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+    border-radius: 14px;
   }
 
   .btn-icon {
-    width: 32px;
-    height: 32px;
-    font-size: 32px;
+    width: 26px;
+    height: 26px;
+    font-size: 26px;
   }
 
   .btn-submit {
-    font-size: 1.8rem;
-    padding: 16px;
+    padding: 10px;
   }
 }
 
 @media (max-width: 360px) {
   .number-pad {
-    gap: 12px;
+    gap: 6px;
   }
 
   .display {
@@ -309,20 +325,9 @@ defineEmits<{
     padding: 14px 10px;
   }
 
-  .number-btn {
-    min-height: 44px;
-    font-size: 1.5rem;
-  }
-
-  .btn-icon {
-    width: 28px;
-    height: 28px;
-    font-size: 28px;
-  }
-
-  .btn-submit {
-    font-size: 1.6rem;
-    padding: 14px;
+  .number-btn, .btn-submit {
+    min-height: 0;
+    font-size: 1.4rem;
   }
 }
 </style>

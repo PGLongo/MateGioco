@@ -140,7 +140,8 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', href: process.env.NODE_ENV === 'production' ? '/MateGioco/apple-touch-icon-180x180.png?v=2' : '/apple-touch-icon-180x180.png?v=2' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap' }
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap' }
+
       ]
     }
   },

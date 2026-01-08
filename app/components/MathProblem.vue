@@ -115,27 +115,35 @@ withDefaults(defineProps<MathProblemProps>(), {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px), (max-height: 950px) {
   .math-problem {
-    padding: 16px 12px;
-    height: 90px;
+    padding: 10px 14px; 
+    min-height: 85px; /* Match Display Height */
+    height: auto;
+    flex-shrink: 0; /* Try to maintain size */
+    margin-bottom: 12px; 
+    display: flex;
+    align-items: center; 
   }
 
   .number {
-    font-size: 3rem;
+    font-size: 2.5rem; 
+    line-height: 1;
   }
 
   .operator,
   .equals {
-    font-size: 2.5rem;
+    font-size: 2rem; 
+    line-height: 1;
   }
 
   .question-mark {
-    font-size: 3rem;
+    font-size: 2.5rem;
+    line-height: 1;
   }
 
   .problem-row {
-    gap: 12px;
+    gap: 8px;
   }
 }
 
