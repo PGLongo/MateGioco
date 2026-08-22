@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/PGLongo/MateGioco/compare/v1.8.0...v1.9.0) (2026-08-22)
+
+
+### ✨ Features
+
+* **composable:** track unlocked badges in the progression ([89e23ab](https://github.com/PGLongo/MateGioco/commit/89e23ab498ba742ef4d9fa30ca279798b12e3a52))
+* **config:** add the badge configuration ([75e4d1f](https://github.com/PGLongo/MateGioco/commit/75e4d1fc821f081b2ff7c2e8d5ae3787beb81cd8))
+* **game:** celebrate a new badge at the end of a session ([11accf8](https://github.com/PGLongo/MateGioco/commit/11accf8dc91dad80594c8687b6b4fd451e98fa4d))
+* **ui:** add the trophy room page ([5e77db8](https://github.com/PGLongo/MateGioco/commit/5e77db8ac16af988ed0773fc2cae33634a611eb2))
+* **ui:** reach the trophy room from the footer ([73b32ed](https://github.com/PGLongo/MateGioco/commit/73b32ed406bbda8a88b7ca4f22fce002672173db))
+
+
+### 🐛 Bug Fixes
+
+* **ci:** build on node 22, required by nuxt 4.5 ([122f211](https://github.com/PGLongo/MateGioco/commit/122f211e149c1ec79488dce40fad8beab1a58f4c))
+* **game:** keep the session on the level it started on ([4ce01f5](https://github.com/PGLongo/MateGioco/commit/4ce01f522582737d54770755de50e5f23c13e3e6))
+
+
+### 📝 Documentation
+
+* raise the documented node requirement to 22.19 ([8985d79](https://github.com/PGLongo/MateGioco/commit/8985d79ee34dd24f439cd68c4916789a59f740e5))
+* record the badge system in roadmap and governance files ([897517a](https://github.com/PGLongo/MateGioco/commit/897517af40f797be45d7427ae00ad5ee24843f8e))
+
 ## [1.8.0](https://github.com/PGLongo/MateGioco/compare/v1.7.0...v1.8.0) (2026-08-22)
 
 
