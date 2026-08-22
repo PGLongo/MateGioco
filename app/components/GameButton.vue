@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<{
 
 const { playClick } = useSound()
 
-const handleClick = (e: MouseEvent) => {
+const handleClick = () => {
   if (props.sound) {
     playClick()
   }

@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-const { settings, loadSettings } = useSettings()
+const { loadSettings } = useSettings()
 const { loadStars, addStars } = useStars()
 const { playSuccess, playError, playClick, playCelebration } = useSound()
 const { celebrate, miniCelebration } = useConfetti()
