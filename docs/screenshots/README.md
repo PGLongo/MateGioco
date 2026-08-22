@@ -1,58 +1,69 @@
-# Galleria delle schermate
+# Schermate: test visivi, galleria, report
 
-Screenshot di ogni schermata di MateGioco su ogni risoluzione iPhone in circolazione.
-Apri **`index.html`** in un browser per sfogliarli: c'è un selettore di tema e uno di scala,
-e le schermate sono affiancate per dispositivo.
+Le immagini in questa cartella sono le **baseline dei test visivi**: `npm run visual` le
+confronta pixel per pixel con la resa attuale dell'app e falliscono se qualcosa cambia.
+Sono anche il catalogo da sfogliare e la fonte del report. Un solo insieme di immagini, tre
+usi: così quello che si guarda è per definizione quello che il confronto considera corretto.
 
-## Due modi di guardarla
+## Comandi
 
-| | Comando | Cos'è |
-|---|---|---|
-| **Galleria** | `npm run screenshots` | `index.html` più i PNG. Vive nel repository, si apre da qui, e i PNG sono quelli che finiscono nel diff di una PR. |
-| **Report** | `npm run screenshots:report` | Un file solo (`report.html`, ~2,6 MB) con le immagini incorporate e la tabella di verifica. Non versionato: si apre da telefono e si può mandare a qualcuno senza il repository. |
+| Comando | Cosa fa |
+|---|---|
+| `npm run visual` | Esegue i test: confronto pixel su ogni schermata e dispositivo, più le verifiche di adattamento. Fallisce se l'interfaccia è cambiata. |
+| `npm run visual:update` | Riscrive le baseline. Da usare **dopo** aver verificato che il cambiamento è voluto. |
+| `npm run visual:report` | Apre il report locale di Playwright, con le differenze evidenziate (atteso / effettivo / diff). |
+| `npm run gallery` | Ricostruisce `index.html`, la galleria sfogliabile, dalle immagini presenti. |
+| `npm run gallery:report` | Costruisce `report.html`: un file solo, con immagini e misure incorporate, apribile da telefono e condivisibile. Non versionato. |
 
-La galleria fa la build statica, la serve su `http://localhost:4173/MateGioco/` e cattura
-tutto. Non modificare i file a mano: sono generati.
+## Perché WebKit e non Chrome
 
-## Le misure
+I preset iPhone di Playwright dichiarano `defaultBrowserType: 'webkit'`, e non è un
+dettaglio: gli iPhone eseguono Safari, quindi font, flexbox e arrotondamenti si vedono come
+li vedrebbe un bambino solo rendendo con WebKit.
 
-`measurements.json` è prodotto dalla stessa esecuzione che scatta gli screenshot: per ogni
-dispositivo e schermata registra se il contenuto sta in schermo (`scroll`), quanto respiro ha
-la card sopra la barra (`cardGap`) e quanto sono alti i tasti del tastierino (`keyHeight`).
+## Il viewport, non lo schermo
 
-Il report legge quel file invece di riportare numeri scritti a mano: così non può affermare
-qualcosa che le immagini smentiscono.
+I preset usano l'altezza **utile** del browser, non quella del telefono: su iPhone 16 sono
+393×659 e non 393×852, perché le barre di Safari occupano il resto. È una differenza di
+circa 190 punti, e misurare sullo schermo intero dà una risposta ottimistica alla domanda
+"ci sta senza scroll?".
 
-## Perché sono versionati
+Nota: installata come PWA (`display: standalone` nel manifest) l'app riavrebbe l'altezza
+intera. I test verificano il caso peggiore, cioè Safari.
 
-Servono a vedere in una PR **cosa cambia visivamente**, non solo nel codice: un diff su un
-PNG dice più di venti righe di CSS. Perché funzioni, gli screenshot devono essere
-riproducibili, cioè due esecuzioni di fila devono produrre file identici. Lo script ottiene
-questa proprietà così:
+## Cosa verificano i test, oltre alle immagini
 
-| Fonte di variabilità | Come è neutralizzata |
+Un confronto pixel dice *se* qualcosa è cambiato, non *se va bene*. Perciò ogni dispositivo
+ha anche un test di adattamento che asserisce:
+
+- **home e sessione di gioco stanno in schermo senza scroll** — le usa un bambino di 4 anni,
+  che non sa di poter scorrere: quello che esce dallo schermo per lui non esiste;
+- **i tasti del tastierino restano alti almeno 44px** — sotto quella soglia un dito piccolo
+  non li centra;
+- **il tasto OK è nel viewport** — senza quello la sessione non si chiude.
+
+Mappa e bacheca scorrono per costruzione: sono liste di sedici elementi.
+
+Le stesse misure finiscono in `measurements.json` di ogni dispositivo, e da lì nella tabella
+del report: nessun numero è scritto a mano.
+
+## Riproducibilità
+
+Perché un diff sulle immagini significhi qualcosa, due esecuzioni di fila devono produrre lo
+stesso risultato. Le fonti di variabilità sono neutralizzate così:
+
+| Fonte | Come |
 |---|---|
 | Esercizi casuali | `Math.random` sostituito da un generatore deterministico |
 | Progressione salvata | `localStorage` popolato con uno stato fisso (livello 1 completato, livello 2 a 11/25) |
-| Lingua e tema | forzati (italiano; chiaro, più scuro sul dispositivo di riferimento) |
-| Animazioni (pulse, bounce) | congelate via CSS, altrimenti si fotografa un fotogramma casuale |
-| Icone caricate in modo asincrono | si attende che il numero di SVG sia stabile |
-| Badge dei DevTools col tempo di caricamento | assente, perché si fotografa la build e non il dev server |
-
-Se una rigenerazione produce un diff, quel diff è un cambiamento vero dell'interfaccia.
-
-## A cosa è servita, in concreto
-
-La prima versione della galleria ha fatto vedere subito due difetti che nessun test
-intercettava: la card della home tagliata dalla barra di navigazione su iPhone SE, e
-l'assenza di un pulsante per tornare alla home. Entrambi corretti, e la galleria
-rigenerata li mostra risolti su tutte le risoluzioni.
+| Lingua e tema | forzati; il tema scuro ha le sue baseline separate |
+| Animazioni | disabilitate da Playwright (`animations: 'disabled'`) |
+| Icone caricate in asincrono | si attende che il numero di SVG sia stabile |
+| Ordine di caricamento dei moduli | si serve la build statica, non il dev server |
 
 ## Cosa non è coperto
 
-- **Orientamento orizzontale**: l'app dichiara `orientation: portrait` nel manifest PWA.
-  Il layout in landscape è comunque stato corretto (vedi ROADMAP, difetti risolti).
-- **Modali**: la modale di fine sessione e quella del Guardiano nuovo richiedono di giocare
-  una partita intera, quindi non sono catturate.
-- **Densità di pixel**: gli screenshot sono a 1x (punti CSS), per tenere leggero il
-  repository. Servono a valutare il layout, non la resa dei font su schermo retina.
+- **Modali**: fine sessione e nuovo Guardiano richiedono di giocare una partita intera.
+- **Orientamento orizzontale**: il manifest PWA dichiara `orientation: portrait`.
+- **Interazione**: i test guardano, non giocano. Un vero end-to-end (segnato in ROADMAP) è il
+  passo successivo, e l'infrastruttura ora c'è.

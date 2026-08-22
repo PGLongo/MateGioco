@@ -5,239 +5,365 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MateGioco - Galleria schermate</title>
 <style>
-  :root { color-scheme: light dark; --bg: #f4f6f8; --panel: #fff; --ink: #1f2933; --muted: #6b7785; --line: #e1e6ea; --accent: #4F9BCC; }
+  :root {
+    color-scheme: light dark;
+    --paper: #F2F5F8; --surface: #FFF; --ink: #1B2430; --muted: #55636F; --line: #D8E0E8;
+    --good: #3F7C2C; --good-bg: #E7F2E1; --warn: #B3591A; --warn-bg: #FBEADD; --chip: #E8EDF2;
+    --scale: .55;
+  }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #1b1f23; --panel: #24292e; --ink: #e8eef4; --muted: #9aa5b1; --line: #333a41; }
+    :root {
+      --paper: #14181D; --surface: #1D232A; --ink: #E6EDF3; --muted: #9EAEBC; --line: #2C343D;
+      --good: #96CE79; --good-bg: #1F2C1C; --warn: #E0A264; --warn-bg: #2E2318; --chip: #232B33;
+    }
   }
   * { box-sizing: border-box; }
-  body { margin: 0; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; background: var(--bg); color: var(--ink); }
-  header { padding: 20px 24px; border-bottom: 1px solid var(--line); background: var(--panel); position: sticky; top: 0; z-index: 10; }
-  h1 { margin: 0 0 4px; font-size: 1.2rem; }
-  .meta { color: var(--muted); font-size: .85rem; }
-  .controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
-  .controls label { font-size: .85rem; color: var(--muted); }
-  select, button { font: inherit; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; }
-  main { padding: 24px; display: flex; flex-direction: column; gap: 40px; }
-  section h2 { font-size: 1.05rem; margin: 0 0 4px; }
-  section .hint { color: var(--muted); font-size: .85rem; margin: 0 0 16px; }
-  .row { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 8px; }
+  body { margin: 0; background: var(--paper); color: var(--ink);
+    font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  header { padding: 28px 24px 20px; border-bottom: 1px solid var(--line); background: var(--surface); }
+  h1 { margin: 0 0 6px; font-size: 1.25rem; }
+  .meta { color: var(--muted); font-size: .86rem; max-width: 70ch; }
+  .controls { display: flex; gap: 8px; align-items: center; margin-top: 14px; }
+  .controls span { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  button { font: inherit; font-size: .82rem; padding: 4px 12px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+  button[aria-pressed="true"] { border-color: currentcolor; font-weight: 600; }
+  main { padding: 24px; display: flex; flex-direction: column; gap: 36px; }
+  h2 { font-size: 1.05rem; margin: 0 0 2px; }
+  .path { font-family: ui-monospace, Menlo, monospace; font-size: .8rem; color: var(--muted); margin: 0 0 14px; }
+  .rail { display: flex; gap: 18px; overflow-x: auto; padding-bottom: 8px; }
   figure { margin: 0; flex: 0 0 auto; }
-  figure img { display: block; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); max-width: none; }
-  figcaption { margin-top: 8px; font-size: .8rem; color: var(--muted); text-align: center; }
-  figcaption strong { display: block; color: var(--ink); font-size: .85rem; }
-  .zoom-50 figure img { transform-origin: top left; }
+  figure img { display: block; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+  figcaption { margin-top: 8px; font-size: .78rem; color: var(--muted); display: flex; flex-direction: column; gap: 3px; }
+  figcaption b { color: var(--ink); font-size: .84rem; font-weight: 600; }
+  .chip { align-self: flex-start; font-family: ui-monospace, Menlo, monospace; font-size: .72rem;
+    padding: .15em .5em; border-radius: 5px; background: var(--chip); color: var(--muted); }
+  .chip.good { background: var(--good-bg); color: var(--good); }
+  .chip.warn { background: var(--warn-bg); color: var(--warn); }
 </style>
 </head>
 <body>
 <header>
   <h1>MateGioco - Galleria schermate</h1>
-  <div class="meta">Generata da <code>npm run screenshots</code>. Non modificare a mano: rigenerala.</div>
+  <p class="meta">Le immagini sono le baseline dei test visivi: quello che vedi qui e' quello
+  che <code>npm run visual</code> considera corretto. Rigenerala con <code>npm run
+  visual:update</code> e poi <code>npm run gallery</code>. Le etichette accanto a ogni
+  dispositivo vengono dalle misure prese durante i test.</p>
   <div class="controls">
-    <label>Tema
-      <select id="tema">
-        <option value="light">chiaro</option>
-        <option value="dark">scuro (solo dispositivo di riferimento)</option>
-      </select>
-    </label>
-    <label>Scala
-      <select id="scala">
-        <option value="1">100%</option>
-        <option value="0.6" selected>60%</option>
-        <option value="0.4">40%</option>
-      </select>
-    </label>
+    <span>Scala</span>
+    <button type="button" data-scale="0.4">40%</button>
+    <button type="button" data-scale="0.55" aria-pressed="true">55%</button>
+    <button type="button" data-scale="1">100%</button>
   </div>
 </header>
 <main>
-  <section data-screen="home">
+  <section>
     <h2>Home</h2>
-    <p class="hint"><code>/</code></p>
-    <div class="row">
-      <figure data-theme-light="iphone-se/home.png" data-theme-dark="">
-        <img src="iphone-se/home.png" width="375" height="667" alt="Home su iPhone SE" loading="lazy">
-        <figcaption><strong>iPhone SE</strong>375x667<br>SE 2/3, 6, 7, 8</figcaption>
+    <p class="path">/</p>
+    <div class="rail">
+      <figure>
+        <img src="iphone-13-mini/home.png" alt="Home su iPhone 13 mini" loading="lazy" data-shot>
+        <figcaption><b>iPhone 13 mini</b>viewport 629pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-13-mini/home.png" data-theme-dark="">
-        <img src="iphone-13-mini/home.png" width="375" height="812" alt="Home su iPhone 13 mini" loading="lazy">
-        <figcaption><strong>iPhone 13 mini</strong>375x812<br>X, XS, 11 Pro, 12/13 mini</figcaption>
+      <figure>
+        <img src="iphone-16/home.png" alt="Home su iPhone 16" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16</b>viewport 659pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-14/home.png" data-theme-dark="">
-        <img src="iphone-14/home.png" width="390" height="844" alt="Home su iPhone 14" loading="lazy">
-        <figcaption><strong>iPhone 14</strong>390x844<br>12, 13, 14</figcaption>
+      <figure>
+        <img src="iphone-12/home.png" alt="Home su iPhone 12" loading="lazy" data-shot>
+        <figcaption><b>iPhone 12</b>viewport 664pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-16/home.png" data-theme-dark="iphone-16/home-dark.png">
-        <img src="iphone-16/home.png" width="393" height="852" alt="Home su iPhone 16" loading="lazy">
-        <figcaption><strong>iPhone 16</strong>393x852<br>14 Pro, 15, 16</figcaption>
+      <figure>
+        <img src="iphone-se-3rd-gen/home.png" alt="Home su iPhone se (3ª gen)" loading="lazy" data-shot>
+        <figcaption><b>iPhone se (3ª gen)</b>viewport 667pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-16-pro/home.png" data-theme-dark="">
-        <img src="iphone-16-pro/home.png" width="402" height="874" alt="Home su iPhone 16 Pro" loading="lazy">
-        <figcaption><strong>iPhone 16 Pro</strong>402x874<br>16 Pro</figcaption>
+      <figure>
+        <img src="iphone-16-pro/home.png" alt="Home su iPhone 16 pro" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16 pro</b>viewport 681pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-11/home.png" data-theme-dark="">
-        <img src="iphone-11/home.png" width="414" height="896" alt="Home su iPhone 11" loading="lazy">
-        <figcaption><strong>iPhone 11</strong>414x896<br>XR, XS Max, 11</figcaption>
+      <figure>
+        <img src="iphone-11/home.png" alt="Home su iPhone 11" loading="lazy" data-shot>
+        <figcaption><b>iPhone 11</b>viewport 715pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-14-plus/home.png" data-theme-dark="">
-        <img src="iphone-14-plus/home.png" width="428" height="926" alt="Home su iPhone 14 Plus" loading="lazy">
-        <figcaption><strong>iPhone 14 Plus</strong>428x926<br>12/13 Pro Max, 14 Plus</figcaption>
+      <figure>
+        <img src="iphone-14-plus/home.png" alt="Home su iPhone 14 plus" loading="lazy" data-shot>
+        <figcaption><b>iPhone 14 plus</b>viewport 746pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-15-pro-max/home.png" data-theme-dark="">
-        <img src="iphone-15-pro-max/home.png" width="430" height="932" alt="Home su iPhone 15 Pro Max" loading="lazy">
-        <figcaption><strong>iPhone 15 Pro Max</strong>430x932<br>15 Pro Max, 16 Plus</figcaption>
-      </figure>
-      <figure data-theme-light="iphone-16-pro-max/home.png" data-theme-dark="">
-        <img src="iphone-16-pro-max/home.png" width="440" height="956" alt="Home su iPhone 16 Pro Max" loading="lazy">
-        <figcaption><strong>iPhone 16 Pro Max</strong>440x956<br>16 Pro Max</figcaption>
+      <figure>
+        <img src="iphone-16-pro-max/home.png" alt="Home su iPhone 16 pro max" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16 pro max</b>viewport 763pt<span class="chip good">in schermo</span></figcaption>
       </figure>
     </div>
   </section>
-  <section data-screen="game">
+  <section>
     <h2>Sessione di gioco</h2>
-    <p class="hint"><code>/game</code></p>
-    <div class="row">
-      <figure data-theme-light="iphone-se/game.png" data-theme-dark="">
-        <img src="iphone-se/game.png" width="375" height="667" alt="Sessione di gioco su iPhone SE" loading="lazy">
-        <figcaption><strong>iPhone SE</strong>375x667<br>SE 2/3, 6, 7, 8</figcaption>
+    <p class="path">/game</p>
+    <div class="rail">
+      <figure>
+        <img src="iphone-13-mini/game.png" alt="Sessione di gioco su iPhone 13 mini" loading="lazy" data-shot>
+        <figcaption><b>iPhone 13 mini</b>viewport 629pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-13-mini/game.png" data-theme-dark="">
-        <img src="iphone-13-mini/game.png" width="375" height="812" alt="Sessione di gioco su iPhone 13 mini" loading="lazy">
-        <figcaption><strong>iPhone 13 mini</strong>375x812<br>X, XS, 11 Pro, 12/13 mini</figcaption>
+      <figure>
+        <img src="iphone-16/game.png" alt="Sessione di gioco su iPhone 16" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16</b>viewport 659pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-14/game.png" data-theme-dark="">
-        <img src="iphone-14/game.png" width="390" height="844" alt="Sessione di gioco su iPhone 14" loading="lazy">
-        <figcaption><strong>iPhone 14</strong>390x844<br>12, 13, 14</figcaption>
+      <figure>
+        <img src="iphone-12/game.png" alt="Sessione di gioco su iPhone 12" loading="lazy" data-shot>
+        <figcaption><b>iPhone 12</b>viewport 664pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-16/game.png" data-theme-dark="iphone-16/game-dark.png">
-        <img src="iphone-16/game.png" width="393" height="852" alt="Sessione di gioco su iPhone 16" loading="lazy">
-        <figcaption><strong>iPhone 16</strong>393x852<br>14 Pro, 15, 16</figcaption>
+      <figure>
+        <img src="iphone-se-3rd-gen/game.png" alt="Sessione di gioco su iPhone se (3ª gen)" loading="lazy" data-shot>
+        <figcaption><b>iPhone se (3ª gen)</b>viewport 667pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-16-pro/game.png" data-theme-dark="">
-        <img src="iphone-16-pro/game.png" width="402" height="874" alt="Sessione di gioco su iPhone 16 Pro" loading="lazy">
-        <figcaption><strong>iPhone 16 Pro</strong>402x874<br>16 Pro</figcaption>
+      <figure>
+        <img src="iphone-16-pro/game.png" alt="Sessione di gioco su iPhone 16 pro" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16 pro</b>viewport 681pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-11/game.png" data-theme-dark="">
-        <img src="iphone-11/game.png" width="414" height="896" alt="Sessione di gioco su iPhone 11" loading="lazy">
-        <figcaption><strong>iPhone 11</strong>414x896<br>XR, XS Max, 11</figcaption>
+      <figure>
+        <img src="iphone-11/game.png" alt="Sessione di gioco su iPhone 11" loading="lazy" data-shot>
+        <figcaption><b>iPhone 11</b>viewport 715pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-14-plus/game.png" data-theme-dark="">
-        <img src="iphone-14-plus/game.png" width="428" height="926" alt="Sessione di gioco su iPhone 14 Plus" loading="lazy">
-        <figcaption><strong>iPhone 14 Plus</strong>428x926<br>12/13 Pro Max, 14 Plus</figcaption>
+      <figure>
+        <img src="iphone-14-plus/game.png" alt="Sessione di gioco su iPhone 14 plus" loading="lazy" data-shot>
+        <figcaption><b>iPhone 14 plus</b>viewport 746pt<span class="chip good">in schermo</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-15-pro-max/game.png" data-theme-dark="">
-        <img src="iphone-15-pro-max/game.png" width="430" height="932" alt="Sessione di gioco su iPhone 15 Pro Max" loading="lazy">
-        <figcaption><strong>iPhone 15 Pro Max</strong>430x932<br>15 Pro Max, 16 Plus</figcaption>
-      </figure>
-      <figure data-theme-light="iphone-16-pro-max/game.png" data-theme-dark="">
-        <img src="iphone-16-pro-max/game.png" width="440" height="956" alt="Sessione di gioco su iPhone 16 Pro Max" loading="lazy">
-        <figcaption><strong>iPhone 16 Pro Max</strong>440x956<br>16 Pro Max</figcaption>
+      <figure>
+        <img src="iphone-16-pro-max/game.png" alt="Sessione di gioco su iPhone 16 pro max" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16 pro max</b>viewport 763pt<span class="chip good">in schermo</span></figcaption>
       </figure>
     </div>
   </section>
-  <section data-screen="map">
+  <section>
     <h2>Mappa dei livelli</h2>
-    <p class="hint"><code>/map</code></p>
-    <div class="row">
-      <figure data-theme-light="iphone-se/map.png" data-theme-dark="">
-        <img src="iphone-se/map.png" width="375" height="667" alt="Mappa dei livelli su iPhone SE" loading="lazy">
-        <figcaption><strong>iPhone SE</strong>375x667<br>SE 2/3, 6, 7, 8</figcaption>
+    <p class="path">/map</p>
+    <div class="rail">
+      <figure>
+        <img src="iphone-13-mini/map.png" alt="Mappa dei livelli su iPhone 13 mini" loading="lazy" data-shot>
+        <figcaption><b>iPhone 13 mini</b>viewport 629pt<span class="chip neutral">scorre 987px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-13-mini/map.png" data-theme-dark="">
-        <img src="iphone-13-mini/map.png" width="375" height="812" alt="Mappa dei livelli su iPhone 13 mini" loading="lazy">
-        <figcaption><strong>iPhone 13 mini</strong>375x812<br>X, XS, 11 Pro, 12/13 mini</figcaption>
+      <figure>
+        <img src="iphone-16/map.png" alt="Mappa dei livelli su iPhone 16" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16</b>viewport 659pt<span class="chip neutral">scorre 957px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-14/map.png" data-theme-dark="">
-        <img src="iphone-14/map.png" width="390" height="844" alt="Mappa dei livelli su iPhone 14" loading="lazy">
-        <figcaption><strong>iPhone 14</strong>390x844<br>12, 13, 14</figcaption>
+      <figure>
+        <img src="iphone-12/map.png" alt="Mappa dei livelli su iPhone 12" loading="lazy" data-shot>
+        <figcaption><b>iPhone 12</b>viewport 664pt<span class="chip neutral">scorre 952px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-16/map.png" data-theme-dark="iphone-16/map-dark.png">
-        <img src="iphone-16/map.png" width="393" height="852" alt="Mappa dei livelli su iPhone 16" loading="lazy">
-        <figcaption><strong>iPhone 16</strong>393x852<br>14 Pro, 15, 16</figcaption>
+      <figure>
+        <img src="iphone-se-3rd-gen/map.png" alt="Mappa dei livelli su iPhone se (3ª gen)" loading="lazy" data-shot>
+        <figcaption><b>iPhone se (3ª gen)</b>viewport 667pt<span class="chip neutral">scorre 965px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-16-pro/map.png" data-theme-dark="">
-        <img src="iphone-16-pro/map.png" width="402" height="874" alt="Mappa dei livelli su iPhone 16 Pro" loading="lazy">
-        <figcaption><strong>iPhone 16 Pro</strong>402x874<br>16 Pro</figcaption>
+      <figure>
+        <img src="iphone-16-pro/map.png" alt="Mappa dei livelli su iPhone 16 pro" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16 pro</b>viewport 681pt<span class="chip neutral">scorre 935px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-11/map.png" data-theme-dark="">
-        <img src="iphone-11/map.png" width="414" height="896" alt="Mappa dei livelli su iPhone 11" loading="lazy">
-        <figcaption><strong>iPhone 11</strong>414x896<br>XR, XS Max, 11</figcaption>
+      <figure>
+        <img src="iphone-11/map.png" alt="Mappa dei livelli su iPhone 11" loading="lazy" data-shot>
+        <figcaption><b>iPhone 11</b>viewport 715pt<span class="chip neutral">scorre 901px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-14-plus/map.png" data-theme-dark="">
-        <img src="iphone-14-plus/map.png" width="428" height="926" alt="Mappa dei livelli su iPhone 14 Plus" loading="lazy">
-        <figcaption><strong>iPhone 14 Plus</strong>428x926<br>12/13 Pro Max, 14 Plus</figcaption>
+      <figure>
+        <img src="iphone-14-plus/map.png" alt="Mappa dei livelli su iPhone 14 plus" loading="lazy" data-shot>
+        <figcaption><b>iPhone 14 plus</b>viewport 746pt<span class="chip neutral">scorre 930px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-15-pro-max/map.png" data-theme-dark="">
-        <img src="iphone-15-pro-max/map.png" width="430" height="932" alt="Mappa dei livelli su iPhone 15 Pro Max" loading="lazy">
-        <figcaption><strong>iPhone 15 Pro Max</strong>430x932<br>15 Pro Max, 16 Plus</figcaption>
-      </figure>
-      <figure data-theme-light="iphone-16-pro-max/map.png" data-theme-dark="">
-        <img src="iphone-16-pro-max/map.png" width="440" height="956" alt="Mappa dei livelli su iPhone 16 Pro Max" loading="lazy">
-        <figcaption><strong>iPhone 16 Pro Max</strong>440x956<br>16 Pro Max</figcaption>
+      <figure>
+        <img src="iphone-16-pro-max/map.png" alt="Mappa dei livelli su iPhone 16 pro max" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16 pro max</b>viewport 763pt<span class="chip neutral">scorre 913px</span></figcaption>
       </figure>
     </div>
   </section>
-  <section data-screen="badges">
+  <section>
     <h2>Bacheca dei Guardiani</h2>
-    <p class="hint"><code>/badges</code></p>
-    <div class="row">
-      <figure data-theme-light="iphone-se/badges.png" data-theme-dark="">
-        <img src="iphone-se/badges.png" width="375" height="667" alt="Bacheca dei Guardiani su iPhone SE" loading="lazy">
-        <figcaption><strong>iPhone SE</strong>375x667<br>SE 2/3, 6, 7, 8</figcaption>
+    <p class="path">/badges</p>
+    <div class="rail">
+      <figure>
+        <img src="iphone-13-mini/badges.png" alt="Bacheca dei Guardiani su iPhone 13 mini" loading="lazy" data-shot>
+        <figcaption><b>iPhone 13 mini</b>viewport 629pt<span class="chip neutral">scorre 881px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-13-mini/badges.png" data-theme-dark="">
-        <img src="iphone-13-mini/badges.png" width="375" height="812" alt="Bacheca dei Guardiani su iPhone 13 mini" loading="lazy">
-        <figcaption><strong>iPhone 13 mini</strong>375x812<br>X, XS, 11 Pro, 12/13 mini</figcaption>
+      <figure>
+        <img src="iphone-16/badges.png" alt="Bacheca dei Guardiani su iPhone 16" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16</b>viewport 659pt<span class="chip neutral">scorre 852px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-14/badges.png" data-theme-dark="">
-        <img src="iphone-14/badges.png" width="390" height="844" alt="Bacheca dei Guardiani su iPhone 14" loading="lazy">
-        <figcaption><strong>iPhone 14</strong>390x844<br>12, 13, 14</figcaption>
+      <figure>
+        <img src="iphone-12/badges.png" alt="Bacheca dei Guardiani su iPhone 12" loading="lazy" data-shot>
+        <figcaption><b>iPhone 12</b>viewport 664pt<span class="chip neutral">scorre 847px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-16/badges.png" data-theme-dark="iphone-16/badges-dark.png">
-        <img src="iphone-16/badges.png" width="393" height="852" alt="Bacheca dei Guardiani su iPhone 16" loading="lazy">
-        <figcaption><strong>iPhone 16</strong>393x852<br>14 Pro, 15, 16</figcaption>
+      <figure>
+        <img src="iphone-se-3rd-gen/badges.png" alt="Bacheca dei Guardiani su iPhone se (3ª gen)" loading="lazy" data-shot>
+        <figcaption><b>iPhone se (3ª gen)</b>viewport 667pt<span class="chip neutral">scorre 878px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-16-pro/badges.png" data-theme-dark="">
-        <img src="iphone-16-pro/badges.png" width="402" height="874" alt="Bacheca dei Guardiani su iPhone 16 Pro" loading="lazy">
-        <figcaption><strong>iPhone 16 Pro</strong>402x874<br>16 Pro</figcaption>
+      <figure>
+        <img src="iphone-16-pro/badges.png" alt="Bacheca dei Guardiani su iPhone 16 pro" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16 pro</b>viewport 681pt<span class="chip neutral">scorre 815px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-11/badges.png" data-theme-dark="">
-        <img src="iphone-11/badges.png" width="414" height="896" alt="Bacheca dei Guardiani su iPhone 11" loading="lazy">
-        <figcaption><strong>iPhone 11</strong>414x896<br>XR, XS Max, 11</figcaption>
+      <figure>
+        <img src="iphone-11/badges.png" alt="Bacheca dei Guardiani su iPhone 11" loading="lazy" data-shot>
+        <figcaption><b>iPhone 11</b>viewport 715pt<span class="chip neutral">scorre 781px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-14-plus/badges.png" data-theme-dark="">
-        <img src="iphone-14-plus/badges.png" width="428" height="926" alt="Bacheca dei Guardiani su iPhone 14 Plus" loading="lazy">
-        <figcaption><strong>iPhone 14 Plus</strong>428x926<br>12/13 Pro Max, 14 Plus</figcaption>
+      <figure>
+        <img src="iphone-14-plus/badges.png" alt="Bacheca dei Guardiani su iPhone 14 plus" loading="lazy" data-shot>
+        <figcaption><b>iPhone 14 plus</b>viewport 746pt<span class="chip neutral">scorre 810px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-15-pro-max/badges.png" data-theme-dark="">
-        <img src="iphone-15-pro-max/badges.png" width="430" height="932" alt="Bacheca dei Guardiani su iPhone 15 Pro Max" loading="lazy">
-        <figcaption><strong>iPhone 15 Pro Max</strong>430x932<br>15 Pro Max, 16 Plus</figcaption>
+      <figure>
+        <img src="iphone-16-pro-max/badges.png" alt="Bacheca dei Guardiani su iPhone 16 pro max" loading="lazy" data-shot>
+        <figcaption><b>iPhone 16 pro max</b>viewport 763pt<span class="chip neutral">scorre 793px</span></figcaption>
       </figure>
-      <figure data-theme-light="iphone-16-pro-max/badges.png" data-theme-dark="">
-        <img src="iphone-16-pro-max/badges.png" width="440" height="956" alt="Bacheca dei Guardiani su iPhone 16 Pro Max" loading="lazy">
-        <figcaption><strong>iPhone 16 Pro Max</strong>440x956<br>16 Pro Max</figcaption>
+    </div>
+  </section>
+
+  <section>
+    <h2>Tema scuro</h2>
+    <p class="path">stesse schermate, tema scuro</p>
+    <div class="rail">
+      <figure>
+        <img src="iphone-13-mini/home-dark.png" alt="Home in tema scuro su iPhone 13 mini" loading="lazy" data-shot>
+        <figcaption><b>Home</b>iPhone 13 mini</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-13-mini/game-dark.png" alt="Sessione di gioco in tema scuro su iPhone 13 mini" loading="lazy" data-shot>
+        <figcaption><b>Sessione di gioco</b>iPhone 13 mini</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-13-mini/map-dark.png" alt="Mappa dei livelli in tema scuro su iPhone 13 mini" loading="lazy" data-shot>
+        <figcaption><b>Mappa dei livelli</b>iPhone 13 mini</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-13-mini/badges-dark.png" alt="Bacheca dei Guardiani in tema scuro su iPhone 13 mini" loading="lazy" data-shot>
+        <figcaption><b>Bacheca dei Guardiani</b>iPhone 13 mini</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16/home-dark.png" alt="Home in tema scuro su iPhone 16" loading="lazy" data-shot>
+        <figcaption><b>Home</b>iPhone 16</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16/game-dark.png" alt="Sessione di gioco in tema scuro su iPhone 16" loading="lazy" data-shot>
+        <figcaption><b>Sessione di gioco</b>iPhone 16</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16/map-dark.png" alt="Mappa dei livelli in tema scuro su iPhone 16" loading="lazy" data-shot>
+        <figcaption><b>Mappa dei livelli</b>iPhone 16</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16/badges-dark.png" alt="Bacheca dei Guardiani in tema scuro su iPhone 16" loading="lazy" data-shot>
+        <figcaption><b>Bacheca dei Guardiani</b>iPhone 16</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-12/home-dark.png" alt="Home in tema scuro su iPhone 12" loading="lazy" data-shot>
+        <figcaption><b>Home</b>iPhone 12</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-12/game-dark.png" alt="Sessione di gioco in tema scuro su iPhone 12" loading="lazy" data-shot>
+        <figcaption><b>Sessione di gioco</b>iPhone 12</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-12/map-dark.png" alt="Mappa dei livelli in tema scuro su iPhone 12" loading="lazy" data-shot>
+        <figcaption><b>Mappa dei livelli</b>iPhone 12</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-12/badges-dark.png" alt="Bacheca dei Guardiani in tema scuro su iPhone 12" loading="lazy" data-shot>
+        <figcaption><b>Bacheca dei Guardiani</b>iPhone 12</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-se-3rd-gen/home-dark.png" alt="Home in tema scuro su iPhone se (3ª gen)" loading="lazy" data-shot>
+        <figcaption><b>Home</b>iPhone se (3ª gen)</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-se-3rd-gen/game-dark.png" alt="Sessione di gioco in tema scuro su iPhone se (3ª gen)" loading="lazy" data-shot>
+        <figcaption><b>Sessione di gioco</b>iPhone se (3ª gen)</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-se-3rd-gen/map-dark.png" alt="Mappa dei livelli in tema scuro su iPhone se (3ª gen)" loading="lazy" data-shot>
+        <figcaption><b>Mappa dei livelli</b>iPhone se (3ª gen)</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-se-3rd-gen/badges-dark.png" alt="Bacheca dei Guardiani in tema scuro su iPhone se (3ª gen)" loading="lazy" data-shot>
+        <figcaption><b>Bacheca dei Guardiani</b>iPhone se (3ª gen)</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16-pro/home-dark.png" alt="Home in tema scuro su iPhone 16 pro" loading="lazy" data-shot>
+        <figcaption><b>Home</b>iPhone 16 pro</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16-pro/game-dark.png" alt="Sessione di gioco in tema scuro su iPhone 16 pro" loading="lazy" data-shot>
+        <figcaption><b>Sessione di gioco</b>iPhone 16 pro</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16-pro/map-dark.png" alt="Mappa dei livelli in tema scuro su iPhone 16 pro" loading="lazy" data-shot>
+        <figcaption><b>Mappa dei livelli</b>iPhone 16 pro</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16-pro/badges-dark.png" alt="Bacheca dei Guardiani in tema scuro su iPhone 16 pro" loading="lazy" data-shot>
+        <figcaption><b>Bacheca dei Guardiani</b>iPhone 16 pro</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-11/home-dark.png" alt="Home in tema scuro su iPhone 11" loading="lazy" data-shot>
+        <figcaption><b>Home</b>iPhone 11</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-11/game-dark.png" alt="Sessione di gioco in tema scuro su iPhone 11" loading="lazy" data-shot>
+        <figcaption><b>Sessione di gioco</b>iPhone 11</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-11/map-dark.png" alt="Mappa dei livelli in tema scuro su iPhone 11" loading="lazy" data-shot>
+        <figcaption><b>Mappa dei livelli</b>iPhone 11</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-11/badges-dark.png" alt="Bacheca dei Guardiani in tema scuro su iPhone 11" loading="lazy" data-shot>
+        <figcaption><b>Bacheca dei Guardiani</b>iPhone 11</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-14-plus/home-dark.png" alt="Home in tema scuro su iPhone 14 plus" loading="lazy" data-shot>
+        <figcaption><b>Home</b>iPhone 14 plus</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-14-plus/game-dark.png" alt="Sessione di gioco in tema scuro su iPhone 14 plus" loading="lazy" data-shot>
+        <figcaption><b>Sessione di gioco</b>iPhone 14 plus</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-14-plus/map-dark.png" alt="Mappa dei livelli in tema scuro su iPhone 14 plus" loading="lazy" data-shot>
+        <figcaption><b>Mappa dei livelli</b>iPhone 14 plus</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-14-plus/badges-dark.png" alt="Bacheca dei Guardiani in tema scuro su iPhone 14 plus" loading="lazy" data-shot>
+        <figcaption><b>Bacheca dei Guardiani</b>iPhone 14 plus</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16-pro-max/home-dark.png" alt="Home in tema scuro su iPhone 16 pro max" loading="lazy" data-shot>
+        <figcaption><b>Home</b>iPhone 16 pro max</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16-pro-max/game-dark.png" alt="Sessione di gioco in tema scuro su iPhone 16 pro max" loading="lazy" data-shot>
+        <figcaption><b>Sessione di gioco</b>iPhone 16 pro max</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16-pro-max/map-dark.png" alt="Mappa dei livelli in tema scuro su iPhone 16 pro max" loading="lazy" data-shot>
+        <figcaption><b>Mappa dei livelli</b>iPhone 16 pro max</figcaption>
+      </figure>
+      <figure>
+        <img src="iphone-16-pro-max/badges-dark.png" alt="Bacheca dei Guardiani in tema scuro su iPhone 16 pro max" loading="lazy" data-shot>
+        <figcaption><b>Bacheca dei Guardiani</b>iPhone 16 pro max</figcaption>
       </figure>
     </div>
   </section>
 </main>
 <script>
-  const tema = document.getElementById('tema')
-  const scala = document.getElementById('scala')
-
-  const applica = () => {
-    const t = tema.value
-    const s = Number(scala.value)
-    for (const fig of document.querySelectorAll('figure')) {
-      const src = fig.dataset['theme' + t.charAt(0).toUpperCase() + t.slice(1)]
-      const img = fig.querySelector('img')
-      // in tema scuro esiste solo il dispositivo di riferimento: gli altri restano chiari
-      img.src = src || fig.dataset.themeLight
-      img.style.width = (img.getAttribute('width') * s) + 'px'
+  const applica = (scala) => {
+    for (const img of document.querySelectorAll('[data-shot]')) {
+      if (!img.dataset.w && img.naturalWidth) img.dataset.w = img.naturalWidth
+      const base = Number(img.dataset.w || 390)
+      img.style.width = (base * scala) + 'px'
       img.style.height = 'auto'
     }
   }
 
-  tema.addEventListener('change', applica)
-  scala.addEventListener('change', applica)
-  applica()
+  const bottoni = document.querySelectorAll('.controls button')
+  for (const b of bottoni) {
+    b.addEventListener('click', () => {
+      for (const other of bottoni) other.setAttribute('aria-pressed', String(other === b))
+      applica(Number(b.dataset.scale))
+    })
+  }
+
+  addEventListener('load', () => applica(0.55))
 </script>
 </body>
 </html>

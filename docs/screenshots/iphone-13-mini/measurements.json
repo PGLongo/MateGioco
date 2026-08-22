@@ -1,0 +1,34 @@
+[
+  {
+    "screen": "home",
+    "width": 375,
+    "viewport": 629,
+    "overflow": 0,
+    "cardGap": 6,
+    "keyHeight": null
+  },
+  {
+    "screen": "game",
+    "width": 375,
+    "viewport": 629,
+    "overflow": 0,
+    "cardGap": null,
+    "keyHeight": 47
+  },
+  {
+    "screen": "map",
+    "width": 375,
+    "viewport": 629,
+    "overflow": 987,
+    "cardGap": null,
+    "keyHeight": null
+  },
+  {
+    "screen": "badges",
+    "width": 375,
+    "viewport": 629,
+    "overflow": 881,
+    "cardGap": null,
+    "keyHeight": null
+  }
+]
