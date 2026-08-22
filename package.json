@@ -17,6 +17,7 @@
     "lint:fix": "eslint . --fix",
     "test": "vitest run",
     "test:watch": "vitest",
+    "screenshots": "npm run generate && node scripts/screenshots.mjs",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
@@ -45,6 +46,7 @@
     "@vue/test-utils": "^2.4.11",
     "eslint": "^10.9.0",
     "happy-dom": "^20.11.6",
+    "playwright-core": "^1.62.1",
     "standard-version": "^9.5.0",
     "typescript": "^6.0.2",
     "vitest": "^4.1.11"
