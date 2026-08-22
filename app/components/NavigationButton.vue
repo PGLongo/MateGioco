@@ -1,15 +1,33 @@
 <template>
-  <button class="nav-button">
+  <button
+    class="nav-button"
+    :class="{ 'is-disabled': !to }"
+    :disabled="!to"
+    :data-cy="`nav-${icon.replace('mdi:', '')}`"
+    @click="navigate"
+  >
     <Icon :name="icon" class="nav-icon" />
     <span class="nav-label">{{ label }}</span>
   </button>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   icon: string
   label: string
+  /** Rotta di destinazione; senza questa il pulsante resta spento invece di non fare nulla */
+  to?: string
 }>()
+
+const router = useRouter()
+const { playClick } = useSound()
+
+const navigate = () => {
+  if (!props.to) return
+
+  playClick()
+  router.push(props.to)
+}
 </script>
 
 <style scoped>
@@ -34,6 +52,17 @@ defineProps<{
 
 .nav-button:active {
   transform: scale(0.95);
+}
+
+/* Voce senza destinazione (arrivera' con la bacheca dei badge): spenta e non premibile */
+.nav-button.is-disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.nav-button.is-disabled:hover,
+.nav-button.is-disabled:active {
+  transform: none;
 }
 
 .nav-icon {
