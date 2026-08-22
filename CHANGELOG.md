@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/PGLongo/MateGioco/compare/v1.7.0...v1.8.0) (2026-08-22)
+
+
+### 🐛 Bug Fixes
+
+* **a11y:** set the html lang attribute in the served document ([fbf59bc](https://github.com/PGLongo/MateGioco/commit/fbf59bc7c395fab4e5ba6269d805b2386dce3c7e))
+* **composable:** share the stars state across components ([8726209](https://github.com/PGLongo/MateGioco/commit/872620983991505af19841d173f16c832395e41d))
+* **i18n:** extract hardcoded strings and localize the document head ([cbb4faf](https://github.com/PGLongo/MateGioco/commit/cbb4faf5e33ca399af35c3c2c6271ae990e3a36f))
+* **ui:** keep the number pad usable on short viewports ([947c958](https://github.com/PGLongo/MateGioco/commit/947c958314f72b309c8797fd34263b049c0d2c59))
+
+
+### ✨ Features
+
+* **composable:** generate exercises from a level configuration ([b5cc085](https://github.com/PGLongo/MateGioco/commit/b5cc085e26f204cf8941f707c291268564d96394))
+* **composable:** persist per-level stars and unlock progression ([69c98af](https://github.com/PGLongo/MateGioco/commit/69c98af57cef43e91574db8b98b7ece74b1929c1))
+* **config:** add the level and world configuration ([25eae72](https://github.com/PGLongo/MateGioco/commit/25eae72a419c27b28aa88c301db5c9d80ccdc7d6))
+* **game:** honour the level chosen in the map ([f513776](https://github.com/PGLongo/MateGioco/commit/f513776fb300b65baa6127b7c3aa438555a235ed))
+* **game:** play the level the child has reached ([147580e](https://github.com/PGLongo/MateGioco/commit/147580e3c52954d50930979da69675b97d9c5daf))
+* robust game page layout with zoom/height responsiveness ([ae43912](https://github.com/PGLongo/MateGioco/commit/ae4391251a74736c996bb754037386865f705d6e))
+* **ui:** add the level map page ([4c34046](https://github.com/PGLongo/MateGioco/commit/4c34046461197c2d3787e9db995f5d41f80484ea))
+* **ui:** make the footer navigation reach the map ([998ed97](https://github.com/PGLongo/MateGioco/commit/998ed978cc94c675d09a5957ba5eabb397957d35))
+* **ui:** redesign home page and footer with Bluey aesthetic ([942ba19](https://github.com/PGLongo/MateGioco/commit/942ba198d07b2507f4fa322173cb767705c34d56))
+* **ui:** show the current level and its stars on the home card ([b456f29](https://github.com/PGLongo/MateGioco/commit/b456f29cf3525486018e02e63713f41feb2f35ff))
+
+
+### 📝 Documentation
+
+* add AGENTS, CLAUDE and CONTRIBUTING, align README with code ([2d287aa](https://github.com/PGLongo/MateGioco/commit/2d287aa29ee5e01a9ec7117e4b7f07de0d815cc7))
+* add ROADMAP and move plans out of versioning ([01623de](https://github.com/PGLongo/MateGioco/commit/01623dea1e84ab821a8779df48483cdb2866b099))
+* align stack versions after dependency upgrade ([36fad54](https://github.com/PGLongo/MateGioco/commit/36fad54da9abfb706e8ee5fe3a7752cce92602be))
+* mark the browser-verified defects as fixed ([4177d66](https://github.com/PGLongo/MateGioco/commit/4177d66c5c85a1541b42a605b42ad86eb787ec9a))
+* record browser-verified defects in ROADMAP ([d186615](https://github.com/PGLongo/MateGioco/commit/d186615f6ffd5934081e82a0651f8c87a8b6a982))
+* record the level system in roadmap and governance files ([784a008](https://github.com/PGLongo/MateGioco/commit/784a008cf2f98cd20084432c89a1c287c2b30e55))
+
 ## [1.7.0](https://github.com/PGLongo/MateGioco/compare/v1.6.0...v1.7.0) (2025-12-29)
 
 ## [1.6.0](https://github.com/PGLongo/MateGioco/compare/v1.5.0...v1.6.0) (2025-12-29)
