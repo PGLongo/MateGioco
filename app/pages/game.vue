@@ -53,9 +53,11 @@
 </template>
 
 <script setup lang="ts">
+import { getLevel } from '~/config/levels.config'
+
 const { loadSettings } = useSettings()
 const { loadStars, addStars } = useStars()
-const { currentLevel, addStarsTo, loadProgression } = useProgression()
+const { currentLevel, isUnlocked, addStarsTo, loadProgression } = useProgression()
 const { playSuccess, playError, playClick, playCelebration } = useSound()
 const { celebrate, miniCelebration } = useConfetti()
 const { vibrate } = useVibration()
@@ -74,6 +76,18 @@ const {
 
 const { t } = useI18n()
 const router = useRouter()
+const route = useRoute()
+
+/**
+ * Livello della sessione: quello scelto nella mappa (`?level=`) se e' davvero sbloccato,
+ * altrimenti quello a cui il bambino e' arrivato. Il controllo di sblocco sta qui perche'
+ * la query e' modificabile a mano nella barra degli indirizzi.
+ */
+const sessionLevel = computed(() => {
+  const requested = typeof route.query.level === 'string' ? getLevel(route.query.level) : undefined
+
+  return requested && isUnlocked(requested.id) ? requested : currentLevel.value
+})
 
 // State
 const feedbackMessage = ref('')
@@ -137,7 +151,7 @@ const submitAnswer = () => {
 
     // Il contatore globale alimenta l'header, quello per livello la progressione
     addStars(1)
-    addStarsTo(currentLevel.value.id, 1)
+    addStarsTo(sessionLevel.value.id, 1)
     sessionStars.value++
 
     setTimeout(() => {
@@ -181,7 +195,7 @@ onMounted(() => {
   loadProgression()
 
   // La sessione si gioca sul livello a cui il bambino e' arrivato, non su una difficolta' fissa
-  generateExercises(currentLevel.value)
+  generateExercises(sessionLevel.value)
 })
 </script>
 
