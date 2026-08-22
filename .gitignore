@@ -27,3 +27,6 @@ logs
 
 # Artefatti di Playwright MCP (snapshot, console log, screenshot)
 .playwright-mcp
+
+# Report autonomo generato: incorpora i PNG in base64, non va versionato
+docs/screenshots/report.html
