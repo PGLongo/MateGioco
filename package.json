@@ -4,6 +4,9 @@
   "description": "App educativa di matematica per bambini",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.19.0"
+  },
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
