@@ -252,7 +252,12 @@ const run = async () => {
   try {
     browser = await chromium.launch({ channel: 'chrome' })
 
-    await rm(OUT_DIR, { recursive: true, force: true })
+    // Si rimuove **solo** cio' che questo script genera: nella cartella vive anche il
+    // README scritto a mano, che un rm -rf dell'intera directory cancellava
+    for (const device of DEVICES) {
+      await rm(join(OUT_DIR, device.slug), { recursive: true, force: true })
+    }
+    await rm(join(OUT_DIR, 'index.html'), { force: true })
 
     for (const device of DEVICES) {
       const themes = device.reference ? ['light', 'dark'] : ['light']
