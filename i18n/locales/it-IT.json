@@ -16,7 +16,9 @@
   "worlds": {
     "sum": "L'Isola delle Somme",
     "sub": "La Valle delle Sottrazioni",
-    "mix": "La Grande Sfida"
+    "mix": "La Grande Sfida",
+    "mul": "Il Prato delle Tabelline",
+    "div": "Lo Stagno delle Divisioni"
   },
   "levels": {
     "sum1": "Somme entro il 10",
@@ -27,7 +29,14 @@
     "sub2": "Sottrazioni entro il 20",
     "sub3": "Sottrazioni entro il 50",
     "sub4": "Sottrazioni entro il 100",
-    "mix1": "Somme e sottrazioni entro il 100"
+    "mix1": "Somme e sottrazioni entro il 100",
+    "mul1": "Tabelline entro il 20",
+    "mul2": "Tabelline entro il 50",
+    "mul3": "Tabelline entro il 100",
+    "div1": "Divisioni entro il 20",
+    "div2": "Divisioni entro il 50",
+    "div3": "Divisioni entro il 100",
+    "mix2": "Tutte le operazioni entro il 100"
   },
   "map": {
     "title": "La Mappa",
@@ -77,6 +86,34 @@
     "lion": {
       "name": "Maestro dei Numeri",
       "desc": "Hai vinto la Grande Sfida!"
+    },
+    "bee": {
+      "name": "L'Ape Operosa",
+      "desc": "Hai completato le tabelline entro il 20!"
+    },
+    "butterfly": {
+      "name": "Farfalla Moltiplicatrice",
+      "desc": "Hai completato le tabelline entro il 50!"
+    },
+    "ladybug": {
+      "name": "Coccinella Fortunata",
+      "desc": "Hai completato le tabelline entro il 100!"
+    },
+    "frog": {
+      "name": "La Rana Divisoria",
+      "desc": "Hai completato le divisioni entro il 20!"
+    },
+    "fish": {
+      "name": "Pesce in Parti Uguali",
+      "desc": "Hai completato le divisioni entro il 50!"
+    },
+    "duck": {
+      "name": "Papera Precisa",
+      "desc": "Hai completato le divisioni entro il 100!"
+    },
+    "dragon": {
+      "name": "Drago dei Numeri",
+      "desc": "Hai vinto la Sfida Suprema!"
     }
   },
   "nav": {

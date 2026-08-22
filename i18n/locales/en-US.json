@@ -16,7 +16,9 @@
   "worlds": {
     "sum": "The Island of Sums",
     "sub": "The Valley of Subtractions",
-    "mix": "The Great Challenge"
+    "mix": "The Great Challenge",
+    "mul": "The Meadow of Times Tables",
+    "div": "The Pond of Divisions"
   },
   "levels": {
     "sum1": "Sums up to 10",
@@ -27,7 +29,14 @@
     "sub2": "Subtractions up to 20",
     "sub3": "Subtractions up to 50",
     "sub4": "Subtractions up to 100",
-    "mix1": "Sums and subtractions up to 100"
+    "mix1": "Sums and subtractions up to 100",
+    "mul1": "Times tables up to 20",
+    "mul2": "Times tables up to 50",
+    "mul3": "Times tables up to 100",
+    "div1": "Divisions up to 20",
+    "div2": "Divisions up to 50",
+    "div3": "Divisions up to 100",
+    "mix2": "All operations up to 100"
   },
   "map": {
     "title": "The Map",
@@ -77,6 +86,34 @@
     "lion": {
       "name": "Master of Numbers",
       "desc": "You won the Great Challenge!"
+    },
+    "bee": {
+      "name": "The Busy Bee",
+      "desc": "You completed times tables up to 20!"
+    },
+    "butterfly": {
+      "name": "Multiplying Butterfly",
+      "desc": "You completed times tables up to 50!"
+    },
+    "ladybug": {
+      "name": "Lucky Ladybug",
+      "desc": "You completed times tables up to 100!"
+    },
+    "frog": {
+      "name": "The Dividing Frog",
+      "desc": "You completed divisions up to 20!"
+    },
+    "fish": {
+      "name": "Fish in Equal Parts",
+      "desc": "You completed divisions up to 50!"
+    },
+    "duck": {
+      "name": "Precise Duck",
+      "desc": "You completed divisions up to 100!"
+    },
+    "dragon": {
+      "name": "Dragon of Numbers",
+      "desc": "You won the Supreme Challenge!"
     }
   },
   "nav": {

@@ -22,7 +22,20 @@ export const BADGES: Badge[] = [
   { id: 'badge-bear', levelId: 'sub-4', emoji: '🐻', nameKey: 'badges.bear.name', descKey: 'badges.bear.desc' },
 
   // Mondo 3: leggendario
-  { id: 'badge-lion', levelId: 'mix-1', emoji: '🦁', nameKey: 'badges.lion.name', descKey: 'badges.lion.desc' }
+  { id: 'badge-lion', levelId: 'mix-1', emoji: '🦁', nameKey: 'badges.lion.name', descKey: 'badges.lion.desc' },
+
+  // Mondo 4: gli insetti del prato delle tabelline
+  { id: 'badge-bee', levelId: 'mul-1', emoji: '🐝', nameKey: 'badges.bee.name', descKey: 'badges.bee.desc' },
+  { id: 'badge-butterfly', levelId: 'mul-2', emoji: '🦋', nameKey: 'badges.butterfly.name', descKey: 'badges.butterfly.desc' },
+  { id: 'badge-ladybug', levelId: 'mul-3', emoji: '🐞', nameKey: 'badges.ladybug.name', descKey: 'badges.ladybug.desc' },
+
+  // Mondo 5: gli abitanti dello stagno delle divisioni
+  { id: 'badge-frog', levelId: 'div-1', emoji: '🐸', nameKey: 'badges.frog.name', descKey: 'badges.frog.desc' },
+  { id: 'badge-fish', levelId: 'div-2', emoji: '🐠', nameKey: 'badges.fish.name', descKey: 'badges.fish.desc' },
+  { id: 'badge-duck', levelId: 'div-3', emoji: '🦆', nameKey: 'badges.duck.name', descKey: 'badges.duck.desc' },
+
+  // La Sfida Suprema
+  { id: 'badge-dragon', levelId: 'mix-2', emoji: '🐉', nameKey: 'badges.dragon.name', descKey: 'badges.dragon.desc' }
 ]
 
 export const getBadge = (id: string): Badge | undefined =>
