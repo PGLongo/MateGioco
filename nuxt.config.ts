@@ -127,6 +127,12 @@ export default defineNuxtConfig({
   app: {
     baseURL: process.env.NODE_ENV === 'production' ? '/MateGioco/' : '/',
     head: {
+      // Con ssr: false questo e' l'unico posto che finisce nell'HTML servito: l'attributo
+      // lang deve esserci gia' qui (defaultLocale), poi app.vue lo riallinea alla lingua
+      // effettivamente rilevata
+      htmlAttrs: {
+        lang: 'it'
+      },
       title: 'MateGioco - Impara la Matematica!',
       meta: [
         { charset: 'utf-8' },
