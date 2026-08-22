@@ -81,6 +81,7 @@
 
 <script setup lang="ts">
 import type { Badge } from '~/types/Badge'
+import type { LevelConfig } from '~/types/Level'
 import { getLevel } from '~/config/levels.config'
 
 const { loadSettings } = useSettings()
@@ -110,12 +111,18 @@ const route = useRoute()
  * Livello della sessione: quello scelto nella mappa (`?level=`) se e' davvero sbloccato,
  * altrimenti quello a cui il bambino e' arrivato. Il controllo di sblocco sta qui perche'
  * la query e' modificabile a mano nella barra degli indirizzi.
+ *
+ * E' un `ref` fissato all'avvio e **non** un computed su `currentLevel`: completando il
+ * livello a metà sessione, un computed scivolava sul livello successivo e le stelline
+ * rimanenti venivano accreditate a un livello mai giocato.
  */
-const sessionLevel = computed(() => {
+const sessionLevel = ref<LevelConfig>(currentLevel.value)
+
+const resolveSessionLevel = (): LevelConfig => {
   const requested = typeof route.query.level === 'string' ? getLevel(route.query.level) : undefined
 
   return requested && isUnlocked(requested.id) ? requested : currentLevel.value
-})
+}
 
 // State
 const feedbackMessage = ref('')
@@ -238,7 +245,9 @@ onMounted(() => {
   loadStars()
   loadProgression()
 
-  // La sessione si gioca sul livello a cui il bambino e' arrivato, non su una difficolta' fissa
+  // La sessione si gioca sul livello a cui il bambino e' arrivato, non su una difficolta'
+  // fissa, e quel livello resta lo stesso fino alla fine della partita
+  sessionLevel.value = resolveSessionLevel()
   generateExercises(sessionLevel.value)
 })
 </script>
