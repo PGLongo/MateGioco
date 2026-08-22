@@ -55,6 +55,7 @@
 <script setup lang="ts">
 const { loadSettings } = useSettings()
 const { loadStars, addStars } = useStars()
+const { currentLevel, addStarsTo, loadProgression } = useProgression()
 const { playSuccess, playError, playClick, playCelebration } = useSound()
 const { celebrate, miniCelebration } = useConfetti()
 const { vibrate } = useVibration()
@@ -134,7 +135,9 @@ const submitAnswer = () => {
       showCorrectAnswer.value = true
     }
 
+    // Il contatore globale alimenta l'header, quello per livello la progressione
     addStars(1)
+    addStarsTo(currentLevel.value.id, 1)
     sessionStars.value++
 
     setTimeout(() => {
@@ -175,7 +178,10 @@ watch(sessionCompleted, (completed) => {
 onMounted(() => {
   loadSettings()
   loadStars()
-  generateExercises()
+  loadProgression()
+
+  // La sessione si gioca sul livello a cui il bambino e' arrivato, non su una difficolta' fissa
+  generateExercises(currentLevel.value)
 })
 </script>
 
