@@ -24,3 +24,6 @@ logs
 
 # Piani implementativi locali (stato di lavoro, non versionato)
 .plans
+
+# Artefatti di Playwright MCP (snapshot, console log, screenshot)
+.playwright-mcp

@@ -25,8 +25,8 @@ Funziona ed è in produzione:
 ## Il divario da colmare
 
 L'interfaccia **promette già** un sistema che il codice non ha: `ChallengeCard` mostra
-"Mancano X stelle al prossimo livello!" con `totalNeeded` scritto a mano a 100, e il footer
-ha un pulsante di navigazione che non porta a nessuna mappa. Il primo lavoro della roadmap
+"Mancano X stelle al prossimo livello!" con `totalNeeded` scritto a mano a 100, e i pulsanti
+"Mappa" e "Trofei" del footer non portano da nessuna parte. Il primo lavoro della roadmap
 non è aggiungere una feature: è rendere vera una promessa già fatta all'utente.
 
 ## Fase 1 - Motore a livelli 🔢
@@ -64,6 +64,29 @@ completabili non c'è niente da premiare.
 
 Moltiplicazioni (tabelline) e divisioni senza resto, come nuovi Mondi. Il motore della Fase
 1 è progettato per accoglierli senza riscritture: `OperationType` prevede già `*` e `/`.
+
+## Difetti noti
+
+Verificati nel browser il 2026-08-22 (Chrome 151, dev server), non intercettabili da lint o
+build perche' con `ssr: false` non c'e' prerendering:
+
+- **Il tastierino numerico collassa sui viewport bassi.** In `app/pages/game.vue` la
+  `.number-pad` e' un figlio flex che si comprime invece di andare in overflow: a 700px di
+  altezza e' alta 166px, a 560px scende a 26px (tasto OK a 20px, non centrabile da un dito
+  di bambino), a 493px arriva a **0** e il gioco e' inutilizzabile. `main` non diventa
+  scrollabile, quindi lo scroll non recupera: il contenuto viene schiacciato, non traboccato.
+  Colpisce telefono in landscape, tablet piccoli e finestre desktop basse. Direzione della
+  correzione: `min-height` sul tastierino e lasciare che `main` scrolli.
+- **Lingua mista.** Con il browser in inglese la pagina di gioco mostra "What is?", "Help",
+  "Delete" mentre header ("Ciao, Amico!") e CTA ("GIOCA ORA") restano in italiano, perche'
+  quelle stringhe sono hardcoded nei template. Per un utente di 4 anni italiano e' un difetto
+  di prodotto, non solo debito: va deciso se forzare `it` o completare l'estrazione i18n.
+- **`<html>` senza attributo `lang`**, segnalato da `@nuxt/hints` in console. Problema di
+  accessibilita' e di resa da parte degli screen reader.
+- **`ProgressBar.vue` non e' montato da nessuna parte** (dead code), e con lui restano
+  inutilizzate le chiavi i18n `footer.github`, `footer.theme`, `footer.settings`.
+- **I pulsanti "Mappa" e "Trofei" del footer non navigano**: `NavigationButton` non ha
+  `@click`. Le destinazioni arrivano con le Fasi 1 e 2.
 
 ## Debito tecnico che condiziona la roadmap
 
