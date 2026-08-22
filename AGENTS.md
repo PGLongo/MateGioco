@@ -80,14 +80,18 @@ darla per fatta.
 
 ## Convenzioni di codice
 
-- Composition API con `<script setup lang="ts">` in ogni componente e pagina (l'unica
-  eccezione e' `app/app.vue`).
+- Composition API con `<script setup lang="ts">` in ogni componente e pagina, `app.vue`
+  compreso.
 - La logica di business sta nei composable in `app/composables/`; i componenti restano su
   UI e binding.
 - TypeScript tipizzato in modo esplicito: interfacce per props, emit e strutture dati,
   `any` da evitare. I tipi condivisi dei componenti stanno in `app/types/*.d.ts`.
 - Persistenza: solo `localStorage`, una chiave per dominio, con prefisso `mategioco-`
   (`mategioco-stars`, `mategioco-settings`). Letture e scritture sempre in `try/catch`.
+- **Lo stato condiviso fra componenti va dichiarato a livello di modulo**, fuori dalla
+  funzione del composable: un `ref` creato dentro il composable dà a ogni chiamante una
+  copia separata. `useStars` e `useSettings` sono i due esempi da seguire; era il difetto
+  per cui l'header non vedeva le stelline guadagnate nella pagina di gioco.
 - Stile: CSS scoped nel componente per il layout locale, variabili CSS di
   `app/assets/css/main.css` per colori, ombre e raggi. Non introdurre valori esadecimali
   nuovi nei componenti: aggiungi la custom property al design system.
@@ -120,9 +124,8 @@ darla per fatta.
 
 ## Verifica prima di consegnare
 
-1. `npm run lint` deve chiudere con **zero errori**. Restano 3 warning preesistenti
-   (`vue/attributes-order`, `vue/html-self-closing`) risolvibili con `npm run lint:fix`:
-   non introdurne di nuovi.
+1. `npm run lint` deve chiudere **pulito**: zero errori e zero warning, che e' lo stato
+   attuale del repository. Se ne compaiono, `npm run lint:fix` ne risolve la maggior parte.
 2. `npm run generate` deve completare senza errori: e' lo stesso comando che la CI usa per
    il deploy.
 3. Verifica a mano nel browser il flusso toccato (`npm run dev`), su viewport mobile: il

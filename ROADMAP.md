@@ -67,26 +67,39 @@ Moltiplicazioni (tabelline) e divisioni senza resto, come nuovi Mondi. Il motore
 
 ## Difetti noti
 
-Verificati nel browser il 2026-08-22 (Chrome 151, dev server), non intercettabili da lint o
-build perche' con `ssr: false` non c'e' prerendering:
+Verificati nel browser il 2026-08-22 (Chrome 151). Quelli chiusi lo stesso giorno restano
+elencati perche' dicono cosa e' stato guardato, non solo cosa manca.
 
-- **Il tastierino numerico collassa sui viewport bassi.** In `app/pages/game.vue` la
-  `.number-pad` e' un figlio flex che si comprime invece di andare in overflow: a 700px di
-  altezza e' alta 166px, a 560px scende a 26px (tasto OK a 20px, non centrabile da un dito
-  di bambino), a 493px arriva a **0** e il gioco e' inutilizzabile. `main` non diventa
-  scrollabile, quindi lo scroll non recupera: il contenuto viene schiacciato, non traboccato.
-  Colpisce telefono in landscape, tablet piccoli e finestre desktop basse. Direzione della
-  correzione: `min-height` sul tastierino e lasciare che `main` scrolli.
-- **Lingua mista.** Con il browser in inglese la pagina di gioco mostra "What is?", "Help",
-  "Delete" mentre header ("Ciao, Amico!") e CTA ("GIOCA ORA") restano in italiano, perche'
-  quelle stringhe sono hardcoded nei template. Per un utente di 4 anni italiano e' un difetto
-  di prodotto, non solo debito: va deciso se forzare `it` o completare l'estrazione i18n.
-- **`<html>` senza attributo `lang`**, segnalato da `@nuxt/hints` in console. Problema di
-  accessibilita' e di resa da parte degli screen reader.
-- **`ProgressBar.vue` non e' montato da nessuna parte** (dead code), e con lui restano
-  inutilizzate le chiavi i18n `footer.github`, `footer.theme`, `footer.settings`.
+**Risolti**
+
+- ~~Il tastierino numerico collassava a 0px di altezza sotto i ~500px di viewport~~
+  (`.number-pad` era un figlio flex con `min-height: 0` e bottoni senza altezza minima):
+  ora i bottoni hanno un pavimento di 44px, la griglia scala fino a quello e la pagina
+  scrolla invece di ritagliare. Su telefono in portrait il comportamento e' identico a
+  prima (nessuno scroll).
+- ~~Il contatore delle stelline nell'header non si aggiornava~~ dopo una risposta corretta:
+  `useStars` creava il `ref` dentro il composable, quindi header e pagina di gioco avevano
+  copie separate e servivano un reload. Ora e' un singleton di modulo, come `useSettings`.
+- ~~Lingua mista~~ (interfaccia in inglese con header e CTA in italiano): le stringhe
+  hardcoded nei template sono state estratte in `i18n/locales/`, e titolo e description del
+  documento seguono la lingua rilevata.
+- ~~`<html>` senza attributo `lang`~~: l'HTML generato ora porta `lang="it"` e `app.vue` lo
+  riallinea alla lingua rilevata. In dev `@nuxt/hints` continua a segnalarlo, perche'
+  valida lo shell prima dell'hydration: e' un falso positivo dell'ambiente di sviluppo.
+- ~~`ProgressBar.vue` era dead code~~: rimosso insieme al tipo orfano e alle chiavi i18n
+  `footer.*` che solo lui usava.
+
+**Aperti**
+
 - **I pulsanti "Mappa" e "Trofei" del footer non navigano**: `NavigationButton` non ha
-  `@click`. Le destinazioni arrivano con le Fasi 1 e 2.
+  `@click`. Le destinazioni arrivano con le Fasi 1 e 2, non prima.
+- **Il dark mode non e' raggiungibile.** `main.css` ha le regole `.dark`, ma
+  `nuxt.config.ts` imposta `colorMode.preference: 'light'` con `fallback: 'light'` e nessun
+  componente monta un interruttore: ne' automatico ne' manuale. Il README lo prometteva come
+  funzionalita' attiva; oggi va deciso se passare a `preference: 'system'` (cambia l'aspetto
+  a molti utenti) o esporre un interruttore.
+- **Il nome utente di default resta "Amico" anche in inglese**: e' un dato salvato in
+  `localStorage`, non una stringa di interfaccia, quindi non passa da i18n.
 
 ## Debito tecnico che condiziona la roadmap
 
@@ -94,10 +107,12 @@ Non sono feature, ma pesano su tutto quello che sta sopra:
 
 - **Nessun test automatico.** La logica di progressione (sblocchi, stelline per livello,
   tentativi) è esattamente il tipo di codice che si rompe in silenzio. Prima della Fase 1
-  va deciso se introdurre Vitest: è una scelta aperta, non ancora fatta.
-- **i18n applicato a metà.** Alcune stringhe sono ancora scritte nei template (per esempio
-  "GIOCA ORA" in `app/pages/index.vue`). Ogni fase che aggiunge interfaccia dovrebbe
-  chiudere il pezzo che tocca invece di allargare il debito.
+  va deciso se introdurre Vitest: è una scelta aperta, non ancora fatta. I due difetti
+  chiusi il 2026-08-22 (tastierino, contatore) sono la prova del costo: nessuno dei due
+  veniva intercettato da lint o build, solo da una prova nel browser.
+- **i18n da mantenere completo.** L'estrazione delle stringhe hardcoded e' stata chiusa il
+  2026-08-22: ogni fase che aggiunge interfaccia deve aggiungere le chiavi in **entrambi** i
+  file di `i18n/locales/`, altrimenti il debito si riapre da capo.
 - **`tailwind.config.ts` inerte.** Definisce colori e font che non arrivano da nessuna
   parte: Tailwind 4 non legge i config legacy senza una direttiva `@config`. I colori veri
   sono le custom property in `app/assets/css/main.css`. Va rimosso o attivato prima di

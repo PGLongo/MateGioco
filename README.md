@@ -34,7 +34,7 @@ Con un design accattivante ispirato allo stile del cartone animato _Bluey_, l'ap
 
 ### 🎨 Design & UX
 - **Stile "Bluey"**: Palette colori pastello (azzurro, arancione, verde acqua, rosa).
-- **Dark Mode** 🌙: Modalità notturna automatica o manuale, perfetta per la sera.
+- **Palette notturna** 🌙: Il design system ha le regole per il tema scuro (non ancora attivabile dall'interfaccia, vedi [ROADMAP](ROADMAP.md#difetti-noti)).
 - **Tipografia**: Font _Fredoka_ per la massima leggibilità.
 - **Micro-interazioni**: Animazioni fluide (bounce, pulse, shake) per un'esperienza tattile.
 - **Mobile-First**: Ottimizzata per dita piccole su tablet e smartphone.
