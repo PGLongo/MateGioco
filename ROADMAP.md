@@ -14,11 +14,13 @@ Funziona ed è in produzione:
 
 - Home page in stile Bluey: `ChallengeCard` con barra di progresso, contatore stelline,
   pulsante "Gioca ora", footer di navigazione.
-- Percorso a livelli: tre Mondi (somme, sottrazioni, sfida mista) per nove livelli, con
-  difficoltà crescente (entro 10, 20, 50, 100) e sblocco a 8 stelline per livello.
+- Percorso a livelli: cinque Mondi (somme, sottrazioni, tabelline, divisioni e due sfide
+  miste) per sedici livelli, con difficoltà crescente (entro 10, 20, 50, 100) e sblocco a 8
+  stelline per livello.
 - Mappa dei livelli raggiungibile dal footer: completati, corrente, chiusi con il requisito.
-- Bacheca dei badge: un Guardiano per livello completato, con modale di festeggiamento a
-  fine sessione.
+- Bacheca dei badge: un Guardiano per ciascuno dei sedici livelli, con modale di
+  festeggiamento a fine sessione.
+- Tema chiaro e scuro, con interruttore nell'header e default che segue il dispositivo.
 - Una sessione di gioco: **5 esercizi** generati sul livello raggiunto, o su quello scelto
   nella mappa fra quelli sbloccati.
 - Feedback immediato: colori, suoni generati via Web Audio API, vibrazione, confetti.
@@ -63,10 +65,19 @@ nuovi, con coriandoli e suono: e' anche il feedback di "Level Up" che mancava.
 Sostituire le emoji con SVG piu' avanti non tocca ne' la logica ne' i componenti: cambia
 un campo della configurazione.
 
-## Fase 4 - Espansioni 🚀
+## Fase 4 - Espansioni ✅
 
-Moltiplicazioni (tabelline) e divisioni senza resto, come nuovi Mondi. Il motore della Fase
-1 è progettato per accoglierli senza riscritture: `OperationType` prevede già `*` e `/`.
+Fatta. Due Mondi nuovi, **Il Prato delle Tabelline** (moltiplicazioni entro 20, 50, 100) e
+**Lo Stagno delle Divisioni** (divisioni sempre senza resto, entro 20, 50, 100), piu' un
+livello finale, **la Sfida Suprema**, che mescola tutte e quattro le operazioni. Il percorso
+passa da 9 a 16 livelli su 5 Mondi, con 16 Guardiani.
+
+Le operazioni dei livelli-sfida sono un campo della configurazione (`mixedOperations`), non
+un caso speciale sugli id dei Mondi: aggiungere un Mondo non richiede piu' di toccare il
+motore. Le divisioni si costruiscono al contrario (divisore e quoziente prima, dividendo
+come loro prodotto): e' l'unico modo di garantire che non ci sia mai resto. Il divisore
+parte da 1 di proposito, perche' sapere che dividere per uno non cambia il numero fa parte
+di quello che il livello insegna.
 
 ## Difetti noti
 
@@ -92,27 +103,30 @@ elencati perche' dicono cosa e' stato guardato, non solo cosa manca.
 - ~~`ProgressBar.vue` era dead code~~: rimosso insieme al tipo orfano e alle chiavi i18n
   `footer.*` che solo lui usava.
 
-**Aperti**
+- ~~I pulsanti "Mappa" e "Trofei" del footer non navigavano~~: ora portano a mappa e
+  bacheca, e `NavigationButton` resta spento quando una destinazione non esiste ancora.
+- ~~Il dark mode non era raggiungibile~~: `colorMode.preference` e' passato a `'system'`,
+  l'header ha un interruttore, e i colori scritti a mano nei componenti
+  (`background-color: white`) sono diventati custom property, senza le quali il tema scuro
+  restava a metà.
+- ~~Il nome di default restava "Amico" anche in inglese~~: il composable non impone piu' un
+  default, e l'interfaccia usa `header.defaultName` (Amico / Buddy).
+- ~~Due verità parallele sulle stelline~~: il totale dell'header e' ora derivato dalla somma
+  delle stelline per livello. Le stelline guadagnate prima dei livelli vengono recuperate
+  una volta sola dalla vecchia chiave `mategioco-stars` invece di essere perse.
+- ~~`tailwind.config.ts` inerte~~ e ~~`LICENSE` mancante~~: rimosso il primo, aggiunto il
+  secondo.
 
-- **I pulsanti "Mappa" e "Trofei" del footer non navigano**: `NavigationButton` non ha
-  `@click`. Le destinazioni arrivano con le Fasi 1 e 2, non prima.
-- **Il dark mode non e' raggiungibile.** `main.css` ha le regole `.dark`, ma
-  `nuxt.config.ts` imposta `colorMode.preference: 'light'` con `fallback: 'light'` e nessun
-  componente monta un interruttore: ne' automatico ne' manuale. Il README lo prometteva come
-  funzionalita' attiva; oggi va deciso se passare a `preference: 'system'` (cambia l'aspetto
-  a molti utenti) o esporre un interruttore.
-- **Il nome utente di default resta "Amico" anche in inglese**: e' un dato salvato in
-  `localStorage`, non una stringa di interfaccia, quindi non passa da i18n.
+**Aperti**
 
 ## Debito tecnico che condiziona la roadmap
 
 Non sono feature, ma pesano su tutto quello che sta sopra:
 
-- **Nessun test automatico.** La logica di progressione (sblocchi, stelline per livello,
-  tentativi) è esattamente il tipo di codice che si rompe in silenzio. Prima della Fase 1
-  va deciso se introdurre Vitest: è una scelta aperta, non ancora fatta. I due difetti
-  chiusi il 2026-08-22 (tastierino, contatore) sono la prova del costo: nessuno dei due
-  veniva intercettato da lint o build, solo da una prova nel browser.
+- **La copertura si ferma alla logica.** 77 test Vitest coprono motore, sessione,
+  progressione, badge e le invarianti della configurazione; le pagine no. I difetti trovati
+  finora (tastierino collassato, contatore non condiviso, livello di sessione che scivolava)
+  erano tutti invisibili a lint e build.
 - **i18n da mantenere completo.** L'estrazione delle stringhe hardcoded e' stata chiusa il
   2026-08-22: ogni fase che aggiunge interfaccia deve aggiungere le chiavi in **entrambi** i
   file di `i18n/locales/`, altrimenti il debito si riapre da capo.
@@ -137,14 +151,19 @@ Restano aperte due cose che la Fase 1 ha fatto emergere:
 
 - **Due verità parallele sulle stelline**: l'header somma tutto, la progressione conta per
   livello, e nessuno dei due deriva dall'altro. Oggi coincidono.
-- **Nessun test sui componenti**: la logica (motore, sessione, progressione, badge) è
-  coperta da 45 test; mappa, bacheca e modale sono verificate solo a mano nel browser. È il
-  buco che ha fatto passare due difetti già corretti.
+- **Test sui componenti solo parziali**: 77 test coprono la logica (motore, sessione,
+  progressione, badge), le invarianti della configurazione e due componenti (`BadgeCard`,
+  `ChallengeCard`). Le pagine — mappa, bacheca, gioco — restano verificate a mano nel
+  browser: è il buco che aveva fatto passare il tastierino collassato e il livello di
+  sessione che scivolava.
+- **Nessun test end-to-end**: `nuxt:e2e` (Playwright) sarebbe il passo naturale, ora che
+  Chrome è installato nell'ambiente di sviluppo.
 
 ## Storico
 
 | Fase | Esito |
 |---|---|
+| Fase 4 - Tabelline, divisioni e Sfida Suprema | Completata il 2026-08-22, su `develop` |
 | Fase 3 - Badge, i Guardiani dei Numeri | Completata il 2026-08-22, su `develop` |
 | Fase 1 - Motore a livelli e progressione | Completata il 2026-08-22, rilasciata in **1.8.0** |
 | Fase 2 - Mappa dei livelli | Completata il 2026-08-22, rilasciata in **1.8.0** |

@@ -24,8 +24,9 @@ Con un design accattivante ispirato allo stile del cartone animato _Bluey_, l'ap
 ## ✨ Features Principali
 
 ### 🧮 Sistema Esercizi
-- **Percorso a livelli**: tre Mondi (somme, sottrazioni, sfida mista) divisi in livelli di
-  difficoltà crescente (entro 10, 20, 50, 100), con sblocco progressivo a 8 stelline per livello.
+- **Percorso a livelli**: cinque Mondi (somme, sottrazioni, tabelline, divisioni e le sfide miste)
+  per sedici livelli di difficoltà crescente (entro 10, 20, 50, 100), con sblocco progressivo a 8
+  stelline per livello. Le divisioni sono sempre senza resto, le sottrazioni mai negative.
 - **Mappa dei livelli** 🗺️: livelli completati, livello corrente e livelli ancora chiusi, con il requisito per sbloccarli.
 - **Sessioni brevi**: 5 esercizi per sessione, generati sul livello raggiunto.
 - **Feedback visivo immediato**:
@@ -33,12 +34,12 @@ Con un design accattivante ispirato allo stile del cartone animato _Bluey_, l'ap
   - 🔴 **Rosso**: Risposta errata (Riprova!)
   - 🟠 **Arancione**: Notifiche di sistema
 - **Gamification**: Stelline ⭐ contate per livello, oltre al totale mostrato nell'header.
-- **I Guardiani dei Numeri** 🏅: un badge collezionabile per ogni livello completato, con bacheca dedicata e festeggiamento a fine sessione.
+- **I Guardiani dei Numeri** 🏅: sedici badge collezionabili, uno per livello, con bacheca dedicata e festeggiamento a fine sessione.
 - **Supporto all'apprendimento**: Tasto Aiuto 🤔 e visualizzazione della risposta corretta.
 
 ### 🎨 Design & UX
 - **Stile "Bluey"**: Palette colori pastello (azzurro, arancione, verde acqua, rosa).
-- **Palette notturna** 🌙: Il design system ha le regole per il tema scuro (non ancora attivabile dall'interfaccia, vedi [ROADMAP](ROADMAP.md#difetti-noti)).
+- **Dark Mode** 🌙: Tema scuro con interruttore nell'header; al primo avvio segue l'impostazione del dispositivo.
 - **Tipografia**: Font _Fredoka_ per la massima leggibilità.
 - **Micro-interazioni**: Animazioni fluide (bounce, pulse, shake) per un'esperienza tattile.
 - **Mobile-First**: Ottimizzata per dita piccole su tablet e smartphone.
