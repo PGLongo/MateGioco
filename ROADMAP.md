@@ -1,7 +1,8 @@
 # 🗺️ Roadmap
 
 Dove è MateGioco oggi e in che ordine si costruisce quello che manca. Aggiornata al
-**2026-08-22**, versione corrente **1.7.0**.
+**2026-08-22**, versione corrente **1.7.0** (le Fasi 1 e 2 sono su `develop`, non
+ancora rilasciate: il deploy parte dal tag).
 
 Questo documento dice *cosa* e *in che ordine*. I piani implementativi con gli step
 eseguibili vivono in `.plans/` e **non sono versionati** (sono stato di lavoro locale):
@@ -13,47 +14,42 @@ Funziona ed è in produzione:
 
 - Home page in stile Bluey: `ChallengeCard` con barra di progresso, contatore stelline,
   pulsante "Gioca ora", footer di navigazione.
-- Una sessione di gioco: **5 esercizi**, **solo somme**, addendi casuali da 1 a 10
-  (`useExercises`). Nessun livello, nessuna difficoltà crescente.
+- Percorso a livelli: tre Mondi (somme, sottrazioni, sfida mista) per nove livelli, con
+  difficoltà crescente (entro 10, 20, 50, 100) e sblocco a 8 stelline per livello.
+- Mappa dei livelli raggiungibile dal footer: completati, corrente, chiusi con il requisito.
+- Una sessione di gioco: **5 esercizi** generati sul livello raggiunto, o su quello scelto
+  nella mappa fra quelli sbloccati.
 - Feedback immediato: colori, suoni generati via Web Audio API, vibrazione, confetti.
 - Tasto Aiuto che mostra metà della risposta.
-- Stelline: **un unico contatore globale** su `localStorage` (`mategioco-stars`), +1 per
-  risposta corretta, senza limite di tentativi.
+- Stelline: contatore globale nell'header (`mategioco-stars`) **e** conteggio per livello
+  (`mategioco-progression`), che è quello che governa gli sblocchi. Nessun limite di tentativi.
 - Nome del giocatore su `localStorage` (`mategioco-settings`).
 - PWA installabile e offline, dark mode, interfaccia it/en.
 
-## Il divario da colmare
+## Il divario colmato
 
-L'interfaccia **promette già** un sistema che il codice non ha: `ChallengeCard` mostra
+L'interfaccia prometteva un sistema che il codice non aveva: `ChallengeCard` mostrava
 "Mancano X stelle al prossimo livello!" con `totalNeeded` scritto a mano a 100, e i pulsanti
-"Mappa" e "Trofei" del footer non portano da nessuna parte. Il primo lavoro della roadmap
-non è aggiungere una feature: è rendere vera una promessa già fatta all'utente.
+del footer non portavano da nessuna parte. Le Fasi 1 e 2 hanno reso vera quella promessa: la
+card legge il livello corrente e la sua soglia reale, "Mappa" apre la mappa, "Trofei" resta
+spento in attesa della Fase 3 invece di finto.
 
-## Fase 1 - Motore a livelli 🔢
+## Fase 1 - Motore a livelli ✅
 
-**Blocca tutto il resto.** Senza una configurazione dei livelli e una progressione
-persistita, né le sottrazioni né i badge hanno un posto dove esistere.
+Fatta. `app/config/levels.config.ts` descrive Mondi e Livelli come dati; `useMathEngine`
+genera esercizi conformi a una `LevelConfig` (risultato entro il tetto, sottrazioni mai
+negative); `useProgression` persiste le stelline per livello e calcola sblocchi e livello
+corrente, con la catena stretta (un livello conta come completato solo se era davvero
+giocabile). Coperta da 37 test Vitest.
 
-- Configurazione dichiarativa dei livelli (operazione, range numerico, requisito di sblocco)
-  al posto dei numeri sparsi nel codice.
-- Motore di generazione degli esercizi guidato dalla configurazione, con il vincolo
-  risultato ≥ 0 per le sottrazioni.
-- Progressione persistita: stelline **per livello** e livelli sbloccati, accanto al
-  contatore globale che resta per l'estetica.
-- Regola di sblocco e regola dei tentativi (il piano originale prevede 15 stelline per
-  livello e stellina solo entro 3 tentativi: entrambe da confermare, vedi *Decisioni
-  aperte*).
+## Fase 2 - Mappa dei livelli ✅
 
-Percorso previsto: Mondo 1 (somme entro 10, 20, 50, 100) e Mondo 2 (sottrazioni entro 10,
-20, 50, 100), più una sfida finale mista.
+Fatta. `app/pages/map.vue` mostra i tre Mondi, i livelli completati con le stelline
+ottenute, il livello corrente in evidenza e quelli chiusi con il requisito scritto. Da lì si
+gioca un livello sbloccato qualsiasi (`/game?level=<id>`), e la query è validata: un livello
+bloccato forzato dalla barra degli indirizzi ricade sul livello corrente.
 
-## Fase 2 - Mappa dei livelli 🗺️
-
-Rende visibile la progressione: livelli superati con le stelline ottenute, livello corrente
-in evidenza, livelli futuri con il lucchetto. È qui che `ChallengeCard` smette di mentire e
-il pulsante del footer trova la sua destinazione.
-
-## Fase 3 - Badge, i Guardiani dei Numeri 🏅
+## Fase 3 - Badge, i Guardiani dei Numeri 🏅 (prossima)
 
 Un badge per ogni livello completato (animali tropicali per le somme, animali del bosco per
 le sottrazioni, un leone d'oro per la sfida finale): bacheca dei badge, stato bloccato in
@@ -119,22 +115,29 @@ Non sono feature, ma pesano su tutto quello che sta sopra:
   aggiungere componenti nuovi, o continuerà a sviare chi cerca la palette.
 - **Manca il file `LICENSE`** dichiarato dal README.
 
-## Decisioni aperte
+## Decisioni prese
 
-Da chiudere prima o durante la Fase 1, perché cambiano gli step a valle:
+Le tre decisioni che bloccavano la Fase 1 sono state chiuse il 2026-08-22:
 
-1. **Quanti esercizi per sessione.** Il codice ne fa 5, il piano originale ne prevede 10 con
-   15 stelline per sbloccare il livello (quindi minimo 2 partite per avanzare). Cambiare la
-   lunghezza della sessione tocca il ritmo di gioco per un bambino di 4 anni: è una scelta
-   di prodotto, non tecnica.
-2. **Regola dei 3 tentativi.** Introduce il concetto di "tentativo" che oggi non esiste:
-   ogni risposta corretta vale una stellina, indipendentemente da quanti errori l'hanno
-   preceduta.
-3. **Suite di test sì o no**, e con quale runner.
+| Decisione | Esito |
+|---|---|
+| Esercizi per sessione | **5**, come già rilasciato: sta dentro la soglia di attenzione di un bambino di 4 anni |
+| Soglia di sblocco | **8 stelline per livello**, campo della `LevelConfig`: serve più di una partita per avanzare |
+| Regola dei 3 tentativi | **Non implementata**: meccanica punitiva su utenti di 4 anni, e il sistema di livelli non ne ha bisogno |
+| Suite di test | **Vitest, subito**, sulla logica pura (motore, sessione, progressione) |
+
+Restano aperte due cose che la Fase 1 ha fatto emergere:
+
+- **Nessun feedback di "Level Up"**: il bambino scopre il livello nuovo tornando alla home.
+  Il posto naturale è la modale di sblocco della Fase 3.
+- **Due verità parallele sulle stelline**: l'header somma tutto, la progressione conta per
+  livello, e nessuno dei due deriva dall'altro. Oggi coincidono.
 
 ## Storico
 
 | Fase | Esito |
 |---|---|
+| Fase 1 - Motore a livelli e progressione | Completata il 2026-08-22, su `develop` |
+| Fase 2 - Mappa dei livelli | Completata il 2026-08-22, su `develop` |
 | Redesign home page e footer in stile Bluey | Completata, release 1.7.0 (PR #10) |
 | Generazione icone e favicon PWA | Completata, release 1.6.0 |

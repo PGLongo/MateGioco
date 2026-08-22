@@ -32,13 +32,15 @@ autenticazione: tutto lo stato vive nel browser.
 app/                        srcDir di Nuxt 4
 ├── app.vue                 root component
 ├── layouts/default.vue     layout unico (header + contenuto + footer)
-├── pages/                  index.vue (home), game.vue (sessione di esercizi)
+├── pages/                  index.vue (home), game.vue (sessione), map.vue (mappa livelli)
+├── config/levels.config.ts configurazione dei Mondi e dei Livelli (solo dati)
 ├── components/             componenti Vue, auto-import, PascalCase
-├── composables/            logica di business: useExercises, useStars, useSettings,
-│                           useSound, useVibration, useConfetti
+├── composables/            logica di business: useMathEngine, useExercises, useProgression,
+│                           useStars, useSettings, useSound, useVibration, useConfetti
 ├── types/                  dichiarazioni .d.ts per props/emit dei componenti
 └── assets/css/main.css     design system: CSS custom properties su :root, nessuna
                             direttiva Tailwind
+tests/                      Vitest: rispecchia app/, fixture in tests/fixtures/
 i18n/locales/               it-IT.json (default) e en-US.json
 public/                     icone PWA e favicon generate da icon-1024x1024.svg
 ROADMAP.md                  stato attuale, fasi successive, decisioni aperte (versionato)
@@ -68,15 +70,17 @@ npm install            # setup (postinstall esegue nuxt prepare)
 npm run dev            # dev server su http://localhost:3000
 npm run lint           # lint (eslint .)
 npm run lint:fix       # lint con correzione automatica
+npm test               # suite Vitest (una passata)
+npm run test:watch     # Vitest in watch
 npm run generate       # build statica SSG, output in .output/public
 npm run preview        # anteprima locale della build
 npm run generate-assets # rigenera icone PWA da public/icon-1024x1024.svg
 ```
 
-**Non esiste una suite di test in questo repository**: nessun Vitest, nessun Playwright,
-nessuna cartella `tests/`. Ogni modifica va verificata a mano nel browser. Se ti viene
-chiesto di scrivere test, la scelta dello stack e' una decisione aperta: proponila, non
-darla per fatta.
+I test sono **Vitest** in `tests/`, che rispecchia la struttura di `app/`, con i file
+`*.test.ts` e le fixture in `tests/fixtures/`. Coprono la logica pura (motore matematico,
+sessione, progressione); **non** ci sono test sui componenti ne' end-to-end, quindi le
+pagine si verificano ancora a mano nel browser. Le convenzioni sono nella skill `nuxt:unit`.
 
 ## Convenzioni di codice
 
@@ -87,7 +91,7 @@ darla per fatta.
 - TypeScript tipizzato in modo esplicito: interfacce per props, emit e strutture dati,
   `any` da evitare. I tipi condivisi dei componenti stanno in `app/types/*.d.ts`.
 - Persistenza: solo `localStorage`, una chiave per dominio, con prefisso `mategioco-`
-  (`mategioco-stars`, `mategioco-settings`). Letture e scritture sempre in `try/catch`.
+  (`mategioco-stars`, `mategioco-settings`, `mategioco-progression`). Letture e scritture sempre in `try/catch`.
 - **Lo stato condiviso fra componenti va dichiarato a livello di modulo**, fuori dalla
   funzione del composable: un `ref` creato dentro il composable dà a ogni chiamante una
   copia separata. `useStars` e `useSettings` sono i due esempi da seguire; era il difetto
@@ -126,13 +130,15 @@ darla per fatta.
 
 1. `npm run lint` deve chiudere **pulito**: zero errori e zero warning, che e' lo stato
    attuale del repository. Se ne compaiono, `npm run lint:fix` ne risolve la maggior parte.
-2. `npm run generate` deve completare senza errori: e' lo stesso comando che la CI usa per
+2. `npm test` deve essere verde: la logica di livelli e progressione e' coperta, e una
+   modifica che la rompe si vede qui prima che nel browser.
+3. `npm run generate` deve completare senza errori: e' lo stesso comando che la CI usa per
    il deploy.
-3. Verifica a mano nel browser il flusso toccato (`npm run dev`), su viewport mobile: il
+4. Verifica a mano nel browser il flusso toccato (`npm run dev`), su viewport mobile: il
    target sono tablet e smartphone usati da bambini.
-4. Se hai aggiunto testo visibile, controlla che la chiave esista in **entrambi** i file di
+5. Se hai aggiunto testo visibile, controlla che la chiave esista in **entrambi** i file di
    `i18n/locales/`.
-5. Se hai toccato path di asset o routing, verifica anche la build di produzione con
+6. Se hai toccato path di asset o routing, verifica anche la build di produzione con
    `npm run preview`, dove `baseURL` diventa `/MateGioco/`.
 
 ## Sicurezza

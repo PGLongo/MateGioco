@@ -53,11 +53,10 @@ docs: align folder structure in README
 
 ## Prima di aprire la PR
 
-1. Passa il lint e verifica la build: comandi nella sezione
-   [Lint e Verifica](README.md#-lint-e-verifica) del README.
+1. Passa lint e test e verifica la build: comandi nella sezione
+   [Test e Lint](README.md#-test-e-lint) del README.
 2. Prova a mano il flusso che hai toccato su viewport mobile: gli utenti finali sono bambini
-   che usano tablet e smartphone, ed e' l'unica verifica funzionale disponibile (il
-   repository non ha una suite di test automatici).
+   che usano tablet e smartphone, e i test automatici coprono la logica, non le pagine.
 3. Se hai aggiunto testo visibile all'utente, controlla che la chiave esista in **entrambi**
    i file di `i18n/locales/`.
 

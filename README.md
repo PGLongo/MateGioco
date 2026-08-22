@@ -24,12 +24,15 @@ Con un design accattivante ispirato allo stile del cartone animato _Bluey_, l'ap
 ## ✨ Features Principali
 
 ### 🧮 Sistema Esercizi
-- **Sessioni intelligenti**: 5 esercizi per sessione con somme casuali (numeri 1-10).
+- **Percorso a livelli**: tre Mondi (somme, sottrazioni, sfida mista) divisi in livelli di
+  difficoltà crescente (entro 10, 20, 50, 100), con sblocco progressivo a 8 stelline per livello.
+- **Mappa dei livelli** 🗺️: livelli completati, livello corrente e livelli ancora chiusi, con il requisito per sbloccarli.
+- **Sessioni brevi**: 5 esercizi per sessione, generati sul livello raggiunto.
 - **Feedback visivo immediato**:
   - 🟢 **Verde**: Risposta corretta (+ Celebrazione!)
   - 🔴 **Rosso**: Risposta errata (Riprova!)
   - 🟠 **Arancione**: Notifiche di sistema
-- **Gamification**: Sistema di stelline ⭐ per gratificare l'impegno.
+- **Gamification**: Stelline ⭐ contate per livello, oltre al totale mostrato nell'header.
 - **Supporto all'apprendimento**: Tasto Aiuto 🤔 e visualizzazione della risposta corretta.
 
 ### 🎨 Design & UX
@@ -71,11 +74,13 @@ MateGioco/
 ├── app/                    # srcDir di Nuxt 4
 │   ├── app.vue             # Root component
 │   ├── layouts/            # Layout dell'applicazione
-│   ├── pages/              # Routing (index.vue, game.vue)
+│   ├── pages/              # Routing (index.vue, game.vue, map.vue)
+│   ├── config/             # Configurazione dei Mondi e dei Livelli
 │   ├── components/         # Componenti Vue riutilizzabili
 │   ├── composables/        # Logica di business (useExercises, useStars, ...)
 │   ├── types/              # Definizioni TypeScript condivise
 │   └── assets/css/         # Design System e variabili CSS
+├── tests/                  # Test Vitest (rispecchia app/)
 ├── i18n/locales/           # Traduzioni it-IT e en-US
 ├── public/                 # Assets statici e icone PWA
 ├── .github/workflows/      # CI/CD Pipelines
@@ -126,9 +131,15 @@ npm run generate
 npm run preview
 ```
 
-## ✅ Lint e Verifica
+## ✅ Test e Lint
 
 ```bash
+# Suite di test (Vitest)
+npm test
+
+# Test in watch durante lo sviluppo
+npm run test:watch
+
 # Lint del codice
 npm run lint
 
@@ -136,13 +147,16 @@ npm run lint
 npm run lint:fix
 ```
 
+I test sono **Vitest** in `tests/`, che rispecchia la struttura di `app/`, e coprono la
+logica pura: motore matematico, sessione di esercizi e progressione fra i livelli. Non ci
+sono ancora test sui componenti né end-to-end, quindi le pagine si verificano a mano nel
+browser con `npm run dev`, preferibilmente su viewport mobile.
+
 Il lint è configurato dal modulo `@nuxt/eslint` (`eslint.config.mjs`). Usa sempre gli script
 npm, non `eslint` direttamente: il comando resta stabile anche se la configurazione cambia.
 
-**Il progetto non ha una suite di test automatici**: ogni modifica va verificata a mano nel
-browser con `npm run dev`, preferibilmente su viewport mobile. La verifica minima prima di
-una PR è `npm run lint` più `npm run generate`, che è lo stesso comando usato dalla CI per
-il deploy.
+La verifica minima prima di una PR è `npm run lint`, `npm test` e `npm run generate`,
+che è lo stesso comando usato dalla CI per il deploy.
 
 ## 🏷️ Release Management
 
