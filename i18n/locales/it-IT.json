@@ -8,10 +8,30 @@
   },
   "home": {
     "play": "GIOCA ORA",
-    "challengeTitle": "Livello 1: Il Mondo dei Numeri",
-    "challengeDesc": "Impara a contare e sommare!",
     "starsNeeded": "Mancano {count} stelle al prossimo livello!",
     "level": "Livello {n}"
+  },
+  "worlds": {
+    "sum": "L'Isola delle Somme",
+    "sub": "La Valle delle Sottrazioni",
+    "mix": "La Grande Sfida"
+  },
+  "levels": {
+    "sum1": "Somme entro il 10",
+    "sum2": "Somme entro il 20",
+    "sum3": "Somme entro il 50",
+    "sum4": "Somme entro il 100",
+    "sub1": "Sottrazioni entro il 10",
+    "sub2": "Sottrazioni entro il 20",
+    "sub3": "Sottrazioni entro il 50",
+    "sub4": "Sottrazioni entro il 100",
+    "mix1": "Somme e sottrazioni entro il 100"
+  },
+  "map": {
+    "title": "La Mappa",
+    "locked": "Completa {level} per sbloccare",
+    "completed": "Completato!",
+    "stars": "{current} di {total} ⭐"
   },
   "nav": {
     "map": "Mappa",

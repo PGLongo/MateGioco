@@ -8,10 +8,30 @@
   },
   "home": {
     "play": "PLAY NOW",
-    "challengeTitle": "Level 1: The World of Numbers",
-    "challengeDesc": "Learn to count and add up!",
     "starsNeeded": "{count} stars to go to the next level!",
     "level": "Level {n}"
+  },
+  "worlds": {
+    "sum": "The Island of Sums",
+    "sub": "The Valley of Subtractions",
+    "mix": "The Great Challenge"
+  },
+  "levels": {
+    "sum1": "Sums up to 10",
+    "sum2": "Sums up to 20",
+    "sum3": "Sums up to 50",
+    "sum4": "Sums up to 100",
+    "sub1": "Subtractions up to 10",
+    "sub2": "Subtractions up to 20",
+    "sub3": "Subtractions up to 50",
+    "sub4": "Subtractions up to 100",
+    "mix1": "Sums and subtractions up to 100"
+  },
+  "map": {
+    "title": "The Map",
+    "locked": "Complete {level} to unlock",
+    "completed": "Completed!",
+    "stars": "{current} of {total} ⭐"
   },
   "nav": {
     "map": "Map",

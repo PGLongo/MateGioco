@@ -42,3 +42,14 @@ export const getLevel = (id: string): LevelConfig | undefined =>
 
 export const getWorldLevels = (worldId: string): LevelConfig[] =>
   LEVELS.filter(level => level.worldId === worldId)
+
+export const getWorld = (worldId: string): WorldConfig | undefined =>
+  WORLDS.find(world => world.id === worldId)
+
+/** Posizione del livello dentro il suo mondo, a partire da 1: e' quella mostrata all'utente */
+export const getLevelNumber = (id: string): number => {
+  const level = getLevel(id)
+  if (!level) return 0
+
+  return getWorldLevels(level.worldId).findIndex(candidate => candidate.id === id) + 1
+}

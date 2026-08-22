@@ -4,23 +4,23 @@
       
       <!-- Icon Wrapper -->
       <div class="icon-wrapper">
-         <Icon name="mdi:earth" class="world-icon" />
+         <Icon :name="worldIcon" class="world-icon" />
       </div>
 
       <div class="text-content">
-        <h2 class="level-title">{{ $t('home.challengeTitle') }}</h2>
-        <p class="level-desc">{{ $t('home.challengeDesc') }}</p>
+        <h2 class="level-title">{{ $t(level.nameKey) }}</h2>
+        <p class="level-desc">{{ $t(worldNameKey) }}</p>
       </div>
 
       <!-- Progress -->
       <LevelProgress 
-        :level="1"
+        :level="levelNumber"
         :current="currentStars"
-        :total="totalNeeded"
+        :total="level.starsToUnlock"
       />
       
       <p class="stars-needed">
-        {{ $t('home.starsNeeded', { count: totalNeeded - currentStars }) }}
+        {{ $t('home.starsNeeded', { count: starsMissing }) }}
       </p>
 
       <!-- Slot for action button -->
@@ -33,10 +33,19 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import type { LevelConfig } from '~/types/Level'
+import { getWorld, getLevelNumber } from '~/config/levels.config'
+
+const props = defineProps<{
+  level: LevelConfig
   currentStars: number
-  totalNeeded: number
 }>()
+
+const world = computed(() => getWorld(props.level.worldId))
+const worldIcon = computed(() => world.value?.icon ?? 'mdi:earth')
+const worldNameKey = computed(() => world.value?.nameKey ?? 'worlds.sum')
+const levelNumber = computed(() => getLevelNumber(props.level.id))
+const starsMissing = computed(() => Math.max(0, props.level.starsToUnlock - props.currentStars))
 </script>
 
 <style scoped>

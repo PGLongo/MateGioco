@@ -6,8 +6,8 @@
       
       <!-- Next Challenge Card with nested Play Button -->
       <ChallengeCard 
-        :current-stars="totalStars"
-        :total-needed="100"
+        :level="currentLevel"
+        :current-stars="starsOn(currentLevel.id)"
       >
         <GameButton 
           variant="orange" 
@@ -26,9 +26,13 @@
 </template>
 
 <script setup lang="ts">
-const { totalStars } = useStars()
+const { currentLevel, starsOn, loadProgression } = useProgression()
 const { playClick } = useSound()
 const router = useRouter()
+
+onMounted(() => {
+  loadProgression()
+})
 
 const startGame = () => {
     playClick()
