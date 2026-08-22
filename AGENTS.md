@@ -15,8 +15,11 @@ autenticazione: tutto lo stato vive nel browser.
 ## Stack
 
 - Node.js >= 20 (la CI usa 20.x), npm
-- Nuxt 4.2 (`future.compatibilityVersion: 4`, `srcDir` implicito `app/`), Vue 3.5,
-  TypeScript 5.6
+- Nuxt 4.5 (`future.compatibilityVersion: 4`, `srcDir` implicito `app/`), Vue 3.5,
+  TypeScript 6, ESLint 10, Vite 8 (transitivo, da Nuxt)
+- **TypeScript resta sulla linea 6**: la 7 non e' utilizzabile perche' `@typescript-eslint`
+  dichiara `typescript >=4.8.4 <6.1.0` e con TS 7 il lint muore in `ts-api-utils`. Non
+  alzarla finche' quella catena non supporta la 7.
 - Moduli: `@nuxt/ui` 4 (porta con se' Tailwind CSS 4), `@vite-pwa/nuxt`,
   `@nuxtjs/color-mode`, `@nuxt/icon` (icon set `mdi`), `@nuxt/hints`, `@nuxtjs/i18n` 10,
   `@nuxt/eslint`

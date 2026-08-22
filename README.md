@@ -5,7 +5,7 @@
 ![License](https://img.shields.io/github/license/PGLongo/MateGioco)
 ![Nuxt](https://img.shields.io/badge/Nuxt-4-00C58E?logo=nuxt.js)
 ![Vue](https://img.shields.io/badge/Vue.js-3-4FC08D?logo=vue.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)
+![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?logo=typescript)
 
 **App educativa di matematica per bambini di 4 anni** - Impara le operazioni matematiche giocando!
 
