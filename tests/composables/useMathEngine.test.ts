@@ -186,3 +186,58 @@ describe('useMathEngine - moltiplicazioni e divisioni', () => {
     })
   })
 })
+
+
+describe('useMathEngine - varieta della sessione', () => {
+
+  it('should not repeat the same exercise inside a session', () => {
+    const { generateSession } = useMathEngine()
+
+    // Tre volte "8 + 2" su cinque domande fa sembrare il gioco rotto: capitava nel 30%
+    // delle sessioni perche' ogni esercizio veniva sorteggiato indipendentemente
+    for (let sessione = 0; sessione < 200; sessione++) {
+      const chiavi = generateSession(mockSumLevel, 5).map(e => `${e.num1}${e.operator}${e.num2}`)
+      expect(new Set(chiavi).size).toBe(chiavi.length)
+    }
+  })
+
+  it('should not repeat exercises on the harder levels either', () => {
+    const { generateSession } = useMathEngine()
+
+    for (const livello of [mockHardSumLevel, mockSubLevel, mockMulLevel, mockDivLevel]) {
+      const chiavi = generateSession(livello, 5).map(e => `${e.num1}${e.operator}${e.num2}`)
+      expect(new Set(chiavi).size).toBe(chiavi.length)
+    }
+  })
+
+  it('should still fill a session when the space is smaller than it', () => {
+    const { generateSession } = useMathEngine()
+
+    // Livello minuscolo: due sole somme possibili (1+1, 1+2, 2+1). Meglio un doppione
+    // che una domanda in meno
+    const minuscolo = { ...mockSumLevel, maxNumber: 3 }
+
+    expect(generateSession(minuscolo, 5)).toHaveLength(5)
+  })
+
+  it('should spread exercises across the whole space', () => {
+    const { generateSession } = useMathEngine()
+
+    // La generazione sequenziale concentrava l'11% delle domande su "9 + 1", perche' con
+    // il primo addendo a 9 il secondo non poteva che essere 1
+    const conteggi = new Map<string, number>()
+    let totale = 0
+    for (let i = 0; i < 200; i++) {
+      for (const e of generateSession(mockSumLevel, 5)) {
+        const chiave = `${e.num1}+${e.num2}`
+        conteggi.set(chiave, (conteggi.get(chiave) ?? 0) + 1)
+        totale++
+      }
+    }
+
+    // Su 45 coppie valide ne devono comparire molte, e nessuna deve dominare
+    expect(conteggi.size).toBeGreaterThan(30)
+    const massimo = Math.max(...conteggi.values()) / totale
+    expect(massimo).toBeLessThan(0.06)
+  })
+})

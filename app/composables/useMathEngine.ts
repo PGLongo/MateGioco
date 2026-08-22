@@ -7,9 +7,10 @@ export interface Exercise {
   correctAnswer: number
 }
 
-const randomInt = (min: number, max: number): number => {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
+/** Coppia di operandi ammessa per un livello */
+type Operands = [number, number]
+
+const pickRandom = <T>(items: T[]): T => items[Math.floor(Math.random() * items.length)]!
 
 /**
  * Genera esercizi conformi a una LevelConfig.
@@ -20,44 +21,78 @@ const randomInt = (min: number, max: number): number => {
  * - una sottrazione non produce mai un risultato negativo, perche' i numeri negativi non
  *   esistono per un bambino di 4 anni;
  * - una divisione non ha mai resto, per la stessa ragione: le frazioni arrivano dopo.
+ *
+ * Il campionamento **enumera lo spazio degli esercizi validi** e ne pesca uno a caso,
+ * invece di sorteggiare un operando alla volta. Sorteggiare in sequenza sembra equivalente
+ * e non lo e': sul livello "entro 10" faceva uscire `9 + 1` l'11% delle volte contro il 2%
+ * che gli spetta, perche' con il primo addendo a 9 il secondo non poteva che essere 1.
  */
 export const useMathEngine = () => {
 
-  const generateAddition = (level: LevelConfig): Exercise => {
-    // Il primo addendo lascia sempre spazio al secondo dentro maxNumber
-    const num1 = randomInt(level.minNumber, Math.max(level.minNumber, level.maxNumber - level.minNumber))
-    const num2 = randomInt(level.minNumber, level.maxNumber - num1)
-
-    return { num1, num2, operator: '+', correctAnswer: num1 + num2 }
+  /** Coppie (addendo, addendo) con somma entro il tetto */
+  const additionOperands = (level: LevelConfig): Operands[] => {
+    const pairs: Operands[] = []
+    for (let a = level.minNumber; a <= level.maxNumber - level.minNumber; a++) {
+      for (let b = level.minNumber; a + b <= level.maxNumber; b++) {
+        pairs.push([a, b])
+      }
+    }
+    return pairs
   }
 
-  const generateSubtraction = (level: LevelConfig): Exercise => {
-    // Il minuendo viene per primo, il sottraendo non lo supera mai: risultato >= 0
-    const num1 = randomInt(level.minNumber, level.maxNumber)
-    const num2 = randomInt(0, num1)
-
-    return { num1, num2, operator: '-', correctAnswer: num1 - num2 }
+  /** Coppie (minuendo, sottraendo) con minuendo >= sottraendo: risultato mai negativo */
+  const subtractionOperands = (level: LevelConfig): Operands[] => {
+    const pairs: Operands[] = []
+    for (let a = level.minNumber; a <= level.maxNumber; a++) {
+      for (let b = 0; b <= a; b++) {
+        pairs.push([a, b])
+      }
+    }
+    return pairs
   }
 
-  const generateMultiplication = (level: LevelConfig): Exercise => {
-    // Il primo fattore non supera la radice del tetto, cosi' resta sempre almeno un
-    // secondo fattore valido; poi il secondo si limita a quel che ci sta nel prodotto
-    const maxFirst = Math.max(1, Math.floor(Math.sqrt(level.maxNumber)) + 1)
-    const num1 = randomInt(1, maxFirst)
-    const num2 = randomInt(1, Math.max(1, Math.floor(level.maxNumber / num1)))
-
-    return { num1, num2, operator: '×', correctAnswer: num1 * num2 }
+  /** Coppie (fattore, fattore) con prodotto entro il tetto */
+  const multiplicationOperands = (level: LevelConfig): Operands[] => {
+    const pairs: Operands[] = []
+    for (let a = 1; a <= level.maxNumber; a++) {
+      for (let b = 1; a * b <= level.maxNumber; b++) {
+        pairs.push([a, b])
+      }
+    }
+    return pairs
   }
 
-  const generateDivision = (level: LevelConfig): Exercise => {
-    // Si costruisce al contrario: prima divisore e quoziente, poi il dividendo come loro
-    // prodotto. E' l'unico modo di garantire che non ci sia resto.
-    // Il divisore parte da 1 di proposito: "18 ÷ 1 = 18" e' uno dei concetti da imparare,
-    // cioe' che dividere per uno non cambia il numero
-    const divisor = randomInt(1, Math.max(1, Math.floor(Math.sqrt(level.maxNumber)) + 1))
-    const quotient = randomInt(1, Math.max(1, Math.floor(level.maxNumber / divisor)))
+  /**
+   * Coppie (dividendo, divisore) senza resto: si costruiscono al contrario, dal divisore e
+   * dal quoziente. Il divisore parte da 1 di proposito, perche' sapere che dividere per uno
+   * non cambia il numero fa parte di quello che il livello insegna.
+   */
+  const divisionOperands = (level: LevelConfig): Operands[] => {
+    const pairs: Operands[] = []
+    for (let divisor = 1; divisor <= level.maxNumber; divisor++) {
+      for (let quotient = 1; divisor * quotient <= level.maxNumber; quotient++) {
+        pairs.push([divisor * quotient, divisor])
+      }
+    }
+    return pairs
+  }
 
-    return { num1: divisor * quotient, num2: divisor, operator: '÷', correctAnswer: quotient }
+  const operandsFor = (level: LevelConfig, operation: OperationType): Operands[] => {
+    switch (operation) {
+      case '-': return subtractionOperands(level)
+      case '*': return multiplicationOperands(level)
+      case '/': return divisionOperands(level)
+      default: return additionOperands(level)
+    }
+  }
+
+  const buildExercise = (operation: OperationType, [num1, num2]: Operands): Exercise => {
+    switch (operation) {
+      case '-': return { num1, num2, operator: '-', correctAnswer: num1 - num2 }
+      case '*': return { num1, num2, operator: '×', correctAnswer: num1 * num2 }
+      case '/': return { num1, num2, operator: '÷', correctAnswer: num1 / num2 }
+      default: return { num1, num2, operator: '+', correctAnswer: num1 + num2 }
+    }
   }
 
   /** Nei livelli-sfida l'operazione cambia a ogni esercizio */
@@ -65,20 +100,48 @@ export const useMathEngine = () => {
     const pool = level.mixedOperations
     if (!pool || pool.length === 0) return level.operation
 
-    return pool[Math.floor(Math.random() * pool.length)]!
+    return pickRandom(pool)
   }
 
   const generateExercise = (level: LevelConfig): Exercise => {
-    switch (pickOperation(level)) {
-      case '-': return generateSubtraction(level)
-      case '*': return generateMultiplication(level)
-      case '/': return generateDivision(level)
-      default: return generateAddition(level)
-    }
+    const operation = pickOperation(level)
+
+    return buildExercise(operation, pickRandom(operandsFor(level, operation)))
   }
 
+  /**
+   * Genera una sessione **senza esercizi ripetuti**: vedere tre volte "8 + 2" su cinque
+   * domande fa sembrare il gioco rotto, e capitava nel 30% delle sessioni. Se lo spazio
+   * degli esercizi e' piu' piccolo della sessione (livelli molto elementari), la
+   * ripetizione torna ammessa: meglio un doppione che una domanda in meno.
+   */
   const generateSession = (level: LevelConfig, count: number): Exercise[] => {
-    return Array.from({ length: count }, () => generateExercise(level))
+    const pools = new Map<OperationType, Operands[]>()
+    const used = new Set<string>()
+    const session: Exercise[] = []
+
+    for (let i = 0; i < count; i++) {
+      const operation = pickOperation(level)
+
+      if (!pools.has(operation)) {
+        pools.set(operation, operandsFor(level, operation))
+      }
+      const operands = pools.get(operation)!
+
+      let chosen: Operands | null = null
+      for (let attempt = 0; attempt < 30 && !chosen; attempt++) {
+        const candidate = pickRandom(operands)
+        const key = `${operation}:${candidate[0]}:${candidate[1]}`
+        if (!used.has(key)) {
+          used.add(key)
+          chosen = candidate
+        }
+      }
+
+      session.push(buildExercise(operation, chosen ?? pickRandom(operands)))
+    }
+
+    return session
   }
 
   const formatExercise = (exercise: Exercise): string => {
