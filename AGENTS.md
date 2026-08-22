@@ -38,8 +38,8 @@ app/                        srcDir di Nuxt 4
                             direttiva Tailwind
 i18n/locales/               it-IT.json (default) e en-US.json
 public/                     icone PWA e favicon generate da icon-1024x1024.svg
-docs/plans/                 design doc di feature non ancora implementate (livelli, badge)
-implementation_plans/       piani di implementazione storici
+ROADMAP.md                  stato attuale, fasi successive, decisioni aperte (versionato)
+.plans/                     piani implementativi con gli step eseguibili (gitignored)
 .github/workflows/deploy.yml build statica e deploy su GitHub Pages
 nuxt.config.ts              moduli, i18n, PWA manifest, baseURL, head
 ```
@@ -94,6 +94,9 @@ darla per fatta.
   prenderle come modello, il verso e' l'estrazione a chiave.
 - Preferisci moduli Nuxt ufficiali (`@nuxt/*`) e utility esistenti a implementazioni
   custom.
+- Prima di progettare una feature, leggi `ROADMAP.md` e il piano corrispondente in
+  `.plans/`: buona parte di quello che sembra mancante e' gia' progettato, con vincoli e
+  decisioni aperte che e' meglio non riaprire da zero.
 - Commenti e documentazione in italiano, termini tecnici in inglese senza italianizzarli.
 
 ## Git

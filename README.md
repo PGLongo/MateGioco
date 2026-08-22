@@ -78,9 +78,8 @@ MateGioco/
 │   └── assets/css/         # Design System e variabili CSS
 ├── i18n/locales/           # Traduzioni it-IT e en-US
 ├── public/                 # Assets statici e icone PWA
-├── docs/plans/             # Design doc delle feature non ancora implementate
-├── implementation_plans/   # Piani di implementazione storici
 ├── .github/workflows/      # CI/CD Pipelines
+├── ROADMAP.md              # Dove va il progetto e in che ordine
 ├── nuxt.config.ts          # Configurazione framework
 └── package.json            # Dipendenze e script
 ```
@@ -168,7 +167,7 @@ git push --follow-tags
 | [AGENTS.md](AGENTS.md) | Istruzioni per gli agenti AI: stack, struttura, convenzioni, verifica. |
 | [CLAUDE.md](CLAUDE.md) | Delta specifico di Claude Code (importa AGENTS.md). |
 | [CHANGELOG.md](CHANGELOG.md) | Storico delle release, generato da `standard-version`. |
-| [docs/plans/](docs/plans/) | Design doc delle feature progettate ma non ancora implementate. |
+| [ROADMAP.md](ROADMAP.md) | Stato attuale, fasi successive, debito tecnico e decisioni aperte. |
 
 ## 📄 Licenza
 

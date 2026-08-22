@@ -67,7 +67,8 @@ docs: align folder structure in README
 - La descrizione dice **cosa cambia per chi usa l'app** e come l'hai verificato. Se la
   modifica e' visiva, allega uno screenshot: e' la parte piu' difficile da valutare
   leggendo il diff.
-- Se la modifica implementa in tutto o in parte un design doc di `docs/plans/`, linkalo.
+- Se la modifica avanza una fase della [ROADMAP](ROADMAP.md), dillo nella descrizione: e'
+  il posto dove si vede se il progetto si sta muovendo nell'ordine previsto.
 
 ## Release e deploy
 

@@ -41,11 +41,12 @@ file contiene solo il delta specifico di Claude Code.
   colori veri sono le custom property in `app/assets/css/main.css`: modifica quelle. Il file
   di config resta nel repo, non riusarlo come fonte di verita' senza prima verificare che
   venga davvero caricato.
-- **Due cartelle di piani**: `docs/plans/` (design doc di feature non implementate: sistema
-  di livelli, badge) e `implementation_plans/` (piani storici). Prima di progettare una
-  feature nuova, controlla se un design doc esiste gia': `docs/plans/001-level-system.md`
-  descrive un sistema di progressione che il codice attuale non implementa. Non trattare
-  quei documenti come descrizione dello stato del codice.
+- **I piani non sono versionati.** `ROADMAP.md` (versionato) dice dove va il progetto e in
+  che ordine; i piani con gli step eseguibili stanno in `.plans/` ed e' gitignored, quindi
+  su un clone pulito non ci sono. Non linkare `.plans/` da un file versionato, e non
+  trattare quei piani come descrizione dello stato del codice: `001-level-system.md`
+  descrive un sistema di livelli che oggi non esiste. Si gestiscono con `flow:plan-create`
+  ed eseguono con `flow:plan-execute`.
 - **README e codice hanno divergito in passato** (versione di Nuxt, font, albero delle
   cartelle). Quando descrivi il progetto, leggi `nuxt.config.ts` e `package.json`, non il
   README.
