@@ -32,11 +32,12 @@ autenticazione: tutto lo stato vive nel browser.
 app/                        srcDir di Nuxt 4
 ├── app.vue                 root component
 ├── layouts/default.vue     layout unico (header + contenuto + footer)
-├── pages/                  index.vue (home), game.vue (sessione), map.vue (mappa livelli)
-├── config/levels.config.ts configurazione dei Mondi e dei Livelli (solo dati)
+├── pages/                  index (home), game (sessione), map (livelli), badges (bacheca)
+├── config/                 levels.config.ts e badges.config.ts: solo dati, nessuna logica
 ├── components/             componenti Vue, auto-import, PascalCase
-├── composables/            logica di business: useMathEngine, useExercises, useProgression,
-│                           useStars, useSettings, useSound, useVibration, useConfetti
+├── composables/            logica di business: useMathEngine, useExercises, useProgression
+│                           (livelli, stelline per livello, badge), useStars, useSettings,
+│                           useSound, useVibration, useConfetti
 ├── types/                  dichiarazioni .d.ts per props/emit dei componenti
 └── assets/css/main.css     design system: CSS custom properties su :root, nessuna
                             direttiva Tailwind

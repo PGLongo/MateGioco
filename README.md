@@ -33,6 +33,7 @@ Con un design accattivante ispirato allo stile del cartone animato _Bluey_, l'ap
   - 🔴 **Rosso**: Risposta errata (Riprova!)
   - 🟠 **Arancione**: Notifiche di sistema
 - **Gamification**: Stelline ⭐ contate per livello, oltre al totale mostrato nell'header.
+- **I Guardiani dei Numeri** 🏅: un badge collezionabile per ogni livello completato, con bacheca dedicata e festeggiamento a fine sessione.
 - **Supporto all'apprendimento**: Tasto Aiuto 🤔 e visualizzazione della risposta corretta.
 
 ### 🎨 Design & UX
@@ -74,8 +75,8 @@ MateGioco/
 ├── app/                    # srcDir di Nuxt 4
 │   ├── app.vue             # Root component
 │   ├── layouts/            # Layout dell'applicazione
-│   ├── pages/              # Routing (index.vue, game.vue, map.vue)
-│   ├── config/             # Configurazione dei Mondi e dei Livelli
+│   ├── pages/              # Routing (index, game, map, badges)
+│   ├── config/             # Configurazione di Mondi, Livelli e Badge
 │   ├── components/         # Componenti Vue riutilizzabili
 │   ├── composables/        # Logica di business (useExercises, useStars, ...)
 │   ├── types/              # Definizioni TypeScript condivise

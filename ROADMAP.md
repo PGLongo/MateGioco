@@ -1,8 +1,8 @@
 # 🗺️ Roadmap
 
 Dove è MateGioco oggi e in che ordine si costruisce quello che manca. Aggiornata al
-**2026-08-22**, versione corrente **1.7.0** (le Fasi 1 e 2 sono su `develop`, non
-ancora rilasciate: il deploy parte dal tag).
+**2026-08-22**, versione corrente **1.8.0** (Fasi 1 e 2 rilasciate; la Fase 3 e' su
+`develop` e attende il prossimo tag: il deploy parte da lì).
 
 Questo documento dice *cosa* e *in che ordine*. I piani implementativi con gli step
 eseguibili vivono in `.plans/` e **non sono versionati** (sono stato di lavoro locale):
@@ -17,6 +17,8 @@ Funziona ed è in produzione:
 - Percorso a livelli: tre Mondi (somme, sottrazioni, sfida mista) per nove livelli, con
   difficoltà crescente (entro 10, 20, 50, 100) e sblocco a 8 stelline per livello.
 - Mappa dei livelli raggiungibile dal footer: completati, corrente, chiusi con il requisito.
+- Bacheca dei badge: un Guardiano per livello completato, con modale di festeggiamento a
+  fine sessione.
 - Una sessione di gioco: **5 esercizi** generati sul livello raggiunto, o su quello scelto
   nella mappa fra quelli sbloccati.
 - Feedback immediato: colori, suoni generati via Web Audio API, vibrazione, confetti.
@@ -49,12 +51,17 @@ ottenute, il livello corrente in evidenza e quelli chiusi con il requisito scrit
 gioca un livello sbloccato qualsiasi (`/game?level=<id>`), e la query è validata: un livello
 bloccato forzato dalla barra degli indirizzi ricade sul livello corrente.
 
-## Fase 3 - Badge, i Guardiani dei Numeri 🏅 (prossima)
+## Fase 3 - Badge, i Guardiani dei Numeri ✅
 
-Un badge per ogni livello completato (animali tropicali per le somme, animali del bosco per
-le sottrazioni, un leone d'oro per la sfida finale): bacheca dei badge, stato bloccato in
-silhouette, animazione di sblocco a fine livello. **Dipende dalla Fase 1**: senza livelli
-completabili non c'è niente da premiare.
+Fatta. Nove badge, uno per livello, con l'arte affidata a un'emoji invece che a file SVG:
+il design doc esprimeva ogni Guardiano come animale-emoji, l'app ne usa gia' nei feedback,
+e un'emoji scala a qualsiasi dimensione senza asset binari in una PWA offline. La bacheca
+(`/badges`, raggiungibile da "Trofei") mostra i conquistati con nome, descrizione e i
+restanti in silhouette con il requisito. A fine sessione una modale festeggia i Guardiani
+nuovi, con coriandoli e suono: e' anche il feedback di "Level Up" che mancava.
+
+Sostituire le emoji con SVG piu' avanti non tocca ne' la logica ne' i componenti: cambia
+un campo della configurazione.
 
 ## Fase 4 - Espansioni 🚀
 
@@ -128,16 +135,18 @@ Le tre decisioni che bloccavano la Fase 1 sono state chiuse il 2026-08-22:
 
 Restano aperte due cose che la Fase 1 ha fatto emergere:
 
-- **Nessun feedback di "Level Up"**: il bambino scopre il livello nuovo tornando alla home.
-  Il posto naturale è la modale di sblocco della Fase 3.
 - **Due verità parallele sulle stelline**: l'header somma tutto, la progressione conta per
   livello, e nessuno dei due deriva dall'altro. Oggi coincidono.
+- **Nessun test sui componenti**: la logica (motore, sessione, progressione, badge) è
+  coperta da 45 test; mappa, bacheca e modale sono verificate solo a mano nel browser. È il
+  buco che ha fatto passare due difetti già corretti.
 
 ## Storico
 
 | Fase | Esito |
 |---|---|
-| Fase 1 - Motore a livelli e progressione | Completata il 2026-08-22, su `develop` |
-| Fase 2 - Mappa dei livelli | Completata il 2026-08-22, su `develop` |
+| Fase 3 - Badge, i Guardiani dei Numeri | Completata il 2026-08-22, su `develop` |
+| Fase 1 - Motore a livelli e progressione | Completata il 2026-08-22, rilasciata in **1.8.0** |
+| Fase 2 - Mappa dei livelli | Completata il 2026-08-22, rilasciata in **1.8.0** |
 | Redesign home page e footer in stile Bluey | Completata, release 1.7.0 (PR #10) |
 | Generazione icone e favicon PWA | Completata, release 1.6.0 |
