@@ -343,4 +343,30 @@ defineEmits<{
     margin-bottom: 8px;
   }
 }
+
+/* Viewport molto corti (iPhone 13 Mini in Safari: 629pt utili): mancavano 20px per far
+   stare tutto.
+   Le dichiarazioni ripetono `min-height` e non solo `height` perche' il blocco
+   `(max-width: 480px), (max-height: 950px)` piu' sopra - che vale per qualunque telefono -
+   impone un `min-height: 85px` al display e azzera il pavimento dei tasti: senza
+   riaffermarli qui, questi valori non arriverebbero mai a effetto. */
+@media (max-height: 640px) {
+  .display {
+    min-height: 64px;
+    height: 64px;
+    padding: 8px 14px;
+    margin-bottom: 8px;
+    font-size: 2.25rem;
+  }
+
+  .number-pad {
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+
+  .number-btn,
+  .btn-submit {
+    min-height: 44px;
+  }
+}
 </style>

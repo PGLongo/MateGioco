@@ -118,4 +118,14 @@ onMounted(() => {
     padding: 4px 16px 8px;
   }
 }
+
+@media (max-height: 640px) {
+  .main-content {
+    padding: 6px;
+  }
+
+  .bottom-nav {
+    padding: 2px 16px 6px;
+  }
+}
 </style>

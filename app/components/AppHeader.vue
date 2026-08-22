@@ -187,4 +187,11 @@ const toggleTheme = () => {
     font-size: 1.5rem;
   }
 }
+
+/* Viewport molto corti: l'ultimo margine da recuperare per far stare la calcolatrice */
+@media (max-height: 640px) {
+  .app-header {
+    padding: 8px 16px;
+  }
+}
 </style>
