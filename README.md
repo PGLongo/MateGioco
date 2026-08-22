@@ -35,10 +35,11 @@ Con un design accattivante ispirato allo stile del cartone animato _Bluey_, l'ap
 ### 🎨 Design & UX
 - **Stile "Bluey"**: Palette colori pastello (azzurro, arancione, verde acqua, rosa).
 - **Dark Mode** 🌙: Modalità notturna automatica o manuale, perfetta per la sera.
-- **Tipografia**: Font _Quicksand_ per la massima leggibilità.
+- **Tipografia**: Font _Fredoka_ per la massima leggibilità.
 - **Micro-interazioni**: Animazioni fluide (bounce, pulse, shake) per un'esperienza tattile.
 - **Mobile-First**: Ottimizzata per dita piccole su tablet e smartphone.
 - **Accessibilità**: Feedback tattile (vibrazione) e testi ad alto contrasto.
+- **Multilingua** 🌍: Interfaccia in italiano (default) e inglese, con rilevamento automatico della lingua del browser.
 
 ### 🎵 Esperienza Multimodale
 - **Audio Procedurale**: Suoni generati in tempo reale (Web Audio API) per successi ed errori.
@@ -53,11 +54,13 @@ Con un design accattivante ispirato allo stile del cartone animato _Bluey_, l'ap
 
 Il progetto è costruito con tecnologie web modernissime:
 
-- **[Nuxt 3](https://nuxt.com/)** - Il Framework Vue.js per eccellenza.
+- **[Nuxt 4](https://nuxt.com/)** - Il Framework Vue.js per eccellenza (modalità SPA statica, `ssr: false`).
 - **[Vue 3](https://vuejs.org/)** - Composition API & Script Setup.
 - **[TypeScript](https://www.typescriptlang.org/)** - Per un codice robusto e sicuro.
-- **[Tailwind / CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)** - Stili personalizzati con variabili CSS moderne.
+- **[Nuxt UI 4](https://ui.nuxt.com/)** - Componenti e utility (porta con sé Tailwind CSS 4).
+- **CSS custom properties** - Il design system vive in `app/assets/css/main.css`.
 - **[Vite PWA](https://vite-pwa-org.netlify.app/)** - Per le funzionalità Progressive Web App.
+- **[Nuxt i18n](https://i18n.nuxtjs.org/)** - Localizzazione italiano/inglese.
 - **[Canvas Confetti](https://www.npmjs.com/package/canvas-confetti)** - Per gli effetti particellari.
 - **[GitHub Actions](https://github.com/features/actions)** - Automazione di build e deploy.
 
@@ -65,16 +68,21 @@ Il progetto è costruito con tecnologie web modernissime:
 
 ```bash
 MateGioco/
-├── .github/workflows/   # CI/CD Pipelines
-├── assets/css/          # Design System e variabili CSS
-├── components/          # Componenti Vue riutilizzabili
-├── composables/         # Logica di business (Hooks)
-├── pages/               # Routing dell'applicazione
-├── public/              # Assets statici e icone PWA
-├── types/               # Definizioni TypeScript condivise
-├── app.vue              # Root Component
-├── nuxt.config.ts       # Configurazione framework
-└── package.json         # Dipendenze e script
+├── app/                    # srcDir di Nuxt 4
+│   ├── app.vue             # Root component
+│   ├── layouts/            # Layout dell'applicazione
+│   ├── pages/              # Routing (index.vue, game.vue)
+│   ├── components/         # Componenti Vue riutilizzabili
+│   ├── composables/        # Logica di business (useExercises, useStars, ...)
+│   ├── types/              # Definizioni TypeScript condivise
+│   └── assets/css/         # Design System e variabili CSS
+├── i18n/locales/           # Traduzioni it-IT e en-US
+├── public/                 # Assets statici e icone PWA
+├── docs/plans/             # Design doc delle feature non ancora implementate
+├── implementation_plans/   # Piani di implementazione storici
+├── .github/workflows/      # CI/CD Pipelines
+├── nuxt.config.ts          # Configurazione framework
+└── package.json            # Dipendenze e script
 ```
 
 ## 🚀 Guida allo Sviluppo
@@ -119,6 +127,24 @@ npm run generate
 npm run preview
 ```
 
+## ✅ Lint e Verifica
+
+```bash
+# Lint del codice
+npm run lint
+
+# Lint con correzione automatica
+npm run lint:fix
+```
+
+Il lint è configurato dal modulo `@nuxt/eslint` (`eslint.config.mjs`). Usa sempre gli script
+npm, non `eslint` direttamente: il comando resta stabile anche se la configurazione cambia.
+
+**Il progetto non ha una suite di test automatici**: ogni modifica va verificata a mano nel
+browser con `npm run dev`, preferibilmente su viewport mobile. La verifica minima prima di
+una PR è `npm run lint` più `npm run generate`, che è lo stesso comando usato dalla CI per
+il deploy.
+
 ## 🏷️ Release Management
 
 Il progetto utilizza **[Standard Version](https://github.com/conventional-changelog/standard-version)** per il versionamento semantico e la gestione automatica del changelog.
@@ -134,19 +160,27 @@ npm run release:major    # Forzato major
 git push --follow-tags
 ```
 
+## 📚 Documentazione
+
+| Documento | Contenuto |
+|-----------|-----------|
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Workflow, branch, commit, PR e come una modifica arriva in produzione. |
+| [AGENTS.md](AGENTS.md) | Istruzioni per gli agenti AI: stack, struttura, convenzioni, verifica. |
+| [CLAUDE.md](CLAUDE.md) | Delta specifico di Claude Code (importa AGENTS.md). |
+| [CHANGELOG.md](CHANGELOG.md) | Storico delle release, generato da `standard-version`. |
+| [docs/plans/](docs/plans/) | Design doc delle feature progettate ma non ancora implementate. |
+
 ## 📄 Licenza
 
-Distribuito sotto licenza **MIT**. Vedi il file `LICENSE` per maggiori informazioni.
+Distribuito sotto licenza **MIT**.
 
 ## 🤝 Contributi
 
-Siamo aperti a contributi! Sentiti libero di aprire una **Issue** o una **Pull Request**.
+Siamo aperti a contributi! Apri una **Issue** per proporre una modifica, oppure una **Pull
+Request** verso `develop`.
 
-1. Forka il progetto
-2. Crea il tuo branch (`git checkout -b feature/AmazingFeature`)
-3. Committa le tue modifiche (`git commit -m 'Add some AmazingFeature'`)
-4. Pusha sul branch (`git push origin feature/AmazingFeature`)
-5. Apri una Pull Request
+Workflow, convenzioni di branch e commit, e procedura di release sono in
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## 👨‍💻 Autore
 
