@@ -162,6 +162,23 @@ npm, non `eslint` direttamente: il comando resta stabile anche se la configurazi
 La verifica minima prima di una PR è `npm run lint`, `npm test` e `npm run generate`,
 che è lo stesso comando usato dalla CI per il deploy.
 
+## 📸 Galleria delle Schermate
+
+```bash
+# Rigenera gli screenshot di ogni schermata su ogni risoluzione iPhone
+npm run screenshots
+```
+
+Gli screenshot vivono in [`docs/screenshots/`](docs/screenshots/) e **sono versionati**: in
+una pull request mostrano cosa cambia visivamente, non solo nel codice. Per sfogliarli apri
+[`docs/screenshots/index.html`](docs/screenshots/index.html) in un browser, con selettore di
+tema e di scala.
+
+Sono riproducibili: due esecuzioni di fila producono file identici, perché lo script fissa
+progressione, lingua, tema, numeri casuali e animazioni, e fotografa la build statica invece
+del dev server. Il perché di ogni accorgimento è in
+[`docs/screenshots/README.md`](docs/screenshots/README.md).
+
 ## 🏷️ Release Management
 
 Il progetto utilizza **[Standard Version](https://github.com/conventional-changelog/standard-version)** per il versionamento semantico e la gestione automatica del changelog.
@@ -185,6 +202,7 @@ git push --follow-tags
 | [AGENTS.md](AGENTS.md) | Istruzioni per gli agenti AI: stack, struttura, convenzioni, verifica. |
 | [CLAUDE.md](CLAUDE.md) | Delta specifico di Claude Code (importa AGENTS.md). |
 | [CHANGELOG.md](CHANGELOG.md) | Storico delle release, generato da `standard-version`. |
+| [docs/screenshots/](docs/screenshots/) | Galleria delle schermate su ogni risoluzione iPhone, rigenerabile. |
 | [ROADMAP.md](ROADMAP.md) | Stato attuale, fasi successive, debito tecnico e decisioni aperte. |
 
 ## 📄 Licenza

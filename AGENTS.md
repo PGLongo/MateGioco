@@ -43,6 +43,8 @@ app/                        srcDir di Nuxt 4
 └── assets/css/main.css     design system: CSS custom properties su :root, nessuna
                             direttiva Tailwind
 tests/                      Vitest: rispecchia app/, fixture in tests/fixtures/
+docs/screenshots/           galleria versionata: ogni schermata per ogni iPhone
+scripts/screenshots.mjs     genera la galleria (Playwright sulla build statica)
 i18n/locales/               it-IT.json (default) e en-US.json
 public/                     icone PWA e favicon generate da icon-1024x1024.svg
 ROADMAP.md                  stato attuale, fasi successive, decisioni aperte (versionato)
@@ -77,6 +79,7 @@ npm run test:watch     # Vitest in watch
 npm run generate       # build statica SSG, output in .output/public
 npm run preview        # anteprima locale della build
 npm run generate-assets # rigenera icone PWA da public/icon-1024x1024.svg
+npm run screenshots    # rigenera la galleria in docs/screenshots/ (build + cattura)
 ```
 
 I test sono **Vitest** in `tests/`, che rispecchia la struttura di `app/`, con i file
@@ -147,11 +150,15 @@ pagine si verificano ancora a mano nel browser. Le convenzioni sono nella skill 
    modifica che la rompe si vede qui prima che nel browser.
 3. `npm run generate` deve completare senza errori: e' lo stesso comando che la CI usa per
    il deploy.
-4. Verifica a mano nel browser il flusso toccato (`npm run dev`), su viewport mobile: il
+4. Se hai cambiato qualcosa che si vede, esegui `npm run screenshots` e committa il
+   diff della galleria: e' il modo in cui una modifica visiva diventa rivedibile. Un diff
+   che non ti aspettavi e' un cambiamento non voluto, non rumore: gli screenshot sono
+   riproducibili.
+5. Verifica a mano nel browser il flusso toccato (`npm run dev`), su viewport mobile: il
    target sono tablet e smartphone usati da bambini.
-5. Se hai aggiunto testo visibile, controlla che la chiave esista in **entrambi** i file di
+6. Se hai aggiunto testo visibile, controlla che la chiave esista in **entrambi** i file di
    `i18n/locales/`.
-6. Se hai toccato path di asset o routing, verifica anche la build di produzione con
+7. Se hai toccato path di asset o routing, verifica anche la build di produzione con
    `npm run preview`, dove `baseURL` diventa `/MateGioco/`.
 
 ## Sicurezza
