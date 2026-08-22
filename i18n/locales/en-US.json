@@ -117,6 +117,8 @@
     }
   },
   "nav": {
+    "back": "Back",
+    "home": "Home",
     "map": "Map",
     "trophies": "Trophies"
   },
@@ -124,8 +126,7 @@
     "question": "What is?",
     "help": "Help",
     "delete": "Delete",
-    "submit": "✓ OK!",
-    "back": "Back"
+    "submit": "✓ OK!"
   },
   "feedback": {
     "success": "🎉 Great!",

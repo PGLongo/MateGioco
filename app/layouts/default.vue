@@ -15,7 +15,12 @@
     <!-- Bottom Navigation -->
     <nav class="bottom-nav">
       <div class="nav-container">
-        
+        <NavigationButton
+          icon="mdi:home"
+          :label="$t('nav.home')"
+          to="/"
+        />
+
         <NavigationButton
           icon="mdi:map"
           :label="$t('nav.map')"
@@ -70,8 +75,10 @@ onMounted(() => {
 
 @media (max-width: 480px) {
   .main-content {
-    /* Reduced padding for mobile fit */
-    padding: 12px 12px 0 12px; /* Top, Right, Bottom=0, Left */
+    /* Padding ridotto per stare su mobile, ma **non** azzerato in basso: con 0 la card
+       arrivava a contatto con la barra di navigazione e la sua ombra veniva ritagliata
+       dall'overflow, cosi' sembrava passarci sotto */
+    padding: 12px 12px 12px 12px;
   }
 }
 
@@ -99,4 +106,16 @@ onMounted(() => {
 }
 
 
+
+/* Schermi bassi: si recupera altezza da barra e spaziature, per far stare la pagina di
+   gioco senza scroll fino all'iPhone SE */
+@media (max-height: 720px) {
+  .main-content {
+    padding: 8px;
+  }
+
+  .bottom-nav {
+    padding: 4px 16px 8px;
+  }
+}
 </style>

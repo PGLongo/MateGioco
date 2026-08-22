@@ -117,6 +117,8 @@
     }
   },
   "nav": {
+    "back": "Indietro",
+    "home": "Casa",
     "map": "Mappa",
     "trophies": "Trofei"
   },
@@ -124,8 +126,7 @@
     "question": "Quanto fa?",
     "help": "Aiuto",
     "delete": "Cancella",
-    "submit": "✓ OK!",
-    "back": "Indietro"
+    "submit": "✓ OK!"
   },
   "feedback": {
     "success": "🎉 Bravo!",

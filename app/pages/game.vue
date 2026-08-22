@@ -1,11 +1,5 @@
 <template>
   <div class="game-page">
-    <!-- Back Button -->
-    <button class="back-button" @click="handleBack">
-      <Icon name="mdi:arrow-left" class="icon-small" />
-      {{ $t('game.back') }}
-    </button>
-
     <div class="game-content">
       <h2 class="question-title">{{ $t('game.question') }}</h2>
 
@@ -130,10 +124,6 @@ const sessionStars = ref(0)
 const newBadges = ref<Badge[]>([])
 const showCorrectAnswer = ref(false)
 const correctAnswerValue = ref(0)
-
-const handleBack = () => {
-  router.push('/')
-}
 
 // Gestione input digitale
 const handleAddDigit = (digit: string) => {
@@ -263,34 +253,6 @@ onMounted(() => {
   min-height: 0; 
 }
 
-/* Back Button */
-.back-button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: var(--text-strong, #2A3C55);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-family: inherit;
-  font-size: 1rem;
-  z-index: 10;
-  padding: 8px 0;
-}
-
-.back-button:hover {
-  opacity: 0.75;
-}
-
-.icon-small {
-  width: 24px;
-  height: 24px;
-}
-
 .game-content {
   flex: 1;
   display: flex;
@@ -311,6 +273,20 @@ onMounted(() => {
 .math-problem {
   margin-bottom: 16px; /* Reduced from 32px */
   transform: scale(1); /* Removed scale 1.1 to save space */
+}
+
+/* Schermi bassi (iPhone SE: 667pt): senza questa compressione la pagina chiedeva 89px di
+   scroll per arrivare al tasto OK, e un bambino di 4 anni non scrolla. Si riducono titolo
+   e spaziature, non i tasti, che restano sopra i 44px per essere centrabili con un dito. */
+@media (max-height: 720px) {
+  .question-title {
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+  }
+
+  .math-problem {
+    margin-bottom: 6px;
+  }
 }
 
 /* Modal styles - same as before */

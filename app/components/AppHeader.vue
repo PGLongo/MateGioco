@@ -1,6 +1,19 @@
 <template>
   <header class="app-header">
-    <div class="header-content">
+    <button
+      v-if="canGoBack"
+      class="back-button"
+      :aria-label="$t('nav.back')"
+      data-cy="header-back"
+      @click="goBack"
+    >
+      <Icon name="mdi:chevron-left" class="back-icon" />
+      <span class="back-label">{{ $t('nav.back') }}</span>
+    </button>
+
+    <!-- Il saluto vive nella home. Nelle pagine interne la barra fa il suo mestiere di
+         navigazione: con entrambi, su 375px il selettore del tema finiva sopra al nome -->
+    <div v-if="!canGoBack" class="header-content">
       <h1 class="greeting">{{ $t('header.hello') }}</h1>
       <span class="username">{{ userName }}!</span>
     </div>
@@ -31,8 +44,25 @@ withDefaults(defineProps<AppHeaderProps>(), {
 
 const colorMode = useColorMode()
 const { playClick } = useSound()
+const router = useRouter()
+const route = useRoute()
 
 const isDark = computed(() => colorMode.value === 'dark')
+
+/** Fuori dalla home c'e' sempre un posto dove tornare */
+const canGoBack = computed(() => route.path !== '/')
+
+const goBack = () => {
+  playClick()
+
+  // Se si e' arrivati da dentro l'app si torna indietro nella cronologia; se la pagina e'
+  // stata aperta di sbieco (link diretto, PWA riaperta) si va alla home invece di uscire
+  if (window.history.state?.back) {
+    router.back()
+  } else {
+    router.push('/')
+  }
+}
 
 const toggleTheme = () => {
   playClick()
@@ -51,6 +81,31 @@ const toggleTheme = () => {
   justify-content: space-between;
   background-color: var(--surface-header, #78CBE8);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 8px 8px 0;
+  margin-right: 4px;
+  border: none;
+  background: none;
+  color: var(--text-strong, #2A3C55);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.back-button:active {
+  transform: scale(0.94);
+}
+
+.back-icon {
+  width: 28px;
+  height: 28px;
 }
 
 .header-content {
@@ -85,6 +140,7 @@ const toggleTheme = () => {
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-left: auto;
 }
 
 .theme-toggle {
@@ -117,5 +173,18 @@ const toggleTheme = () => {
 
 .star-wrapper:hover {
   transform: rotate(2deg);
+}
+
+/* Schermi bassi (iPhone SE): l'header da 118px mangiava lo spazio che serve al tastierino
+   della pagina di gioco. Si stringono le spaziature, non i caratteri: il saluto resta
+   leggibile. */
+@media (max-height: 720px) {
+  .app-header {
+    padding: 12px 16px;
+  }
+
+  .greeting {
+    font-size: 1.5rem;
+  }
 }
 </style>
