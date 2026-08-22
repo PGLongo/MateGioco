@@ -4,7 +4,9 @@
     "description": "App educativa di matematica per bambini di 4 anni"
   },
   "header": {
-    "hello": "Ciao,"
+    "hello": "Ciao,",
+    "theme": "Cambia tema",
+    "defaultName": "Amico"
   },
   "home": {
     "play": "GIOCA ORA",

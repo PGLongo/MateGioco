@@ -6,8 +6,9 @@ interface Settings {
   userName: string
 }
 
+// Vuoto di proposito: il nome di cortesia lo decide l'interfaccia, che lo prende da i18n
 const defaultSettings: Settings = {
-  userName: 'Amico'
+  userName: ''
 }
 
 // Stato globale condiviso (singleton)
@@ -46,7 +47,7 @@ export const useSettings = () => {
 
   // Imposta nome utente
   const setUserName = (name: string) => {
-    settings.value.userName = name.trim() || defaultSettings.userName
+    settings.value.userName = name.trim()
     saveSettings()
   }
 

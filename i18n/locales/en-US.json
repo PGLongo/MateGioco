@@ -4,7 +4,9 @@
     "description": "Educational math app for 4-year-old children"
   },
   "header": {
-    "hello": "Hi,"
+    "hello": "Hi,",
+    "theme": "Change theme",
+    "defaultName": "Buddy"
   },
   "home": {
     "play": "PLAY NOW",
