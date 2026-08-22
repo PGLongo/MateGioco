@@ -1,20 +1,23 @@
 import { ref, computed } from 'vue'
-
-export interface Exercise {
-  num1: number
-  num2: number
-  operator: '+' | '-' | '×' | '÷'
-  correctAnswer: number
-}
+import type { LevelConfig } from '~/types/Level'
+import type { Exercise } from './useMathEngine'
+import { useMathEngine } from './useMathEngine'
+import { LEVELS, FIRST_LEVEL_ID, getLevel } from '~/config/levels.config'
 
 const EXERCISES_PER_SESSION = 5
 
 export const useExercises = () => {
+  const { generateSession, formatExercise } = useMathEngine()
+
   const exercises = ref<Exercise[]>([])
   const currentExerciseIndex = ref(0)
   const userAnswer = ref('')
   const isCorrect = ref<boolean | null>(null)
   const sessionCompleted = ref(false)
+
+  // Livello della sessione in corso: chi chiama puo' passarne uno, altrimenti si parte
+  // dal primo del percorso
+  const currentLevel = ref<LevelConfig>(getLevel(FIRST_LEVEL_ID) ?? LEVELS[0]!)
 
   // Esercizio corrente
   const currentExercise = computed(() => {
@@ -29,30 +32,13 @@ export const useExercises = () => {
     }
   })
 
-  // Genera un numero casuale tra min e max (inclusi)
-  const randomInt = (min: number, max: number): number => {
-    return Math.floor(Math.random() * (max - min + 1)) + min
-  }
-
-  // Genera un esercizio di somma
-  const generateAdditionExercise = (): Exercise => {
-    const num1 = randomInt(1, 10)
-    const num2 = randomInt(1, 10)
-    return {
-      num1,
-      num2,
-      operator: '+',
-      correctAnswer: num1 + num2
+  // Genera esercizi per la sessione, conformi al livello indicato
+  const generateExercises = (level?: LevelConfig) => {
+    if (level) {
+      currentLevel.value = level
     }
-  }
 
-  // Genera esercizi per la sessione
-  const generateExercises = () => {
-    exercises.value = []
-    for (let i = 0; i < EXERCISES_PER_SESSION; i++) {
-      // Per MVP: solo somme
-      exercises.value.push(generateAdditionExercise())
-    }
+    exercises.value = generateSession(currentLevel.value, EXERCISES_PER_SESSION)
     currentExerciseIndex.value = 0
     userAnswer.value = ''
     isCorrect.value = null
@@ -108,12 +94,7 @@ export const useExercises = () => {
     return answer.substring(0, halfLength) + '?'.repeat(answer.length - halfLength)
   }
 
-  // Formatta l'esercizio come stringa
-  const formatExercise = (exercise: Exercise): string => {
-    return `${exercise.num1} ${exercise.operator} ${exercise.num2} = ?`
-  }
-
-  // Reset per nuova sessione
+  // Reset per nuova sessione, sullo stesso livello
   const resetSession = () => {
     generateExercises()
   }
@@ -123,6 +104,7 @@ export const useExercises = () => {
     exercises,
     currentExerciseIndex,
     currentExercise,
+    currentLevel,
     userAnswer,
     isCorrect,
     sessionCompleted,
