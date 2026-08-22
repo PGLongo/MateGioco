@@ -54,18 +54,19 @@ const LIMITS = [
 
 const esc = (text) => String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-const verdict = (screen, scroll) => {
-  if (scroll === 0) return { label: 'in schermo', tone: 'good' }
-  if (screen === 'map' || screen === 'badges') return { label: `scorre ${scroll}px`, tone: 'neutral' }
-  return { label: `scroll ${scroll}px`, tone: 'warn' }
+const verdict = (screen, overflow) => {
+  if (overflow === 0) return { label: 'in schermo', tone: 'good' }
+  if (screen === 'map' || screen === 'badges') return { label: `scorre ${overflow}px`, tone: 'neutral' }
+  return { label: `scroll ${overflow}px`, tone: 'warn' }
 }
 
 const build = async () => {
   const data = JSON.parse(await readFile(join(GALLERY_DIR, 'measurements.json'), 'utf-8'))
   const devices = [...data.devices].sort((a, b) => a.height - b.height)
-  const { screens, metrics } = data
+  const { screens } = data
 
-  const metricFor = (device, screen) => metrics.find(m => m.device === device && m.screen === screen)
+  const metricFor = (deviceSlug, screen) =>
+    devices.find(d => d.slug === deviceSlug)?.metrics.find(m => m.screen === screen)
 
   // Immagini: si incorporano per avere un file solo, apribile e inviabile senza il repository
   const images = {}
@@ -82,15 +83,15 @@ const build = async () => {
     const key = `${device.slug}/${screen.slug}${dark ? '-dark' : ''}.png`
     if (!images[key]) return ''
     const m = metricFor(device.slug, screen.slug)
-    const v = m ? verdict(screen.slug, m.scroll) : null
+    const v = m ? verdict(screen.slug, m.overflow) : null
 
     return `
         <figure class="shot">
-          <img src="${images[key]}" width="${device.width}" height="${device.height}"
+          <img src="${images[key]}" width="${m?.width ?? 390}" height="${device.height}"
                alt="${esc(screen.label)} su ${esc(device.label)}" loading="lazy">
           <figcaption>
             <span class="shot-name">${esc(device.label)}</span>
-            <span class="shot-size">${device.width}&times;${device.height}</span>
+            <span class="shot-size">${m?.width ?? '?'}&times;${device.height}</span>
             ${v ? `<span class="chip chip-${v.tone}">${esc(v.label)}</span>` : ''}
           </figcaption>
         </figure>`
@@ -373,9 +374,10 @@ const build = async () => {
   <header class="masthead">
     <p class="eyebrow">Report visivo &middot; 22 agosto 2026</p>
     <h1>MateGioco su ogni iPhone</h1>
-    <p class="standfirst">Ogni schermata dell&rsquo;app, catturata dalla build statica su nove
-    risoluzioni iPhone. Le misure accanto a ciascuna immagine sono prese sulla stessa pagina
-    fotografata: dicono se il contenuto sta in schermo senza scroll.</p>
+    <p class="standfirst">Ogni schermata dell&rsquo;app su ogni iPhone, resa da <b>WebKit</b> nel
+    viewport reale di Safari &mdash; non l&rsquo;altezza dello schermo, che sarebbe una misura
+    ottimistica di circa 190 punti. Le immagini sono le baseline dei test visivi, e le misure
+    accanto a ciascuna sono prese durante gli stessi test.</p>
     <div class="facts">
       <span>versione <b>${APP_VERSION}</b></span>
       <span>dispositivi <b>${devices.length}</b></span>
@@ -394,18 +396,18 @@ const build = async () => {
         <thead>
           <tr>
             <th>Dispositivo</th>
-            <th>Punti</th>
+            <th>Viewport</th>
             ${screens.map(s => `<th>${esc(s.label)}</th>`).join('\n            ')}
             <th>Tasti</th>
           </tr>
         </thead>
         <tbody>
           ${devices.map(d => `<tr>
-            <td class="device"><b>${esc(d.label)}</b><span>${esc(d.note)}</span></td>
-            <td class="num">${d.width}&times;${d.height}</td>
+            <td class="device"><b>${esc(d.label)}</b><span>viewport Safari</span></td>
+            <td class="num">${metricFor(d.slug, 'home')?.width ?? '?'}&times;${d.height}</td>
             ${screens.map(s => {
               const m = metricFor(d.slug, s.slug)
-              const v = m ? verdict(s.slug, m.scroll) : null
+              const v = m ? verdict(s.slug, m.overflow) : null
               return `<td>${v ? `<span class="chip chip-${v.tone}">${esc(v.label)}</span>` : '&mdash;'}</td>`
             }).join('\n            ')}
             <td class="num">${metricFor(d.slug, 'game')?.keyHeight ?? '&mdash;'}px</td>
