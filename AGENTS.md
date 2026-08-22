@@ -101,6 +101,13 @@ pagine si verificano ancora a mano nel browser. Le convenzioni sono nella skill 
   UI e binding.
 - TypeScript tipizzato in modo esplicito: interfacce per props, emit e strutture dati,
   `any` da evitare. I tipi condivisi dei componenti stanno in `app/types/*.d.ts`.
+- **Icona PWA**: la sorgente e' `public/icon-1024x1024.svg` e da lei `npm run generate-assets`
+  produce tutte le varianti. Due vincoli imparati sul campo: il testo va messo come
+  **tracciato** e non come `<text>` (il generatore non ha i font dell'app e ripiegherebbe su
+  un font di sistema qualsiasi, diverso da macchina a macchina), e lo sfondo configurato per
+  le varianti maskable e Apple in `pwa-assets.config.ts` non deve coincidere col colore del
+  soggetto, altrimenti la sagoma spariva. Dopo un rigenerazione, controlla che in `public/`
+  non restino file di una generazione precedente: sono icone vecchie che nessuno aggiorna.
 - Persistenza: solo `localStorage`, una chiave per dominio, con prefisso `mategioco-`
   (`mategioco-stars`, `mategioco-settings`, `mategioco-progression`). Letture e scritture sempre in `try/catch`.
 - **Lo stato condiviso fra componenti va dichiarato a livello di modulo**, fuori dalla

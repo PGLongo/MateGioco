@@ -86,6 +86,17 @@ elencati perche' dicono cosa e' stato guardato, non solo cosa manca.
 
 **Risolti**
 
+- ~~L'icona della PWA dipendeva dai font della macchina~~: i numeri erano `<text>` con
+  `font-family: Quicksand`, font che non e' piu' quello dell'app e che sul generatore non
+  esiste, quindi l'icona usciva con un font di sistema diverso a ogni macchina. Ora sono
+  tracciati estratti da Fredoka 700.
+- ~~Nel ritaglio maskable il corpo della calcolatrice era invisibile~~: era `#78CBE8` sullo
+  stesso `#78CBE8` di sfondo, e restavano schermo e faccia a galleggiare. Sfondo delle
+  varianti maskable e Apple portato a crema.
+- ~~Otto file icona orfani in `public/`~~ (cinque SVG e tre PNG di generazioni precedenti):
+  nessuno li referenziava, contenevano il disegno vecchio ed erano precaricati dal service
+  worker. Rimossi: ora tutte e quindici le icone vengono dalla stessa generazione.
+
 - ~~Le verifiche di adattamento usavano l'altezza dello schermo~~, non il viewport utile di
   Safari: circa 190pt di ottimismo. I test visivi ora usano i preset iPhone di Playwright
   (WebKit, viewport reale) e hanno trovato l'ultimo caso non coperto, iPhone 13 Mini a 629pt,
