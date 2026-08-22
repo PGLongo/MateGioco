@@ -10,8 +10,7 @@ progetto sia gia' installato e funzionante in locale.
 
 ## Prerequisiti
 
-- Node.js >= 20 e npm (la CI usa Node 20.x: se sviluppi su una versione piu' recente,
-  verifica la build con `npm run generate` prima di aprire la PR).
+- Node.js >= 22.19 e npm (la CI usa Node 22.x). Nuxt 4.5 non supporta Node 20.
 - Nessun database, nessun servizio esterno, nessuna variabile d'ambiente da configurare:
   l'applicazione e' interamente client-side.
 

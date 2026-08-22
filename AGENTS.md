@@ -14,7 +14,8 @@ autenticazione: tutto lo stato vive nel browser.
 
 ## Stack
 
-- Node.js >= 20 (la CI usa 20.x), npm
+- Node.js >= 22.19 (dichiarato in `engines`; la CI usa 22.x). Nuxt 4.5 non supporta Node 20:
+  con la 20 la build muore con `TypeError: trustedFunctions.difference is not a function`
 - Nuxt 4.5 (`future.compatibilityVersion: 4`, `srcDir` implicito `app/`), Vue 3.5,
   TypeScript 6, ESLint 10, Vite 8 (transitivo, da Nuxt)
 - **TypeScript resta sulla linea 6**: la 7 non e' utilizzabile perche' `@typescript-eslint`

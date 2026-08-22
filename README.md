@@ -93,8 +93,8 @@ MateGioco/
 ## 🚀 Guida allo Sviluppo
 
 ### Prerequisiti
-- **Node.js**: v20.x o superiore
-- **npm** o **yarn**
+- **Node.js**: v22.19 o superiore (richiesto da Nuxt 4.5: `engines` in `package.json`)
+- **npm**
 
 ### Setup Locale
 
