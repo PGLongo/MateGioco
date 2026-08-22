@@ -30,3 +30,7 @@ logs
 
 # Report autonomo generato: incorpora i PNG in base64, non va versionato
 docs/screenshots/report.html
+
+# Output dei test visivi (il report locale si rigenera, le baseline sono in docs/)
+playwright-report
+test-results
