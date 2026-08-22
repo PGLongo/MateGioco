@@ -101,6 +101,11 @@ pagine si verificano ancora a mano nel browser. Le convenzioni sono nella skill 
 - Stile: CSS scoped nel componente per il layout locale, variabili CSS di
   `app/assets/css/main.css` per colori, ombre e raggi. Non introdurre valori esadecimali
   nuovi nei componenti: aggiungi la custom property al design system.
+- **Le superfici passano dai token semantici**, non dai colori: `--surface-app` (fondo),
+  `--surface-header`, `--surface-nav`, `--color-bg-white` (card), `--card-border`,
+  `--surface-overlay`. Sono gli unici che il blocco `.dark` ridefinisce, quindi un
+  `background-color: white` o un `var(--color-blue-primary)` usato come sfondo resta chiaro
+  in tema scuro: era il difetto per cui il dark mode si fermava a metà.
 - Testi visibili all'utente: chiave in `i18n/locales/it-IT.json` **e** in `en-US.json`,
   usata con `$t()` nel template o `t()` da `useI18n()` nello script. Alcune stringhe piu'
   vecchie sono ancora hardcoded nei template (per esempio in `app/pages/index.vue`): non

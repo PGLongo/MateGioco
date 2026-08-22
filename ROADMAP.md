@@ -105,10 +105,12 @@ elencati perche' dicono cosa e' stato guardato, non solo cosa manca.
 
 - ~~I pulsanti "Mappa" e "Trofei" del footer non navigavano~~: ora portano a mappa e
   bacheca, e `NavigationButton` resta spento quando una destinazione non esiste ancora.
-- ~~Il dark mode non era raggiungibile~~: `colorMode.preference` e' passato a `'system'`,
-  l'header ha un interruttore, e i colori scritti a mano nei componenti
-  (`background-color: white`) sono diventati custom property, senza le quali il tema scuro
-  restava a metà.
+- ~~Il dark mode non era raggiungibile~~: `colorMode.preference` e' passato a `'system'` e
+  l'header ha un interruttore. Il tema scuro si fermava comunque a metà, perche' fondo,
+  header e footer non usavano i token di sfondo: il fondo restava azzurro (#5BA8D6) e il
+  footer bianco al 90%. Ora ci sono token **semantici** delle superfici (`--surface-app`,
+  `--surface-header`, `--surface-nav`, `--card-border`, `--surface-overlay`) con una
+  gerarchia di profondita' in scuro: fondo #22282D, header #2C3338, card #3A444B.
 - ~~Il nome di default restava "Amico" anche in inglese~~: il composable non impone piu' un
   default, e l'interfaccia usa `header.defaultName` (Amico / Buddy).
 - ~~Due verità parallele sulle stelline~~: il totale dell'header e' ora derivato dalla somma
