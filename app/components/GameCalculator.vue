@@ -335,4 +335,12 @@ defineEmits<{
     font-size: 1.4rem;
   }
 }
+
+/* Schermi bassi: spaziature del tastierino ridotte, altezza minima dei tasti intatta */
+@media (max-height: 720px) {
+  .number-pad {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+}
 </style>

@@ -79,7 +79,7 @@ const starsMissing = computed(() => Math.max(0, props.level.starsToUnlock - prop
 .icon-wrapper {
   width: 140px;
   height: 140px;
-  background-color: #DBEAFE;
+  background-color: var(--color-blue-lighter, #E1F4FA);
   border-radius: 9999px;
   display: flex;
   align-items: center;
@@ -113,5 +113,32 @@ const starsMissing = computed(() => Math.max(0, props.level.starsToUnlock - prop
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
+}
+
+/* Schermi bassi (iPhone SE: 667pt, e telefoni piu' vecchi): la card era alta 493px in
+   450px disponibili e finiva tagliata sotto la barra di navigazione. Si comprimono i costi
+   verticali fissi (cerchio dell'icona, spaziature) invece di lasciare il contenuto fuori
+   dallo schermo: un bambino di 4 anni non scrolla per trovare il pulsante. */
+@media (max-height: 720px) {
+  .challenge-card {
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .card-content {
+    gap: 8px;
+    padding-bottom: 8px;
+  }
+
+  .icon-wrapper {
+    width: 88px;
+    height: 88px;
+    margin-bottom: 0;
+  }
+
+  .world-icon {
+    width: 56px;
+    height: 56px;
+  }
 }
 </style>

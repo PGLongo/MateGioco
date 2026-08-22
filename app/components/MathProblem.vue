@@ -170,4 +170,20 @@ withDefaults(defineProps<MathProblemProps>(), {
     gap: 10px;
   }
 }
+
+/* Schermi bassi: il riquadro dell'esercizio e i suoi numeri si stringono, cosi' il
+   tastierino resta interamente visibile senza scroll */
+@media (max-height: 720px) {
+  .math-problem {
+    padding: 10px 12px;
+  }
+
+  .number,
+  .operator,
+  .equals,
+  .question-mark,
+  .answer-reveal {
+    font-size: 2.4rem;
+  }
+}
 </style>
