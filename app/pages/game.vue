@@ -31,10 +31,37 @@
       />
     </div>
 
-    <!-- Custom CSS Modal Overlay -->
-    <div v-if="sessionCompleted" class="modal-overlay">
+    <!-- Nuovo badge conquistato: ha la precedenza sulla modale di fine sessione,
+         perche' e' la notizia piu' importante per il bambino -->
+    <div v-if="sessionCompleted && newBadges.length" class="modal-overlay">
       <div class="modal-card">
-        <h2 class="modal-title">Fantastico! 🎉</h2>
+        <h2 class="modal-title">{{ $t('badges.newBadge') }}</h2>
+
+        <div class="badge-showcase">
+          <span
+            v-for="badge in newBadges"
+            :key="badge.id"
+            class="badge-showcase-emoji"
+            :data-cy="`new-badge-${badge.id}`"
+          >{{ badge.emoji }}</span>
+        </div>
+
+        <p class="modal-message">{{ $t(newBadges[0]!.nameKey) }}</p>
+        <p class="badge-showcase-desc">{{ $t(newBadges[0]!.descKey) }}</p>
+
+        <button class="modal-btn" @click="goToBadges">
+          {{ $t('badges.toBoard') }}
+        </button>
+        <button class="modal-btn is-secondary" @click="dismissBadges">
+          {{ $t('badges.keepPlaying') }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Custom CSS Modal Overlay -->
+    <div v-else-if="sessionCompleted" class="modal-overlay">
+      <div class="modal-card">
+        <h2 class="modal-title">{{ $t('completion.title') }}</h2>
         <p class="modal-message">{{ $t('completion.message') }}</p>
         <div class="modal-stars">
            <Icon name="mdi:star" class="star-spin" />
@@ -53,11 +80,12 @@
 </template>
 
 <script setup lang="ts">
+import type { Badge } from '~/types/Badge'
 import { getLevel } from '~/config/levels.config'
 
 const { loadSettings } = useSettings()
 const { loadStars, addStars } = useStars()
-const { currentLevel, isUnlocked, addStarsTo, loadProgression } = useProgression()
+const { currentLevel, isUnlocked, addStarsTo, checkForNewBadges, loadProgression } = useProgression()
 const { playSuccess, playError, playClick, playCelebration } = useSound()
 const { celebrate, miniCelebration } = useConfetti()
 const { vibrate } = useVibration()
@@ -93,6 +121,7 @@ const sessionLevel = computed(() => {
 const feedbackMessage = ref('')
 const feedbackState = ref<'success' | 'error' | 'info' | null>(null)
 const sessionStars = ref(0)
+const newBadges = ref<Badge[]>([])
 const showCorrectAnswer = ref(false)
 const correctAnswerValue = ref(0)
 
@@ -180,12 +209,27 @@ const startNewSession = () => {
   router.push('/')
 }
 
+const goToBadges = () => {
+  playClick()
+  router.push('/badges')
+}
+
+/** Chiude la modale del badge e lascia vedere il riepilogo della sessione */
+const dismissBadges = () => {
+  playClick()
+  newBadges.value = []
+}
+
 // Watch per celebrazione completamento sessione
 watch(sessionCompleted, (completed) => {
-  if (completed) {
-    playCelebration()
-    celebrate()
-  }
+  if (!completed) return
+
+  playCelebration()
+  celebrate()
+
+  // I livelli completati durante la sessione consegnano i loro Guardiani. La funzione
+  // restituisce solo i badge nuovi, quindi rigiocare un livello non li ripropone
+  newBadges.value = checkForNewBadges()
 })
 
 // Inizializzazione
@@ -319,6 +363,34 @@ onMounted(() => {
   width: 48px;
   height: 48px;
   animation: spin-slow 3s linear infinite;
+}
+
+.badge-showcase {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 4px 0 8px;
+}
+
+.badge-showcase-emoji {
+  font-size: 4rem;
+  line-height: 1;
+  animation: bounce-small 1.4s infinite;
+}
+
+.badge-showcase-desc {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-light, #7A7A8C);
+  margin-bottom: 8px;
+}
+
+.modal-btn.is-secondary {
+  background-color: var(--color-blue-lighter, #E1F4FA);
+  color: var(--color-dark-navy, #2A3C55);
+  box-shadow: none;
+  margin-top: 8px;
 }
 
 .modal-btn {
