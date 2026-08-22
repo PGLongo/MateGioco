@@ -142,11 +142,16 @@ defineEmits<{
   gap: 16px;
   margin-bottom: 20px;
   flex: 1; /* Occupy all remaining vertical space */
-  min-height: 0; /* Allow shrinking below content size */
+  /* min-content invece di 0: le righe possono restringersi fino al min-height dei
+     bottoni, non oltre. Su viewport basse il tastierino traboccava a 0px di altezza
+     e il gioco diventava inutilizzabile. */
+  min-height: min-content;
 }
 
 .number-btn {
-  /* min-height removed to allow grid 1fr scaling */
+  /* Pavimento di 44px: sotto questa altezza un dito di bambino non centra il tasto.
+     Il tastierino scala ancora con la griglia 1fr, ma non collassa piu'. */
+  min-height: 44px;
   height: 100%; /* Fill the grid cell */
   font-size: 1.8rem;
   font-weight: 800;

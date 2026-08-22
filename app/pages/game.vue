@@ -1,9 +1,9 @@
 <template>
   <div class="game-page">
     <!-- Back Button -->
-    <button @click="handleBack" class="back-button">
+    <button class="back-button" @click="handleBack">
       <Icon name="mdi:arrow-left" class="icon-small" />
-      Indietro
+      {{ $t('game.back') }}
     </button>
 
     <div class="game-content">
@@ -184,11 +184,12 @@ onMounted(() => {
   width: 100%;
   flex: 1; 
   height: 100%; /* Force fit to parent */
-  max-height: 100%; /* Prevent expanding beyond parent */
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden !important; /* Strict no scroll */
+  /* Quando il contenuto non ci sta (viewport bassa, landscape, zoom alto) deve
+     traboccare e scrollare: prima veniva ritagliato, schiacciando il tastierino. */
+  overflow-y: auto;
   min-height: 0; 
 }
 
