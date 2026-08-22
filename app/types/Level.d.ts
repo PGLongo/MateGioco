@@ -16,6 +16,12 @@ export interface LevelConfig {
   starsToUnlock: number
   /** Livello che deve essere completato prima di poter giocare questo; assente sul primo */
   unlockReq?: string
+  /**
+   * Operazioni fra cui pescare a ogni esercizio, per i livelli-sfida. Quando c'e', vince
+   * su `operation`: e' cosi' che un livello misto alterna piu' operazioni senza che il
+   * motore debba conoscere gli id dei Mondi.
+   */
+  mixedOperations?: OperationType[]
 }
 
 export interface WorldConfig {
