@@ -28,6 +28,16 @@
   --color-pink-primary: #E87AB5;
   --color-pink-dark: #C05890;
 
+  /* Superfici semantiche: dicono *a cosa serve* il colore, non che colore e'.
+     Sono queste che il tema scuro ridefinisce, e per questo il fondo dell'app,
+     l'header e la barra di navigazione cambiano davvero invece di restare chiari. */
+  --surface-app: #78CBE8;
+  /* fondo dell'applicazione */
+  --surface-header: #78CBE8;
+  --surface-nav: rgba(255, 255, 255, 0.9);
+  --surface-overlay: rgba(255, 255, 255, 0.2);
+  --card-border: rgba(255, 255, 255, 0.8);
+
   /* Sfondi - Toni caldi/crema per ridurre l'affaticamento */
   --color-bg-primary: #FFF9F0;
   /* Crema chiarissimo */
@@ -62,6 +72,14 @@
   --color-bg-primary: #2C3338;
   --color-bg-secondary: #323A40;
   --color-bg-white: #3A444B;
+
+  /* Gerarchia di profondita': il fondo e' il piu' scuro, le card stanno sopra.
+     Senza questi override il fondo dell'app restava azzurro e il footer bianco. */
+  --surface-app: #22282D;
+  --surface-header: #2C3338;
+  --surface-nav: rgba(44, 51, 56, 0.94);
+  --surface-overlay: rgba(255, 255, 255, 0.12);
+  --card-border: rgba(255, 255, 255, 0.08);
 
   --color-text: #F0F4F8;
   --section-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
@@ -212,7 +230,7 @@ body {
 
 /* Varianti Bottoni */
 .btn-primary {
-  background: var(--color-blue-primary);
+  background: var(--surface-header);
   color: white;
   box-shadow: 0 4px 0 var(--color-blue-dark);
 }

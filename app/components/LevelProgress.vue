@@ -62,7 +62,7 @@ const percentage = computed(() => Math.min(100, (props.current / props.total) * 
 .shimmer-effect {
   position: absolute;
   inset: 0;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--surface-overlay, rgba(255, 255, 255, 0.2));
   border-radius: 9999px;
   animation: shimmer 2s infinite linear;
 }

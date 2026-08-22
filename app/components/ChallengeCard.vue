@@ -56,7 +56,7 @@ const starsMissing = computed(() => Math.max(0, props.level.starsToUnlock - prop
   box-shadow: 
     0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  border: 4px solid rgba(255, 255, 255, 0.8);
+  border: 4px solid var(--card-border, rgba(255, 255, 255, 0.8));
   backdrop-filter: blur(4px);
   width: 100%;
   flex: 1; /* Explicitly grow to fill parent */

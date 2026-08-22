@@ -52,7 +52,7 @@ onMounted(() => {
 <style scoped>
 .app-layout {
   height: 100vh;
-  background-color: var(--color-blue-primary, #78CBE8); /* sky-blue */
+  background-color: var(--surface-app, #78CBE8);
   display: flex;
   flex-direction: column;
   font-family: 'Fredoka', sans-serif; /* Default sans */
@@ -78,7 +78,7 @@ onMounted(() => {
 /* Bottom Navigation */
 .bottom-nav {
   /* Removed position: fixed */
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: var(--surface-nav, rgba(255, 255, 255, 0.9));
   backdrop-filter: blur(12px);
   padding-bottom: 16px;
   padding-top: 8px;

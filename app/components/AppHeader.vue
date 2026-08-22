@@ -49,7 +49,7 @@ const toggleTheme = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--color-blue-primary);
+  background-color: var(--surface-header, #78CBE8);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
