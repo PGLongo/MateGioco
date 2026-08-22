@@ -13,11 +13,11 @@
     <nav class="bottom-nav">
       <div class="nav-container">
         
-        <NavigationButton icon="mdi:map" label="Mappa" />
+        <NavigationButton icon="mdi:map" :label="$t('nav.map')" />
         
 
         
-        <NavigationButton icon="mdi:trophy" label="Trofei" />
+        <NavigationButton icon="mdi:trophy" :label="$t('nav.trophies')" />
         
       </div>
     </nav>

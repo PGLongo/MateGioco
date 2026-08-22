@@ -4,13 +4,25 @@
     "description": "Educational math app for 4-year-old children"
   },
   "header": {
-    "greeting": "Hello {name}! ⭐"
+    "hello": "Hi,"
+  },
+  "home": {
+    "play": "PLAY NOW",
+    "challengeTitle": "Level 1: The World of Numbers",
+    "challengeDesc": "Learn to count and add up!",
+    "starsNeeded": "{count} stars to go to the next level!",
+    "level": "Level {n}"
+  },
+  "nav": {
+    "map": "Map",
+    "trophies": "Trophies"
   },
   "game": {
     "question": "What is?",
     "help": "Help",
     "delete": "Delete",
-    "submit": "✓ OK!"
+    "submit": "✓ OK!",
+    "back": "Back"
   },
   "feedback": {
     "success": "🎉 Great!",
@@ -29,12 +41,6 @@
     "namePlaceholder": "Your name...",
     "save": "Save",
     "cancel": "Cancel"
-  },
-  "footer": {
-    "progress": "{current} of {total}",
-    "github": "GitHub Repository",
-    "theme": "Change theme",
-    "settings": "Settings"
   },
   "pwa": {
     "name": "MathGame - Learn Math",

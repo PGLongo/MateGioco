@@ -4,13 +4,25 @@
     "description": "App educativa di matematica per bambini di 4 anni"
   },
   "header": {
-    "greeting": "Ciao {name}! ⭐"
+    "hello": "Ciao,"
+  },
+  "home": {
+    "play": "GIOCA ORA",
+    "challengeTitle": "Livello 1: Il Mondo dei Numeri",
+    "challengeDesc": "Impara a contare e sommare!",
+    "starsNeeded": "Mancano {count} stelle al prossimo livello!",
+    "level": "Livello {n}"
+  },
+  "nav": {
+    "map": "Mappa",
+    "trophies": "Trofei"
   },
   "game": {
     "question": "Quanto fa?",
     "help": "Aiuto",
     "delete": "Cancella",
-    "submit": "✓ OK!"
+    "submit": "✓ OK!",
+    "back": "Indietro"
   },
   "feedback": {
     "success": "🎉 Bravo!",
@@ -29,12 +41,6 @@
     "namePlaceholder": "Il tuo nome...",
     "save": "Salva",
     "cancel": "Annulla"
-  },
-  "footer": {
-    "progress": "{current} di {total}",
-    "github": "GitHub Repository",
-    "theme": "Cambia tema",
-    "settings": "Impostazioni"
   },
   "pwa": {
     "name": "MateGioco - Impara la Matematica",

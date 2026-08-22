@@ -1,7 +1,7 @@
 <template>
   <header class="app-header">
     <div class="header-content">
-      <h1 class="greeting">Ciao,</h1>
+      <h1 class="greeting">{{ $t('header.hello') }}</h1>
       <span class="username">{{ userName }}!</span>
     </div>
     

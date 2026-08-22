@@ -1,7 +1,7 @@
 <template>
   <div class="level-progress">
     <div class="progress-info">
-      <span class="level-label">Livello {{ level }}</span>
+      <span class="level-label">{{ $t('home.level', { n: level }) }}</span>
       <span class="stars-label">{{ current }}/{{ total }} ⭐</span>
     </div>
     <div class="progress-track">
@@ -9,7 +9,7 @@
         class="progress-fill"
         :style="{ width: `${percentage}%` }"
       >
-        <div class="shimmer-effect"></div>
+        <div class="shimmer-effect"/>
       </div>
     </div>
   </div>

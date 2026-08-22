@@ -13,10 +13,10 @@
           variant="orange" 
           size="xl" 
           pill 
-          @click="startGame"
           class="play-button-full"
+          @click="startGame"
         >
-          <span class="btn-text">GIOCA ORA</span>
+          <span class="btn-text">{{ $t('home.play') }}</span>
           <Icon name="mdi:play" class="btn-icon" />
         </GameButton>
       </ChallengeCard>

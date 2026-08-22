@@ -8,8 +8,8 @@
       </div>
 
       <div class="text-content">
-        <h2 class="level-title">Livello 1: Il Mondo dei Numeri</h2>
-        <p class="level-desc">Impara a contare e sommare!</p>
+        <h2 class="level-title">{{ $t('home.challengeTitle') }}</h2>
+        <p class="level-desc">{{ $t('home.challengeDesc') }}</p>
       </div>
 
       <!-- Progress -->
@@ -20,7 +20,7 @@
       />
       
       <p class="stars-needed">
-        Mancano {{ totalNeeded - currentStars }} stelle al prossimo livello!
+        {{ $t('home.starsNeeded', { count: totalNeeded - currentStars }) }}
       </p>
 
       <!-- Slot for action button -->
