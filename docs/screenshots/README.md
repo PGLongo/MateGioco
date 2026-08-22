@@ -31,6 +31,13 @@ questa proprietà così:
 
 Se una rigenerazione produce un diff, quel diff è un cambiamento vero dell'interfaccia.
 
+## A cosa è servita, in concreto
+
+La prima versione della galleria ha fatto vedere subito due difetti che nessun test
+intercettava: la card della home tagliata dalla barra di navigazione su iPhone SE, e
+l'assenza di un pulsante per tornare alla home. Entrambi corretti, e la galleria
+rigenerata li mostra risolti su tutte le risoluzioni.
+
 ## Cosa non è coperto
 
 - **Orientamento orizzontale**: l'app dichiara `orientation: portrait` nel manifest PWA.
