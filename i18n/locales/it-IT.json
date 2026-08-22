@@ -33,6 +33,50 @@
     "completed": "Completato!",
     "stars": "{current} di {total} ⭐"
   },
+  "badges": {
+    "title": "La Bacheca",
+    "count": "{current} di {total} conquistati",
+    "lockedHint": "Completa {level} per sbloccare",
+    "newBadge": "Nuovo Guardiano!",
+    "toBoard": "Vai alla Bacheca",
+    "keepPlaying": "Continua",
+    "crab": {
+      "name": "Il Granchio Conta-Dita",
+      "desc": "Hai completato le somme entro il 10!"
+    },
+    "turtle": {
+      "name": "Guscio Numerico",
+      "desc": "Hai completato le somme entro il 20!"
+    },
+    "parrot": {
+      "name": "Volo del 50",
+      "desc": "Hai completato le somme entro il 50!"
+    },
+    "dolphin": {
+      "name": "Re dell'Oceano",
+      "desc": "Hai completato le somme entro il 100!"
+    },
+    "squirrel": {
+      "name": "Ladro di Nocciole",
+      "desc": "Hai completato le sottrazioni entro il 10!"
+    },
+    "owl": {
+      "name": "Saggezza Notturna",
+      "desc": "Hai completato le sottrazioni entro il 20!"
+    },
+    "fox": {
+      "name": "Furbizia Sottrattiva",
+      "desc": "Hai completato le sottrazioni entro il 50!"
+    },
+    "bear": {
+      "name": "Forza della Foresta",
+      "desc": "Hai completato le sottrazioni entro il 100!"
+    },
+    "lion": {
+      "name": "Maestro dei Numeri",
+      "desc": "Hai vinto la Grande Sfida!"
+    }
+  },
   "nav": {
     "map": "Mappa",
     "trophies": "Trofei"

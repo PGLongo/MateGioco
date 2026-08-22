@@ -33,6 +33,50 @@
     "completed": "Completed!",
     "stars": "{current} of {total} ⭐"
   },
+  "badges": {
+    "title": "The Trophy Room",
+    "count": "{current} of {total} collected",
+    "lockedHint": "Complete {level} to unlock",
+    "newBadge": "New Guardian!",
+    "toBoard": "Go to the Trophy Room",
+    "keepPlaying": "Keep playing",
+    "crab": {
+      "name": "The Finger-Counting Crab",
+      "desc": "You completed sums up to 10!"
+    },
+    "turtle": {
+      "name": "Number Shell",
+      "desc": "You completed sums up to 20!"
+    },
+    "parrot": {
+      "name": "Flight of the 50",
+      "desc": "You completed sums up to 50!"
+    },
+    "dolphin": {
+      "name": "King of the Ocean",
+      "desc": "You completed sums up to 100!"
+    },
+    "squirrel": {
+      "name": "Hazelnut Thief",
+      "desc": "You completed subtractions up to 10!"
+    },
+    "owl": {
+      "name": "Night Wisdom",
+      "desc": "You completed subtractions up to 20!"
+    },
+    "fox": {
+      "name": "Subtracting Cunning",
+      "desc": "You completed subtractions up to 50!"
+    },
+    "bear": {
+      "name": "Strength of the Forest",
+      "desc": "You completed subtractions up to 100!"
+    },
+    "lion": {
+      "name": "Master of Numbers",
+      "desc": "You won the Great Challenge!"
+    }
+  },
   "nav": {
     "map": "Map",
     "trophies": "Trophies"
