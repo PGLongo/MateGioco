@@ -186,7 +186,7 @@ git push --follow-tags
 
 ## 📄 Licenza
 
-Distribuito sotto licenza **MIT**.
+Distribuito sotto licenza **MIT**. Vedi [LICENSE](LICENSE).
 
 ## 🤝 Contributi
 
