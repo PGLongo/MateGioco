@@ -86,6 +86,20 @@ elencati perche' dicono cosa e' stato guardato, non solo cosa manca.
 
 **Risolti**
 
+- ~~La card della home finiva sotto la barra di navigazione~~: su iPhone SE sforava di 55px
+  e su tutte le larghezze mobile il layout aveva `padding-bottom: 0`, quindi la card toccava
+  la barra e la sua ombra veniva ritagliata. Ora c'e' una variante compatta sotto i 720pt di
+  altezza (cerchio dell'icona, spaziature, header e barra piu' stretti) e **home e pagina di
+  gioco stanno interamente in schermo su tutte e nove le risoluzioni iPhone, senza scroll**.
+- ~~Mancava un modo per tornare alla home~~: da mappa e bacheca si poteva solo usare il
+  tasto indietro del browser. La barra ora ha tre voci (Casa, Mappa, Trofei) e la voce della
+  pagina corrente e' evidenziata e non premibile.
+- ~~Il pulsante "Indietro" era dentro la pagina di gioco~~, dove si sovrapponeva al titolo
+  della domanda e rischiava di collidere con la calcolatrice. Ora sta nella barra in alto,
+  come vuole la convenzione mobile: compare in tutte le pagine tranne la home, e il saluto
+  ("Ciao, Chiara!") resta solo nella home, altrimenti su 375px il selettore del tema finiva
+  sopra al nome. La pagina di gioco ne guadagna anche in altezza.
+
 - ~~Esercizi ripetuti nella stessa sessione~~: il motore sorteggiava un operando alla volta,
   cosi' il **30%** delle sessioni conteneva un doppione (fino a 4 ripetizioni su 5 domande) e
   `9 + 1` usciva l'**11%** delle volte contro il 2% che gli spetta. Ora lo spazio degli
