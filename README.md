@@ -162,29 +162,31 @@ npm, non `eslint` direttamente: il comando resta stabile anche se la configurazi
 La verifica minima prima di una PR è `npm run lint`, `npm test` e `npm run generate`,
 che è lo stesso comando usato dalla CI per il deploy.
 
-## 📸 Galleria delle Schermate
+## 📸 Test Visivi e Galleria
 
 ```bash
-# Rigenera gli screenshot di ogni schermata su ogni risoluzione iPhone
-npm run screenshots
+# Confronto pixel di ogni schermata su ogni iPhone, più le verifiche di adattamento
+npm run visual
 
-# Costruisce il report autonomo: un file solo, con immagini e misure incorporate
-npm run screenshots:report
+# Riscrive le baseline, dopo aver verificato che il cambiamento è voluto
+npm run visual:update
+
+# Report locale di Playwright con le differenze evidenziate
+npm run visual:report
+
+# Galleria sfogliabile e report autonomo condivisibile
+npm run gallery
+npm run gallery:report
 ```
 
-Gli screenshot vivono in [`docs/screenshots/`](docs/screenshots/) e **sono versionati**: in
-una pull request mostrano cosa cambia visivamente, non solo nel codice. Per sfogliarli apri
-[`docs/screenshots/index.html`](docs/screenshots/index.html) in un browser, con selettore di
-tema e di scala.
+I test visivi rendono l'app con **WebKit** nel viewport reale di Safari su otto modelli di
+iPhone, e verificano tre cose che una foto da sola non dice: che home e sessione di gioco
+stiano in schermo **senza scroll**, che i tasti restino alti almeno 44px, e che il tasto OK
+sia raggiungibile.
 
-Il **report** (`docs/screenshots/report.html`, non versionato) è la stessa galleria in un
-unico file autonomo, con la tabella di verifica costruita dalle misure raccolte durante la
-cattura: si apre da telefono e si può condividere senza il repository.
-
-Sono riproducibili: due esecuzioni di fila producono file identici, perché lo script fissa
-progressione, lingua, tema, numeri casuali e animazioni, e fotografa la build statica invece
-del dev server. Il perché di ogni accorgimento è in
-[`docs/screenshots/README.md`](docs/screenshots/README.md).
+Le baseline vivono in [`docs/screenshots/`](docs/screenshots/) e **sono versionate**: in una
+pull request mostrano cosa cambia visivamente, non solo nel codice. Il dettaglio di come
+sono rese riproducibili è in [`docs/screenshots/README.md`](docs/screenshots/README.md).
 
 ## 🏷️ Release Management
 
@@ -209,7 +211,7 @@ git push --follow-tags
 | [AGENTS.md](AGENTS.md) | Istruzioni per gli agenti AI: stack, struttura, convenzioni, verifica. |
 | [CLAUDE.md](CLAUDE.md) | Delta specifico di Claude Code (importa AGENTS.md). |
 | [CHANGELOG.md](CHANGELOG.md) | Storico delle release, generato da `standard-version`. |
-| [docs/screenshots/](docs/screenshots/) | Galleria delle schermate su ogni risoluzione iPhone, rigenerabile. |
+| [docs/screenshots/](docs/screenshots/) | Baseline dei test visivi: ogni schermata su ogni iPhone, con le misure di adattamento. |
 | [ROADMAP.md](ROADMAP.md) | Stato attuale, fasi successive, debito tecnico e decisioni aperte. |
 
 ## 📄 Licenza

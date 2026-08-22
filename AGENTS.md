@@ -43,8 +43,10 @@ app/                        srcDir di Nuxt 4
 └── assets/css/main.css     design system: CSS custom properties su :root, nessuna
                             direttiva Tailwind
 tests/                      Vitest: rispecchia app/, fixture in tests/fixtures/
-docs/screenshots/           galleria versionata: ogni schermata per ogni iPhone
-scripts/screenshots.mjs     genera la galleria (Playwright sulla build statica)
+docs/screenshots/           baseline dei test visivi + galleria + misure
+tests/visual/               spec Playwright: confronto pixel e adattamento
+playwright.config.ts        matrice dei dispositivi (preset iPhone, motore WebKit)
+scripts/gallery.mjs         costruisce la galleria dalle baseline (nessun browser)
 i18n/locales/               it-IT.json (default) e en-US.json
 public/                     icone PWA e favicon generate da icon-1024x1024.svg
 ROADMAP.md                  stato attuale, fasi successive, decisioni aperte (versionato)
@@ -79,8 +81,11 @@ npm run test:watch     # Vitest in watch
 npm run generate       # build statica SSG, output in .output/public
 npm run preview        # anteprima locale della build
 npm run generate-assets # rigenera icone PWA da public/icon-1024x1024.svg
-npm run screenshots    # rigenera la galleria in docs/screenshots/ (build + cattura)
-npm run screenshots:report # costruisce il report autonomo (immagini e misure incorporate)
+npm run visual         # test visivi WebKit su 8 iPhone (confronto pixel + adattamento)
+npm run visual:update  # riscrive le baseline in docs/screenshots/
+npm run visual:report  # report locale di Playwright con le differenze
+npm run gallery        # ricostruisce la galleria sfogliabile
+npm run gallery:report # report autonomo condivisibile (non versionato)
 ```
 
 I test sono **Vitest** in `tests/`, che rispecchia la struttura di `app/`, con i file
@@ -151,10 +156,11 @@ pagine si verificano ancora a mano nel browser. Le convenzioni sono nella skill 
    modifica che la rompe si vede qui prima che nel browser.
 3. `npm run generate` deve completare senza errori: e' lo stesso comando che la CI usa per
    il deploy.
-4. Se hai cambiato qualcosa che si vede, esegui `npm run screenshots` e committa il
-   diff della galleria: e' il modo in cui una modifica visiva diventa rivedibile. Un diff
-   che non ti aspettavi e' un cambiamento non voluto, non rumore: gli screenshot sono
-   riproducibili.
+4. Se hai cambiato qualcosa che si vede, esegui `npm run visual`. Se fallisce, guarda le
+   differenze con `npm run visual:report`: se il cambiamento e' voluto aggiorna le baseline
+   con `npm run visual:update` e `npm run gallery`, e committa il diff delle immagini. Se non
+   te lo aspettavi, hai trovato una regressione. Le baseline sono riproducibili, quindi un
+   fallimento non e' mai rumore.
 5. Verifica a mano nel browser il flusso toccato (`npm run dev`), su viewport mobile: il
    target sono tablet e smartphone usati da bambini.
 6. Se hai aggiunto testo visibile, controlla che la chiave esista in **entrambi** i file di

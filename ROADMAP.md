@@ -86,6 +86,11 @@ elencati perche' dicono cosa e' stato guardato, non solo cosa manca.
 
 **Risolti**
 
+- ~~Le verifiche di adattamento usavano l'altezza dello schermo~~, non il viewport utile di
+  Safari: circa 190pt di ottimismo. I test visivi ora usano i preset iPhone di Playwright
+  (WebKit, viewport reale) e hanno trovato l'ultimo caso non coperto, iPhone 13 Mini a 629pt,
+  dove alla calcolatrice mancavano 20px.
+
 - ~~La card della home finiva sotto la barra di navigazione~~: su iPhone SE sforava di 55px
   e su tutte le larghezze mobile il layout aveva `padding-bottom: 0`, quindi la card toccava
   la barra e la sua ombra veniva ritagliata. Ora c'e' una variante compatta sotto i 720pt di
@@ -190,8 +195,14 @@ Restano aperte due cose che la Fase 1 ha fatto emergere:
   `ChallengeCard`). Le pagine — mappa, bacheca, gioco — restano verificate a mano nel
   browser: è il buco che aveva fatto passare il tastierino collassato e il livello di
   sessione che scivolava.
-- **Nessun test end-to-end**: `nuxt:e2e` (Playwright) sarebbe il passo naturale, ora che
-  Chrome è installato nell'ambiente di sviluppo.
+- **Nessun test di interazione**: i test visivi guardano le schermate, non giocano una
+  partita. L'infrastruttura Playwright ora c'è (WebKit installato, matrice di dispositivi,
+  server della build statica), quindi un vero end-to-end con `nuxt:e2e` è il passo
+  successivo e parte da qui.
+- **Il CSS della calcolatrice ha breakpoint contraddittori**: un blocco
+  `(max-width: 480px), (max-height: 950px)` vale per qualunque telefono e azzera il pavimento
+  dei tasti, che gli scalini a 720 e 640pt devono riaffermare. Funziona, ma è fragile: chi
+  aggiunge una regola deve sapere in che ordine finisce. Da riordinare.
 
 ## Storico
 
