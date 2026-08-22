@@ -14,11 +14,12 @@ const randomInt = (min: number, max: number): number => {
 /**
  * Genera esercizi conformi a una LevelConfig.
  *
- * Due invarianti che valgono per ogni livello:
+ * Tre invarianti che valgono per ogni livello:
  * - il risultato sta sempre fra 0 e `maxNumber` (e' il risultato a non dover sforare, non
  *   gli operandi: 45 + 32 appartiene al livello "entro 100", 45 + 70 no);
  * - una sottrazione non produce mai un risultato negativo, perche' i numeri negativi non
- *   esistono per un bambino di 4 anni.
+ *   esistono per un bambino di 4 anni;
+ * - una divisione non ha mai resto, per la stessa ragione: le frazioni arrivano dopo.
  */
 export const useMathEngine = () => {
 
@@ -38,13 +39,42 @@ export const useMathEngine = () => {
     return { num1, num2, operator: '-', correctAnswer: num1 - num2 }
   }
 
-  /** Nel mondo 'mix' l'operazione cambia a ogni esercizio: e' il punto della sfida finale */
-  const pickMixedOperation = (): OperationType => (Math.random() < 0.5 ? '+' : '-')
+  const generateMultiplication = (level: LevelConfig): Exercise => {
+    // Il primo fattore non supera la radice del tetto, cosi' resta sempre almeno un
+    // secondo fattore valido; poi il secondo si limita a quel che ci sta nel prodotto
+    const maxFirst = Math.max(1, Math.floor(Math.sqrt(level.maxNumber)) + 1)
+    const num1 = randomInt(1, maxFirst)
+    const num2 = randomInt(1, Math.max(1, Math.floor(level.maxNumber / num1)))
+
+    return { num1, num2, operator: '×', correctAnswer: num1 * num2 }
+  }
+
+  const generateDivision = (level: LevelConfig): Exercise => {
+    // Si costruisce al contrario: prima divisore e quoziente, poi il dividendo come loro
+    // prodotto. E' l'unico modo di garantire che non ci sia resto.
+    // Il divisore parte da 1 di proposito: "18 ÷ 1 = 18" e' uno dei concetti da imparare,
+    // cioe' che dividere per uno non cambia il numero
+    const divisor = randomInt(1, Math.max(1, Math.floor(Math.sqrt(level.maxNumber)) + 1))
+    const quotient = randomInt(1, Math.max(1, Math.floor(level.maxNumber / divisor)))
+
+    return { num1: divisor * quotient, num2: divisor, operator: '÷', correctAnswer: quotient }
+  }
+
+  /** Nei livelli-sfida l'operazione cambia a ogni esercizio */
+  const pickOperation = (level: LevelConfig): OperationType => {
+    const pool = level.mixedOperations
+    if (!pool || pool.length === 0) return level.operation
+
+    return pool[Math.floor(Math.random() * pool.length)]!
+  }
 
   const generateExercise = (level: LevelConfig): Exercise => {
-    const operation = level.worldId === 'mix' ? pickMixedOperation() : level.operation
-
-    return operation === '-' ? generateSubtraction(level) : generateAddition(level)
+    switch (pickOperation(level)) {
+      case '-': return generateSubtraction(level)
+      case '*': return generateMultiplication(level)
+      case '/': return generateDivision(level)
+      default: return generateAddition(level)
+    }
   }
 
   const generateSession = (level: LevelConfig, count: number): Exercise[] => {

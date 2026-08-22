@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
 import { useProgression } from '../../app/composables/useProgression'
+import { LEVELS } from '../../app/config/levels.config'
 
 describe('useProgression', () => {
   beforeEach(() => {
@@ -102,13 +103,55 @@ describe('useProgression', () => {
     it('should stay on the last unlocked level when everything is completed', () => {
       const { addStarsTo, currentLevel } = useProgression()
 
-      // Completa tutto il percorso
-      for (const id of ['sum-1', 'sum-2', 'sum-3', 'sum-4', 'sub-1', 'sub-2', 'sub-3', 'sub-4', 'mix-1']) {
-        addStarsTo(id, 8)
+      // Completa tutto il percorso, qualunque sia la sua lunghezza: cosi' il test non si
+      // rompe quando si aggiungono Mondi
+      for (const level of LEVELS) {
+        addStarsTo(level.id, level.starsToUnlock)
       }
 
       // Non resta nulla da sbloccare: si continua a giocare l'ultimo livello
-      expect(currentLevel.value.id).toBe('mix-1')
+      expect(currentLevel.value.id).toBe(LEVELS[LEVELS.length - 1]!.id)
+    })
+  })
+
+  describe('catena dei Mondi nuovi', () => {
+    it('should open the multiplication world after the great challenge', () => {
+      const { addStarsTo, isUnlocked } = useProgression()
+
+      // Le tabelline presuppongono somme e sottrazioni: si aprono dopo mix-1
+      for (const id of ['sum-1', 'sum-2', 'sum-3', 'sum-4', 'sub-1', 'sub-2', 'sub-3', 'sub-4']) {
+        addStarsTo(id, 8)
+      }
+      expect(isUnlocked('mul-1')).toBe(false)
+
+      addStarsTo('mix-1', 8)
+      expect(isUnlocked('mul-1')).toBe(true)
+      expect(isUnlocked('div-1')).toBe(false)
+    })
+
+    it('should open the division world after the first multiplication level', () => {
+      const { addStarsTo, isUnlocked } = useProgression()
+
+      for (const id of ['sum-1', 'sum-2', 'sum-3', 'sum-4', 'sub-1', 'sub-2', 'sub-3', 'sub-4', 'mix-1', 'mul-1']) {
+        addStarsTo(id, 8)
+      }
+
+      // Dividere presuppone la prima tabellina, non tutte
+      expect(isUnlocked('div-1')).toBe(true)
+      expect(isUnlocked('mul-2')).toBe(true)
+      expect(isUnlocked('mix-2')).toBe(false)
+    })
+
+    it('should keep the supreme challenge locked until every division is done', () => {
+      const { addStarsTo, isUnlocked } = useProgression()
+
+      for (const level of LEVELS) {
+        if (level.id !== 'div-3' && level.id !== 'mix-2') addStarsTo(level.id, 8)
+      }
+      expect(isUnlocked('mix-2')).toBe(false)
+
+      addStarsTo('div-3', 8)
+      expect(isUnlocked('mix-2')).toBe(true)
     })
   })
 
