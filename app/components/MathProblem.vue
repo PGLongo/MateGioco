@@ -24,7 +24,7 @@ withDefaults(defineProps<MathProblemProps>(), {
 .math-problem {
   text-align: center;
   padding: 20px 16px;
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-bg-white, #FFFFFF);
   border: 4px solid var(--color-blue-lighter);
   border-radius: 24px;
   box-shadow: 0 8px 16px rgba(52, 152, 219, 0.1);

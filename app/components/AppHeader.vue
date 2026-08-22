@@ -5,7 +5,17 @@
       <span class="username">{{ userName }}!</span>
     </div>
     
-    <div class="star-wrapper">
+    <div class="header-actions">
+      <button
+        class="theme-toggle"
+        :title="$t('header.theme')"
+        :aria-label="$t('header.theme')"
+        data-cy="theme-toggle"
+        @click="toggleTheme"
+      >
+        <Icon :name="isDark ? 'mdi:weather-sunny' : 'mdi:weather-night'" class="theme-icon" />
+      </button>
+
       <StarCounter :count="stars" />
     </div>
   </header>
@@ -15,9 +25,19 @@
 import type { AppHeaderProps } from '~/types/AppHeader'
 
 withDefaults(defineProps<AppHeaderProps>(), {
-  userName: 'Amico',
+  userName: '',
   stars: 0
 })
+
+const colorMode = useColorMode()
+const { playClick } = useSound()
+
+const isDark = computed(() => colorMode.value === 'dark')
+
+const toggleTheme = () => {
+  playClick()
+  colorMode.preference = isDark.value ? 'light' : 'dark'
+}
 </script>
 
 <style scoped>
@@ -59,6 +79,35 @@ withDefaults(defineProps<AppHeaderProps>(), {
   line-height: 1;
   letter-spacing: 0.025em;
   filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-bg-white, #FFFFFF);
+  color: var(--color-dark-navy, #2A3C55);
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.theme-icon {
+  width: 22px;
+  height: 22px;
 }
 
 .star-wrapper {

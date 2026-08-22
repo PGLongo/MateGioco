@@ -44,7 +44,7 @@ const percentage = computed(() => Math.min(100, (props.current / props.total) * 
 
 .progress-track {
   height: 24px; /* h-6 */
-  background-color: white;
+  background-color: var(--color-bg-white, #FFFFFF);
   border-radius: 9999px; /* rounded-full */
   padding: 4px; /* p-1 */
   box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06); /* shadow-inner */

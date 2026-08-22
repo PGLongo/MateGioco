@@ -17,7 +17,7 @@ defineProps<{
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background-color: white;
+  background-color: var(--color-bg-white, #FFFFFF);
   padding: 12px 24px;
   border-radius: 9999px; /* rounded-full */
   box-shadow: 

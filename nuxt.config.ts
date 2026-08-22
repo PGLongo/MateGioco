@@ -43,7 +43,9 @@ export default defineNuxtConfig({
 
   colorMode: {
     classSuffix: '',
-    preference: 'light',
+    // 'system' segue il dispositivo: prima era inchiodato a 'light' e le regole .dark di
+    // main.css non venivano mai applicate. L'interruttore nell'header sovrascrive la scelta
+    preference: 'system',
     fallback: 'light'
   },
 

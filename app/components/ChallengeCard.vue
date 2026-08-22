@@ -50,7 +50,7 @@ const starsMissing = computed(() => Math.max(0, props.level.starsToUnlock - prop
 
 <style scoped>
 .challenge-card {
-  background-color: white;
+  background-color: var(--color-bg-white, #FFFFFF);
   border-radius: 32px;
   padding: 24px;
   box-shadow: 

@@ -97,7 +97,7 @@ defineEmits<{
 }
 
 .display {
-  background: rgba(255, 255, 255, 0.9);
+  background: var(--color-bg-white, #FFFFFF);
   border: 3px solid var(--color-blue-light);
   border-bottom-width: 6px;
   border-radius: 20px;
