@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Icona sorgente della PWA: da qui `npm run generate-assets` produce tutte le varianti.
+       I numeri sono **tracciati** e non testo: con <text> la resa dipendeva dai font
+       installati sulla macchina che genera (l'icona chiedeva Quicksand, che non e' piu' il
+       font dell'app e sul generatore non esiste, quindi usciva un font di sistema a caso).
+       Questi tracciati vengono da Fredoka 700, il font dell'app, e sono identici ovunque. -->
+
   <!-- Corpo Calcolatrice (Bluey Blue) -->
   <rect x="162" y="112" width="700" height="800" rx="120" ry="120" fill="#78CBE8"/>
   <!-- Ombra 3D corpo -->
@@ -6,24 +12,16 @@
 
   <!-- Schermo (Crema chiaro) -->
   <rect x="237" y="200" width="550" height="350" rx="60" ry="60" fill="#E1F4FA"/>
-  
-  <!-- Numeri Giocosi -->
-  <!-- 1 -->
-  <text x="350" y="450" font-family="Quicksand, Arial, sans-serif" font-size="200" font-weight="900" fill="#E88C4B" text-anchor="middle" transform="rotate(-15, 350, 450)">1</text>
-  <!-- + -->
-  <text x="512" y="450" font-family="Quicksand, Arial, sans-serif" font-size="180" font-weight="900" fill="#2B87D1" text-anchor="middle">+</text>
-  <!-- 2 -->
-  <text x="674" y="450" font-family="Quicksand, Arial, sans-serif" font-size="200" font-weight="900" fill="#91D371" text-anchor="middle" transform="rotate(15, 674, 450)">2</text>
+
+  <!-- Numeri giocosi: 1 + 2, in Fredoka 700 convertito in tracciati -->
+  <path d="M259 -11Q209 -11 189.0 9.0Q169 29 169 80V601Q169 651 189.0 671.0Q209 691 260 691Q310 691 330.0 670.5Q350 650 350 599V79Q350 29 330.0 9.0Q310 -11 259 -11ZM159 409Q125 379 97.5 380.0Q70 381 38 415Q5 450 7.0 481.0Q9 512 49 547L176 661Q209 691 237.5 688.5Q266 686 297 652Q329 618 326.5 587.5Q324 557 284 521Z" fill="#E88C4B" transform="rotate(-15, 350, 450) translate(312.1, 450) scale(0.20000, -0.20000)"/>
+  <path d="M245 24Q204 24 187.0 36.5Q170 49 166.5 68.0Q163 87 163 107V404Q163 424 166.5 442.5Q170 461 187.5 473.0Q205 485 246 485Q287 485 304.0 473.0Q321 461 324.5 442.0Q328 423 328 403V106Q328 86 324.5 67.0Q321 48 304.0 36.0Q287 24 245 24ZM91 172Q73 172 55.0 175.5Q37 179 25.5 196.5Q14 214 14 255Q14 297 26.5 314.0Q39 331 58.5 334.5Q78 338 98 338H394Q414 338 433.0 334.5Q452 331 464.0 313.5Q476 296 476 254Q476 213 464.5 196.0Q453 179 435.5 175.5Q418 172 399 172Z" fill="#2B87D1" transform="translate(467.9, 450) scale(0.18000, -0.18000)"/>
+  <path d="M105 -11Q68 -11 41.0 17.0Q14 45 14 82Q14 101 18.5 118.0Q23 135 31.0 150.5Q39 166 50 179Q76 212 114.0 239.0Q152 266 193.0 290.0Q234 314 270.0 338.0Q306 362 328.5 390.0Q351 418 351 452Q351 462 346.5 477.5Q342 493 326.0 505.5Q310 518 275 518Q254 518 239.0 512.5Q224 507 215.0 496.5Q206 486 201.5 470.5Q197 455 197 435Q197 414 193.0 394.5Q189 375 170.0 362.5Q151 350 105 350Q60 350 41.0 363.5Q22 377 18.0 398.5Q14 420 14 442Q14 488 31.5 534.0Q49 580 83.0 617.5Q117 655 165.0 678.0Q213 701 274 701Q347 701 406.0 665.5Q465 630 500.0 570.5Q535 511 535 437Q535 388 519.0 348.0Q503 308 477.5 276.5Q452 245 423.0 222.5Q394 200 367.0 185.5Q340 171 322.0 164.0Q304 157 300 157L310 173H468Q491 173 512.0 169.0Q533 165 546.0 145.5Q559 126 559 80Q559 36 545.5 16.5Q532 -3 510.5 -7.0Q489 -11 466 -11Z" fill="#91D371" transform="rotate(15, 674, 450) translate(617.4, 450) scale(0.20000, -0.20000)"/>
 
   <!-- Faccia Kawaii -->
-  <!-- Occhio SX -->
   <circle cx="362" cy="700" r="45" fill="#37474F"/>
-  <!-- Brillio occhio -->
   <circle cx="382" cy="685" r="15" fill="#FFFFFF"/>
-  
-  <!-- Occhio DX -->
   <circle cx="662" cy="700" r="45" fill="#37474F"/>
-  <!-- Brillio occhio -->
   <circle cx="682" cy="685" r="15" fill="#FFFFFF"/>
 
   <!-- Guance -->
