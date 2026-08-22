@@ -21,7 +21,11 @@
         
 
         
-        <NavigationButton icon="mdi:trophy" :label="$t('nav.trophies')" />
+        <NavigationButton
+          icon="mdi:trophy"
+          :label="$t('nav.trophies')"
+          to="/badges"
+        />
         
       </div>
     </nav>
