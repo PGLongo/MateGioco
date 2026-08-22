@@ -25,10 +25,12 @@ Con un design accattivante ispirato allo stile del cartone animato _Bluey_, l'ap
 
 ### 🧮 Sistema Esercizi
 - **Percorso a livelli**: cinque Mondi (somme, sottrazioni, tabelline, divisioni e le sfide miste)
-  per sedici livelli di difficoltà crescente (entro 10, 20, 50, 100), con sblocco progressivo a 8
-  stelline per livello. Le divisioni sono sempre senza resto, le sottrazioni mai negative.
+  per sedici livelli di difficoltà crescente (entro 10, 20, 50, 100), con sblocco a 25 stelline per
+  livello: almeno cinque sessioni a testa. Le divisioni sono sempre senza resto, le sottrazioni mai
+  negative.
 - **Mappa dei livelli** 🗺️: livelli completati, livello corrente e livelli ancora chiusi, con il requisito per sbloccarli.
-- **Sessioni brevi**: 5 esercizi per sessione, generati sul livello raggiunto.
+- **Sessioni brevi e sempre diverse**: 5 esercizi per sessione, generati sul livello raggiunto e
+  mai ripetuti dentro la stessa partita.
 - **Feedback visivo immediato**:
   - 🟢 **Verde**: Risposta corretta (+ Celebrazione!)
   - 🔴 **Rosso**: Risposta errata (Riprova!)

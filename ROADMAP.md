@@ -15,8 +15,8 @@ Funziona ed è in produzione:
 - Home page in stile Bluey: `ChallengeCard` con barra di progresso, contatore stelline,
   pulsante "Gioca ora", footer di navigazione.
 - Percorso a livelli: cinque Mondi (somme, sottrazioni, tabelline, divisioni e due sfide
-  miste) per sedici livelli, con difficoltà crescente (entro 10, 20, 50, 100) e sblocco a 8
-  stelline per livello.
+  miste) per sedici livelli, con difficoltà crescente (entro 10, 20, 50, 100) e sblocco a 25
+  stelline per livello, cioè almeno cinque sessioni.
 - Mappa dei livelli raggiungibile dal footer: completati, corrente, chiusi con il requisito.
 - Bacheca dei badge: un Guardiano per ciascuno dei sedici livelli, con modale di
   festeggiamento a fine sessione.
@@ -86,6 +86,15 @@ elencati perche' dicono cosa e' stato guardato, non solo cosa manca.
 
 **Risolti**
 
+- ~~Esercizi ripetuti nella stessa sessione~~: il motore sorteggiava un operando alla volta,
+  cosi' il **30%** delle sessioni conteneva un doppione (fino a 4 ripetizioni su 5 domande) e
+  `9 + 1` usciva l'**11%** delle volte contro il 2% che gli spetta. Ora lo spazio degli
+  esercizi validi viene enumerato e campionato **senza ripetizioni** dentro la sessione.
+- ~~Soglia di sblocco troppo bassa~~: da 8 a 25 stelline, cioe' almeno 5 sessioni per
+  livello. I livelli superati con la soglia vecchia restano superati, perche' il badge gia'
+  conquistato vale come soglia raggiunta: senza quella clausola un bambino si sarebbe
+  ritrovato bloccati livelli che aveva finito.
+
 - ~~Il tastierino numerico collassava a 0px di altezza sotto i ~500px di viewport~~
   (`.number-pad` era un figlio flex con `min-height: 0` e bottoni senza altezza minima):
   ora i bottoni hanno un pavimento di 44px, la griglia scala fino a quello e la pagina
@@ -154,7 +163,7 @@ Le tre decisioni che bloccavano la Fase 1 sono state chiuse il 2026-08-22:
 | Decisione | Esito |
 |---|---|
 | Esercizi per sessione | **5**, come già rilasciato: sta dentro la soglia di attenzione di un bambino di 4 anni |
-| Soglia di sblocco | **8 stelline per livello**, campo della `LevelConfig`: serve più di una partita per avanzare |
+| Soglia di sblocco | **25 stelline per livello** (era 8, alzata il 2026-08-22 su indicazione dell'utente): con 5 esercizi per sessione servono almeno 5 partite per avanzare |
 | Regola dei 3 tentativi | **Non implementata**: meccanica punitiva su utenti di 4 anni, e il sistema di livelli non ne ha bisogno |
 | Suite di test | **Vitest, subito**, sulla logica pura (motore, sessione, progressione) |
 
