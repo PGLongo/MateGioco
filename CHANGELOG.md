@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.11.0](https://github.com/PGLongo/MateGioco/compare/v1.10.0...v1.11.0) (2026-08-22)
+
+
+### ✨ Features
+
+* **build:** build a standalone visual report from the gallery ([406c4d0](https://github.com/PGLongo/MateGioco/commit/406c4d0d3e0e980181937c0432e298459161b4b3))
+* **build:** measure fit while capturing the screenshots ([38166fc](https://github.com/PGLongo/MateGioco/commit/38166fc18a98453dd2b7a55766b99caf17c3bf18))
+* **config:** require 25 stars per level, at least five sessions ([278383e](https://github.com/PGLongo/MateGioco/commit/278383ece52ea02705819c80a30da27e07a7df4e))
+* **ui:** put back and home where mobile users expect them ([1cb4842](https://github.com/PGLongo/MateGioco/commit/1cb4842369ba76e59404ffd45868ff9322f19bb5))
+
+
+### 🐛 Bug Fixes
+
+* **build:** keep the gallery readme when regenerating ([b133b9f](https://github.com/PGLongo/MateGioco/commit/b133b9f3282ed75e9c60b6b16e400c8f5ac86ad8))
+* **composable:** stop repeating exercises inside a session ([4287017](https://github.com/PGLongo/MateGioco/commit/42870171185b671c0efe564207462f550249f61f))
+* **ui:** fit the calculator on the shortest safari viewport ([d0e1564](https://github.com/PGLongo/MateGioco/commit/d0e15645c1986882d22f0851d89e72e658e7e3f8))
+* **ui:** fit the home card and calculator on every iphone ([3718d96](https://github.com/PGLongo/MateGioco/commit/3718d96fc05cd729aea07eb0f3cb2581ae52cae3))
+
+
+### 📝 Documentation
+
+* add the screenshot gallery for every iphone size ([59ed9de](https://github.com/PGLongo/MateGioco/commit/59ed9de730c4157fefd26ff53d53788b0e396fcd))
+* document how to regenerate the gallery ([ca0101e](https://github.com/PGLongo/MateGioco/commit/ca0101e6e6697555f0f141673c6330810a65aed8))
+* document the gallery and the report ([f79bbe8](https://github.com/PGLongo/MateGioco/commit/f79bbe89c48db2a79b4c22139560cd644fa244f1))
+* document the visual tests and the gallery ([a8ca4ba](https://github.com/PGLongo/MateGioco/commit/a8ca4ba79e43b2a75fb2d8df8bf1d12bb246675c))
+* recapture the baselines with webkit and safari viewports ([7c3bc9c](https://github.com/PGLongo/MateGioco/commit/7c3bc9c5a3ba2197d044851aa2c7bff131a33ad0))
+* record the layout and navigation fixes ([6c76b8e](https://github.com/PGLongo/MateGioco/commit/6c76b8e5500098b8db30daadabb19ff037c7df4e))
+* record the new threshold and the session variety fix ([24fea34](https://github.com/PGLongo/MateGioco/commit/24fea3414a82d4c2e1f40afeb0a3525842140eae))
+* refresh the screenshot gallery ([2ccea17](https://github.com/PGLongo/MateGioco/commit/2ccea17aed6e7b9bba958984dc4d4c4dfc178d82))
+
 ## [1.10.0](https://github.com/PGLongo/MateGioco/compare/v1.9.0...v1.10.0) (2026-08-22)
 
 

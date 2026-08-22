@@ -1,6 +1,6 @@
 {
   "name": "mate-gioco",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "App educativa di matematica per bambini",
   "private": true,
   "type": "module",
