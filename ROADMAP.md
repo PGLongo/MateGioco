@@ -110,7 +110,10 @@ elencati perche' dicono cosa e' stato guardato, non solo cosa manca.
   header e footer non usavano i token di sfondo: il fondo restava azzurro (#5BA8D6) e il
   footer bianco al 90%. Ora ci sono token **semantici** delle superfici (`--surface-app`,
   `--surface-header`, `--surface-nav`, `--card-border`, `--surface-overlay`) con una
-  gerarchia di profondita' in scuro: fondo #22282D, header #2C3338, card #3A444B.
+  gerarchia di profondita' in scuro: fondo #22282D, header #2C3338, card #3A444B. Stessa
+  cosa per il testo (`--text-strong`, `--text-muted`, `--text-accent`), che usava
+  `--color-dark-navy` non ridefinito in scuro: titoli a **1.33:1** e footer a **1.15:1**,
+  cioe' invisibili, ora rispettivamente 13.48:1 e 11.6:1.
 - ~~Il nome di default restava "Amico" anche in inglese~~: il composable non impone piu' un
   default, e l'interfaccia usa `header.defaultName` (Amico / Buddy).
 - ~~Due verità parallele sulle stelline~~: il totale dell'header e' ora derivato dalla somma
@@ -120,6 +123,12 @@ elencati perche' dicono cosa e' stato guardato, non solo cosa manca.
   secondo.
 
 **Aperti**
+
+- **Testo bianco su pastello nel tastierino**, in **entrambi** i temi: le cifre sono bianche
+  su arancione (1.65:1 in chiaro, 2.26:1 in scuro) e il tasto OK bianco su verde (1.79:1).
+  E' la scelta estetica "Bluey" originale, non una regressione, ma sotto il minimo di 3:1
+  per il testo grande. Si chiude con un token (`--text-on-pastel` scuro invece di bianco):
+  cambia l'aspetto della schermata principale, quindi e' una decisione di prodotto.
 
 ## Debito tecnico che condiziona la roadmap
 

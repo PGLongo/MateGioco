@@ -101,11 +101,17 @@ pagine si verificano ancora a mano nel browser. Le convenzioni sono nella skill 
 - Stile: CSS scoped nel componente per il layout locale, variabili CSS di
   `app/assets/css/main.css` per colori, ombre e raggi. Non introdurre valori esadecimali
   nuovi nei componenti: aggiungi la custom property al design system.
-- **Le superfici passano dai token semantici**, non dai colori: `--surface-app` (fondo),
-  `--surface-header`, `--surface-nav`, `--color-bg-white` (card), `--card-border`,
-  `--surface-overlay`. Sono gli unici che il blocco `.dark` ridefinisce, quindi un
-  `background-color: white` o un `var(--color-blue-primary)` usato come sfondo resta chiaro
-  in tema scuro: era il difetto per cui il dark mode si fermava a metà.
+- **Superfici e testo passano dai token semantici**, non dai colori di palette:
+  - superfici: `--surface-app` (fondo), `--surface-header`, `--surface-nav`,
+    `--color-bg-white` (card), `--card-border`, `--surface-overlay`;
+  - testo: `--text-strong` (titoli), `--color-text` (corpo), `--text-muted` (secondario),
+    `--text-accent` (numeri dell'esercizio).
+
+  Sono gli unici che il blocco `.dark` ridefinisce. Un `background-color: white`, o un
+  `color: var(--color-dark-navy)`, resta tarato sul fondo chiaro e in tema scuro diventa
+  illeggibile: erano i due difetti per cui il dark mode si fermava a metà (titoli a 1.33:1,
+  footer a 1.15:1). Se ti serve un colore nuovo per il testo, aggiungi un token semantico
+  con il suo override in `.dark`, non usare direttamente `--color-*`.
 - Testi visibili all'utente: chiave in `i18n/locales/it-IT.json` **e** in `en-US.json`,
   usata con `$t()` nel template o `t()` da `useI18n()` nello script. Alcune stringhe piu'
   vecchie sono ancora hardcoded nei template (per esempio in `app/pages/index.vue`): non
