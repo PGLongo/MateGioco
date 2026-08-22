@@ -1,0 +1,344 @@
+{
+  "devices": [
+    {
+      "slug": "iphone-se",
+      "label": "iPhone SE",
+      "note": "SE 2/3, 6, 7, 8",
+      "width": 375,
+      "height": 667
+    },
+    {
+      "slug": "iphone-13-mini",
+      "label": "iPhone 13 mini",
+      "note": "X, XS, 11 Pro, 12/13 mini",
+      "width": 375,
+      "height": 812
+    },
+    {
+      "slug": "iphone-14",
+      "label": "iPhone 14",
+      "note": "12, 13, 14",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "slug": "iphone-16",
+      "label": "iPhone 16",
+      "note": "14 Pro, 15, 16",
+      "width": 393,
+      "height": 852,
+      "reference": true
+    },
+    {
+      "slug": "iphone-16-pro",
+      "label": "iPhone 16 Pro",
+      "note": "16 Pro",
+      "width": 402,
+      "height": 874
+    },
+    {
+      "slug": "iphone-11",
+      "label": "iPhone 11",
+      "note": "XR, XS Max, 11",
+      "width": 414,
+      "height": 896
+    },
+    {
+      "slug": "iphone-14-plus",
+      "label": "iPhone 14 Plus",
+      "note": "12/13 Pro Max, 14 Plus",
+      "width": 428,
+      "height": 926
+    },
+    {
+      "slug": "iphone-15-pro-max",
+      "label": "iPhone 15 Pro Max",
+      "note": "15 Pro Max, 16 Plus",
+      "width": 430,
+      "height": 932
+    },
+    {
+      "slug": "iphone-16-pro-max",
+      "label": "iPhone 16 Pro Max",
+      "note": "16 Pro Max",
+      "width": 440,
+      "height": 956
+    }
+  ],
+  "screens": [
+    {
+      "slug": "home",
+      "label": "Home",
+      "path": "/"
+    },
+    {
+      "slug": "game",
+      "label": "Sessione di gioco",
+      "path": "/game"
+    },
+    {
+      "slug": "map",
+      "label": "Mappa dei livelli",
+      "path": "/map"
+    },
+    {
+      "slug": "badges",
+      "label": "Bacheca dei Guardiani",
+      "path": "/badges"
+    }
+  ],
+  "metrics": [
+    {
+      "device": "iphone-se",
+      "screen": "home",
+      "scroll": 0,
+      "cardGap": 8,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-se",
+      "screen": "game",
+      "scroll": 0,
+      "cardGap": null,
+      "keyHeight": 44
+    },
+    {
+      "device": "iphone-se",
+      "screen": "map",
+      "scroll": 965,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-se",
+      "screen": "badges",
+      "scroll": 878,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-13-mini",
+      "screen": "home",
+      "scroll": 0,
+      "cardGap": 12,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-13-mini",
+      "screen": "game",
+      "scroll": 0,
+      "cardGap": null,
+      "keyHeight": 53
+    },
+    {
+      "device": "iphone-13-mini",
+      "screen": "map",
+      "scroll": 928,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-13-mini",
+      "screen": "badges",
+      "scroll": 793,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-14",
+      "screen": "home",
+      "scroll": 0,
+      "cardGap": 12,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-14",
+      "screen": "game",
+      "scroll": 0,
+      "cardGap": null,
+      "keyHeight": 59
+    },
+    {
+      "device": "iphone-14",
+      "screen": "map",
+      "scroll": 832,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-14",
+      "screen": "badges",
+      "scroll": 727,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-16",
+      "screen": "home",
+      "scroll": 0,
+      "cardGap": 12,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-16",
+      "screen": "game",
+      "scroll": 0,
+      "cardGap": null,
+      "keyHeight": 61
+    },
+    {
+      "device": "iphone-16",
+      "screen": "map",
+      "scroll": 824,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-16",
+      "screen": "badges",
+      "scroll": 719,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-16-pro",
+      "screen": "home",
+      "scroll": 0,
+      "cardGap": 12,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-16-pro",
+      "screen": "game",
+      "scroll": 0,
+      "cardGap": null,
+      "keyHeight": 65
+    },
+    {
+      "device": "iphone-16-pro",
+      "screen": "map",
+      "scroll": 802,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-16-pro",
+      "screen": "badges",
+      "scroll": 697,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-11",
+      "screen": "home",
+      "scroll": 0,
+      "cardGap": 12,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-11",
+      "screen": "game",
+      "scroll": 0,
+      "cardGap": null,
+      "keyHeight": 70
+    },
+    {
+      "device": "iphone-11",
+      "screen": "map",
+      "scroll": 780,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-11",
+      "screen": "badges",
+      "scroll": 660,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-14-plus",
+      "screen": "home",
+      "scroll": 0,
+      "cardGap": 12,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-14-plus",
+      "screen": "game",
+      "scroll": 0,
+      "cardGap": null,
+      "keyHeight": 76
+    },
+    {
+      "device": "iphone-14-plus",
+      "screen": "map",
+      "scroll": 750,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-14-plus",
+      "screen": "badges",
+      "scroll": 630,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-15-pro-max",
+      "screen": "home",
+      "scroll": 0,
+      "cardGap": 12,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-15-pro-max",
+      "screen": "game",
+      "scroll": 0,
+      "cardGap": null,
+      "keyHeight": 77
+    },
+    {
+      "device": "iphone-15-pro-max",
+      "screen": "map",
+      "scroll": 744,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-15-pro-max",
+      "screen": "badges",
+      "scroll": 624,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-16-pro-max",
+      "screen": "home",
+      "scroll": 0,
+      "cardGap": 12,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-16-pro-max",
+      "screen": "game",
+      "scroll": 0,
+      "cardGap": null,
+      "keyHeight": 82
+    },
+    {
+      "device": "iphone-16-pro-max",
+      "screen": "map",
+      "scroll": 720,
+      "cardGap": null,
+      "keyHeight": null
+    },
+    {
+      "device": "iphone-16-pro-max",
+      "screen": "badges",
+      "scroll": 600,
+      "cardGap": null,
+      "keyHeight": null
+    }
+  ]
+}

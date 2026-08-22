@@ -144,6 +144,25 @@ const startStaticServer = () => new Promise((resolve, reject) => {
   server.listen(PORT, () => resolve(server))
 })
 
+/**
+ * Misura cio' che si vuole poter affermare nel report: se la schermata sta in schermo,
+ * quanto respiro ha la card sopra la barra, quanto sono alti i tasti del tastierino.
+ */
+const measure = (page) => page.evaluate(() => {
+  const rect = (sel) => document.querySelector(sel)?.getBoundingClientRect() ?? null
+  const main = document.querySelector('main')
+  const gamePage = document.querySelector('.game-page')
+  const nav = rect('.bottom-nav')
+  const card = rect('.challenge-card')
+  const button = rect('button.number-btn')
+
+  return {
+    scroll: (main.scrollHeight - main.clientHeight) + (gamePage ? gamePage.scrollHeight - gamePage.clientHeight : 0),
+    cardGap: card && nav ? Math.round(nav.top - card.bottom) : null,
+    keyHeight: button ? Math.round(button.height) : null
+  }
+})
+
 const galleryHtml = (shots) => {
   const byScreen = SCREENS.map(screen => ({
     ...screen,
@@ -247,6 +266,7 @@ const run = async () => {
   console.log(`Build statica servita su ${BASE_URL}`)
 
   const shots = []
+  const metrics = []
   let browser
 
   try {
@@ -258,6 +278,7 @@ const run = async () => {
       await rm(join(OUT_DIR, device.slug), { recursive: true, force: true })
     }
     await rm(join(OUT_DIR, 'index.html'), { force: true })
+    await rm(join(OUT_DIR, 'measurements.json'), { force: true })
 
     for (const device of DEVICES) {
       const themes = device.reference ? ['light', 'dark'] : ['light']
@@ -280,6 +301,16 @@ const run = async () => {
           await page.addStyleTag({ content: FREEZE_ANIMATIONS })
           await waitUntilSettled(page)
 
+          // Le misure si prendono qui, sulla stessa pagina che viene fotografata: un
+          // report che le riporta non puo' divergere da cio' che si vede
+          if (theme === 'light') {
+            metrics.push({
+              device: device.slug,
+              screen: screen.slug,
+              ...await measure(page)
+            })
+          }
+
           const dir = join(OUT_DIR, device.slug)
           await mkdir(dir, { recursive: true })
           const name = theme === 'dark' ? `${screen.slug}-dark.png` : `${screen.slug}.png`
@@ -294,6 +325,11 @@ const run = async () => {
     }
 
     await writeFile(join(OUT_DIR, 'index.html'), galleryHtml(shots), 'utf-8')
+    await writeFile(
+      join(OUT_DIR, 'measurements.json'),
+      JSON.stringify({ devices: DEVICES, screens: SCREENS, metrics }, null, 2) + '\n',
+      'utf-8'
+    )
     console.log(`\n${shots.length} screenshot in ${OUT_DIR}/`)
     console.log(`Apri ${OUT_DIR}/index.html per sfogliarli.`)
   } finally {
