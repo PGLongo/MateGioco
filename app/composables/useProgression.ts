@@ -5,17 +5,36 @@ import { LEVELS, FIRST_LEVEL_ID, getLevel } from '~/config/levels.config'
 import { BADGES, getBadgeForLevel } from '~/config/badges.config'
 
 const STORAGE_KEY = 'mategioco-progression'
+/** Chiave usata prima che esistessero i livelli: teneva un solo totale globale */
+const LEGACY_STARS_KEY = 'mategioco-stars'
 
 interface ProgressionState {
   /** Stelline accumulate per livello: { 'sum-1': 12, 'sub-1': 5 } */
   levelStars: Record<string, number>
   /** Badge conquistati, con la data di sblocco: { 'badge-crab': '2026-08-22T...' } */
   badges: Record<string, string>
+  /**
+   * Stelline guadagnate prima che esistessero i livelli, recuperate una volta sola dalla
+   * vecchia chiave `mategioco-stars`. Non sono attribuibili a un livello, ma buttarle
+   * significherebbe azzerare il contatore a un bambino che aveva gia' giocato.
+   */
+  legacyStars: number
 }
 
-const defaultState = (): ProgressionState => ({ levelStars: {}, badges: {} })
+const defaultState = (): ProgressionState => ({ levelStars: {}, badges: {}, legacyStars: 0 })
 
-// Stato globale condiviso (singleton), come useStars e useSettings: mappa dei livelli,
+/** Legge il totale della vecchia chiave, se c'e' ancora */
+const readLegacyStars = (): number => {
+  if (typeof window === 'undefined') return 0
+
+  try {
+    return parseInt(localStorage.getItem(LEGACY_STARS_KEY) ?? '0', 10) || 0
+  } catch {
+    return 0
+  }
+}
+
+// Stato globale condiviso (singleton), come useSettings: mappa dei livelli,
 // header e pagina di gioco devono vedere la stessa progressione senza ricaricare
 const state = ref<ProgressionState>(defaultState())
 const isLoaded = ref(false)
@@ -25,9 +44,13 @@ const loadProgression = () => {
 
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored) {
-      const parsed = JSON.parse(stored)
-      state.value = { ...defaultState(), ...parsed }
+    const parsed = stored ? JSON.parse(stored) : {}
+
+    state.value = {
+      ...defaultState(),
+      ...parsed,
+      // Migrazione una volta sola: se il campo non c'e' ancora, il totale vecchio entra qui
+      legacyStars: parsed.legacyStars ?? readLegacyStars()
     }
     isLoaded.value = true
   } catch (error) {
@@ -113,6 +136,15 @@ export const useProgression = () => {
     return unlocked[unlocked.length - 1] ?? getLevel(FIRST_LEVEL_ID)!
   })
 
+  /**
+   * Totale delle stelline mostrato nell'header: somma di quelle per livello piu' quelle
+   * guadagnate prima dei livelli. **Unica fonte di verita'**: prima esisteva un contatore
+   * separato su `mategioco-stars` che poteva divergere da questa somma.
+   */
+  const totalStars = computed(() =>
+    state.value.legacyStars + Object.values(state.value.levelStars).reduce((sum, n) => sum + n, 0)
+  )
+
   /** Livelli giocabili adesso */
   const unlockedLevels = computed<LevelConfig[]>(() =>
     LEVELS.filter(level => isUnlocked(level.id))
@@ -167,6 +199,7 @@ export const useProgression = () => {
   return {
     // State
     isLoaded,
+    totalStars,
     currentLevel,
     unlockedLevels,
     completedLevels,

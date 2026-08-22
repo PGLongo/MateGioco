@@ -176,7 +176,8 @@ describe('useProgression', () => {
 
       expect(JSON.parse(localStorage.getItem('mategioco-progression')!)).toEqual({
         levelStars: { 'sum-1': 4 },
-        badges: {}
+        badges: {},
+        legacyStars: 0
       })
     })
 
@@ -298,5 +299,80 @@ describe('useProgression - badge', () => {
     // Il badge arretrato viene assegnato, non perso
     expect(checkForNewBadges().map(b => b.id)).toEqual(['badge-crab'])
     expect(unlockedBadges.value).toHaveLength(1)
+  })
+})
+
+
+describe('useProgression - totale delle stelline', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    useProgression().resetProgression()
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('should sum the stars of every level', () => {
+    const { addStarsTo, totalStars } = useProgression()
+
+    // Il totale dell'header e' derivato, non un contatore parallelo che puo' divergere
+    addStarsTo('sum-1', 8)
+    addStarsTo('sum-2', 3)
+
+    expect(totalStars.value).toBe(11)
+  })
+
+  it('should start from zero', () => {
+    expect(useProgression().totalStars.value).toBe(0)
+  })
+
+  it('should recover the stars saved before levels existed', () => {
+    // Un bambino che aveva giocato la versione senza livelli: nessuna progressione salvata,
+    // 42 stelline sulla vecchia chiave
+    localStorage.clear()
+    localStorage.setItem('mategioco-stars', '42')
+
+    const { loadProgression, totalStars } = useProgression()
+    loadProgression()
+
+    // Non sono attribuibili a un livello, ma non vengono perse
+    expect(totalStars.value).toBe(42)
+  })
+
+  it('should add new level stars on top of the recovered ones', () => {
+    localStorage.clear()
+    localStorage.setItem('mategioco-stars', '42')
+
+    const { loadProgression, addStarsTo, totalStars } = useProgression()
+    loadProgression()
+    addStarsTo('sum-1', 3)
+
+    expect(totalStars.value).toBe(45)
+  })
+
+  it('should recover the old stars only once', async () => {
+    localStorage.clear()
+    localStorage.setItem('mategioco-stars', '42')
+
+    const { loadProgression, totalStars } = useProgression()
+    loadProgression()
+    await Promise.resolve()
+
+    // Un secondo caricamento non le somma di nuovo: il campo e' gia' salvato
+    loadProgression()
+
+    expect(totalStars.value).toBe(42)
+  })
+
+  it('should ignore a corrupted legacy value', () => {
+    localStorage.clear()
+    localStorage.setItem('mategioco-stars', 'tante')
+
+    const { loadProgression, totalStars } = useProgression()
+    loadProgression()
+
+    expect(totalStars.value).toBe(0)
   })
 })

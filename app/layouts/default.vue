@@ -1,7 +1,10 @@
 <template>
   <div class="app-layout">
     <!-- Top Bar -->
-    <AppHeader :stars="totalStars" />
+    <AppHeader
+      :stars="totalStars"
+      :user-name="displayName"
+    />
 
 
     <!-- Main Content -->
@@ -33,7 +36,17 @@
 </template>
 
 <script setup lang="ts">
-const { totalStars } = useStars()
+const { totalStars, loadProgression } = useProgression()
+const { settings, loadSettings } = useSettings()
+const { t } = useI18n()
+
+/** Il nome salvato, o il nome di cortesia nella lingua dell'interfaccia */
+const displayName = computed(() => settings.value.userName || t('header.defaultName'))
+
+onMounted(() => {
+  loadProgression()
+  loadSettings()
+})
 </script>
 
 <style scoped>

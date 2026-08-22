@@ -85,7 +85,6 @@ import type { LevelConfig } from '~/types/Level'
 import { getLevel } from '~/config/levels.config'
 
 const { loadSettings } = useSettings()
-const { loadStars, addStars } = useStars()
 const { currentLevel, isUnlocked, addStarsTo, checkForNewBadges, loadProgression } = useProgression()
 const { playSuccess, playError, playClick, playCelebration } = useSound()
 const { celebrate, miniCelebration } = useConfetti()
@@ -185,8 +184,7 @@ const submitAnswer = () => {
       showCorrectAnswer.value = true
     }
 
-    // Il contatore globale alimenta l'header, quello per livello la progressione
-    addStars(1)
+    // Una sola scrittura: il totale nell'header e' derivato dalle stelline per livello
     addStarsTo(sessionLevel.value.id, 1)
     sessionStars.value++
 
@@ -242,7 +240,6 @@ watch(sessionCompleted, (completed) => {
 // Inizializzazione
 onMounted(() => {
   loadSettings()
-  loadStars()
   loadProgression()
 
   // La sessione si gioca sul livello a cui il bambino e' arrivato, non su una difficolta'
@@ -330,7 +327,7 @@ onMounted(() => {
 }
 
 .modal-card {
-  background-color: white;
+  background-color: var(--color-bg-white, #FFFFFF);
   border-radius: 32px;
   padding: 32px;
   width: 100%;
