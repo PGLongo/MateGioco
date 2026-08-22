@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/PGLongo/MateGioco/compare/v1.9.0...v1.10.0) (2026-08-22)
+
+
+### ✨ Features
+
+* **composable:** generate multiplications and divisions ([4e253f9](https://github.com/PGLongo/MateGioco/commit/4e253f9ed66d8543764526e6880d0f29831264ea))
+* **config:** add the badges of the new worlds ([dbf4316](https://github.com/PGLongo/MateGioco/commit/dbf4316465f6b17ada47c785fe8931881a9b4386))
+* **config:** add the times tables and divisions worlds ([d99a9b9](https://github.com/PGLongo/MateGioco/commit/d99a9b91be947469ece09293b7e115e14413ef7e))
+* **ui:** make dark mode reachable with a theme toggle ([3c104fa](https://github.com/PGLongo/MateGioco/commit/3c104fa76a120f85574fc4611be660e953bfa315))
+
+
+### 🐛 Bug Fixes
+
+* **i18n:** localize the default player name ([2d0e152](https://github.com/PGLongo/MateGioco/commit/2d0e15205a8d4ccd347ad6bdfc32f839f3a0cf01))
+* **ui:** darken the app surfaces in dark mode ([7584667](https://github.com/PGLongo/MateGioco/commit/7584667dabd214738d81bbe84d9f63bda2bfb3f3))
+* **ui:** make text readable in dark mode ([4b88be2](https://github.com/PGLongo/MateGioco/commit/4b88be2054dd61c278e42d510734546f85bcf200))
+
+
+### 📝 Documentation
+
+* add the missing MIT license file ([ed50c1f](https://github.com/PGLongo/MateGioco/commit/ed50c1f60708cb4085556dd70942ad0962079a10))
+* document the semantic surface tokens ([edbdc7d](https://github.com/PGLongo/MateGioco/commit/edbdc7d2adb7cf22e355ea9b9c9ea87812c1b807))
+* document the semantic text tokens ([d4826dd](https://github.com/PGLongo/MateGioco/commit/d4826ddd80a1a9f61aef5f8ff8a018cf4e4524c2))
+* record the new operations and the closed defects ([1cf7f35](https://github.com/PGLongo/MateGioco/commit/1cf7f353c3e5398a0ac8e00982bb713873ae42a7))
+
 ## [1.9.0](https://github.com/PGLongo/MateGioco/compare/v1.8.0...v1.9.0) (2026-08-22)
 
 
