@@ -80,15 +80,27 @@ export const useProgression = () => {
   /** Stelline guadagnate su un livello */
   const starsOn = (levelId: string): number => state.value.levelStars[levelId] ?? 0
 
+  /** Il badge del livello e' gia' stato conquistato in passato? */
+  const wasAlreadyEarned = (levelId: string): boolean => {
+    const badge = getBadgeForLevel(levelId)
+
+    return badge ? badge.id in state.value.badges : false
+  }
+
   /**
    * Un livello e' completato quando ha raggiunto la sua soglia di stelline **e** era
    * davvero giocabile: senza il secondo vincolo, stelline salvate su un livello mai
    * sbloccato (dati manomessi, configurazione cambiata) aprirebbero la catena a valle.
+   *
+   * Il badge gia' conquistato vale come soglia raggiunta. Serve quando la soglia viene
+   * alzata (da 8 a 25 il 2026-08-22): senza questa clausola un bambino si ritroverebbe
+   * bloccati livelli che aveva superato, e i Guardiani gia' vinti tornerebbero in
+   * silhouette. Quello che e' stato fatto una volta resta fatto.
    */
   const isCompleted = (levelId: string): boolean => {
     const level = getLevel(levelId)
     if (!level) return false
-    if (starsOn(levelId) < level.starsToUnlock) return false
+    if (starsOn(levelId) < level.starsToUnlock && !wasAlreadyEarned(levelId)) return false
 
     return !level.unlockReq || isCompleted(level.unlockReq)
   }

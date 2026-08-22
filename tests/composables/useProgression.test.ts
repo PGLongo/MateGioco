@@ -1,6 +1,13 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
 import { useProgression } from '../../app/composables/useProgression'
-import { LEVELS } from '../../app/config/levels.config'
+import { LEVELS, getLevel } from '../../app/config/levels.config'
+
+/** Soglia di sblocco del livello, letta dalla configurazione: i test descrivono il
+ *  comportamento, non il numero di stelline scelto dal prodotto */
+const soglia = (id: string): number => getLevel(id)!.starsToUnlock
+
+/** Porta un livello esattamente alla sua soglia */
+const completa = (id: string) => useProgression().addStarsTo(id, soglia(id))
 
 describe('useProgression', () => {
   beforeEach(() => {
@@ -29,31 +36,31 @@ describe('useProgression', () => {
     it('should not unlock the next level before the threshold is reached', () => {
       const { addStarsTo, isUnlocked, isCompleted } = useProgression()
 
-      // Sette stelline su otto: una partita da 5 piu' una parziale non bastano
-      addStarsTo('sum-1', 7)
+      // Una stellina sotto la soglia: non basta
+      addStarsTo('sum-1', soglia('sum-1') - 1)
 
       expect(isCompleted('sum-1')).toBe(false)
       expect(isUnlocked('sum-2')).toBe(false)
     })
 
     it('should unlock the next level when the threshold is reached', () => {
-      const { addStarsTo, isUnlocked, isCompleted } = useProgression()
+      const { isUnlocked, isCompleted } = useProgression()
 
-      // Otto stelline: soglia raggiunta
-      addStarsTo('sum-1', 8)
+      // Soglia raggiunta
+      completa('sum-1')
 
       expect(isCompleted('sum-1')).toBe(true)
       expect(isUnlocked('sum-2')).toBe(true)
     })
 
     it('should open the subtraction world after the second sum level', () => {
-      const { addStarsTo, isUnlocked } = useProgression()
+      const { isUnlocked } = useProgression()
 
       // sub-1 dipende da sum-2, non dall'intero mondo delle somme
-      addStarsTo('sum-1', 8)
+      completa('sum-1')
       expect(isUnlocked('sub-1')).toBe(false)
 
-      addStarsTo('sum-2', 8)
+      completa('sum-2')
       expect(isUnlocked('sub-1')).toBe(true)
     })
 
@@ -61,7 +68,7 @@ describe('useProgression', () => {
       const { addStarsTo, isUnlocked, isCompleted } = useProgression()
 
       // Stelline su un livello mai sbloccato non devono aprire nulla a valle
-      addStarsTo('sub-3', 50)
+      addStarsTo('sub-3', soglia('sub-3') * 2)
 
       expect(isUnlocked('sub-3')).toBe(false)
       expect(isCompleted('sub-3')).toBe(false)
@@ -70,14 +77,10 @@ describe('useProgression', () => {
     })
 
     it('should unlock a whole chain only when every step is earned in order', () => {
-      const { addStarsTo, isUnlocked } = useProgression()
+      const { isUnlocked } = useProgression()
 
       // Percorso fatto nell'ordine giusto: la catena si apre
-      addStarsTo('sum-1', 8)
-      addStarsTo('sum-2', 8)
-      addStarsTo('sub-1', 8)
-      addStarsTo('sub-2', 8)
-      addStarsTo('sub-3', 8)
+      for (const id of ['sum-1', 'sum-2', 'sub-1', 'sub-2', 'sub-3']) completa(id)
 
       expect(isUnlocked('sub-4')).toBe(true)
       expect(isUnlocked('mix-1')).toBe(false)
@@ -92,9 +95,9 @@ describe('useProgression', () => {
     })
 
     it('should advance to the next level once the current one is completed', () => {
-      const { addStarsTo, currentLevel } = useProgression()
+      const { currentLevel } = useProgression()
 
-      addStarsTo('sum-1', 8)
+      completa('sum-1')
 
       // Il livello su cui lavorare diventa il successivo sbloccato e non completato
       expect(currentLevel.value.id).toBe('sum-2')
@@ -116,25 +119,21 @@ describe('useProgression', () => {
 
   describe('catena dei Mondi nuovi', () => {
     it('should open the multiplication world after the great challenge', () => {
-      const { addStarsTo, isUnlocked } = useProgression()
+      const { isUnlocked } = useProgression()
 
       // Le tabelline presuppongono somme e sottrazioni: si aprono dopo mix-1
-      for (const id of ['sum-1', 'sum-2', 'sum-3', 'sum-4', 'sub-1', 'sub-2', 'sub-3', 'sub-4']) {
-        addStarsTo(id, 8)
-      }
+      for (const id of ['sum-1', 'sum-2', 'sum-3', 'sum-4', 'sub-1', 'sub-2', 'sub-3', 'sub-4']) completa(id)
       expect(isUnlocked('mul-1')).toBe(false)
 
-      addStarsTo('mix-1', 8)
+      completa('mix-1')
       expect(isUnlocked('mul-1')).toBe(true)
       expect(isUnlocked('div-1')).toBe(false)
     })
 
     it('should open the division world after the first multiplication level', () => {
-      const { addStarsTo, isUnlocked } = useProgression()
+      const { isUnlocked } = useProgression()
 
-      for (const id of ['sum-1', 'sum-2', 'sum-3', 'sum-4', 'sub-1', 'sub-2', 'sub-3', 'sub-4', 'mix-1', 'mul-1']) {
-        addStarsTo(id, 8)
-      }
+      for (const id of ['sum-1', 'sum-2', 'sum-3', 'sum-4', 'sub-1', 'sub-2', 'sub-3', 'sub-4', 'mix-1', 'mul-1']) completa(id)
 
       // Dividere presuppone la prima tabellina, non tutte
       expect(isUnlocked('div-1')).toBe(true)
@@ -143,14 +142,14 @@ describe('useProgression', () => {
     })
 
     it('should keep the supreme challenge locked until every division is done', () => {
-      const { addStarsTo, isUnlocked } = useProgression()
+      const { isUnlocked } = useProgression()
 
       for (const level of LEVELS) {
-        if (level.id !== 'div-3' && level.id !== 'mix-2') addStarsTo(level.id, 8)
+        if (level.id !== 'div-3' && level.id !== 'mix-2') completa(level.id)
       }
       expect(isUnlocked('mix-2')).toBe(false)
 
-      addStarsTo('div-3', 8)
+      completa('div-3')
       expect(isUnlocked('mix-2')).toBe(true)
     })
   })
@@ -189,13 +188,13 @@ describe('useProgression', () => {
     it('should report how many stars are missing to the next level', () => {
       const { addStarsTo, starsToNextLevel } = useProgression()
 
-      expect(starsToNextLevel('sum-1')).toBe(8)
+      expect(starsToNextLevel('sum-1')).toBe(soglia('sum-1'))
 
       addStarsTo('sum-1', 5)
-      expect(starsToNextLevel('sum-1')).toBe(3)
+      expect(starsToNextLevel('sum-1')).toBe(soglia('sum-1') - 5)
 
       // Oltre la soglia non scende sotto zero
-      addStarsTo('sum-1', 10)
+      addStarsTo('sum-1', soglia('sum-1'))
       expect(starsToNextLevel('sum-1')).toBe(0)
     })
 
@@ -225,12 +224,12 @@ describe('useProgression', () => {
     })
 
     it('should load a progression saved by a previous session', () => {
-      localStorage.setItem('mategioco-progression', JSON.stringify({ levelStars: { 'sum-1': 8, 'sum-2': 2 } }))
+      localStorage.setItem('mategioco-progression', JSON.stringify({ levelStars: { 'sum-1': soglia('sum-1'), 'sum-2': 2 } }))
 
       const { loadProgression, starsOn, isUnlocked } = useProgression()
       loadProgression()
 
-      expect(starsOn('sum-1')).toBe(8)
+      expect(starsOn('sum-1')).toBe(soglia('sum-1'))
       expect(starsOn('sum-2')).toBe(2)
       expect(isUnlocked('sum-2')).toBe(true)
     })
@@ -263,17 +262,17 @@ describe('useProgression - badge', () => {
   it('should award no badge before any level is completed', () => {
     const { checkForNewBadges, unlockedBadges } = useProgression()
 
-    // Sette stelline: livello non completato, nessun badge
-    useProgression().addStarsTo('sum-1', 7)
+    // Una stellina sotto la soglia: livello non completato, nessun badge
+    useProgression().addStarsTo('sum-1', soglia('sum-1') - 1)
 
     expect(checkForNewBadges()).toEqual([])
     expect(unlockedBadges.value).toEqual([])
   })
 
   it('should award the badge of a completed level', () => {
-    const { addStarsTo, checkForNewBadges, isBadgeUnlocked } = useProgression()
+    const { checkForNewBadges, isBadgeUnlocked } = useProgression()
 
-    addStarsTo('sum-1', 8)
+    completa('sum-1')
     const nuovi = checkForNewBadges()
 
     // Il granchio e' il guardiano del primo livello
@@ -282,9 +281,9 @@ describe('useProgression - badge', () => {
   })
 
   it('should return a new badge only once', () => {
-    const { addStarsTo, checkForNewBadges, unlockedBadges } = useProgression()
+    const { checkForNewBadges, unlockedBadges } = useProgression()
 
-    addStarsTo('sum-1', 8)
+    completa('sum-1')
     checkForNewBadges()
 
     // Seconda sessione sullo stesso livello: niente da festeggiare di nuovo
@@ -293,11 +292,11 @@ describe('useProgression - badge', () => {
   })
 
   it('should award several badges at once when more levels are completed', () => {
-    const { addStarsTo, checkForNewBadges } = useProgression()
+    const { checkForNewBadges } = useProgression()
 
     // Progressione caricata da un salvataggio con due livelli gia' completati
-    addStarsTo('sum-1', 8)
-    addStarsTo('sum-2', 8)
+    completa('sum-1')
+    completa('sum-2')
 
     expect(checkForNewBadges().map(b => b.id)).toEqual(['badge-crab', 'badge-turtle'])
   })
@@ -306,15 +305,15 @@ describe('useProgression - badge', () => {
     const { addStarsTo, checkForNewBadges } = useProgression()
 
     // sub-3 ha la soglia ma non era sbloccato: la catena stretta vale anche per i badge
-    addStarsTo('sub-3', 20)
+    addStarsTo('sub-3', soglia('sub-3'))
 
     expect(checkForNewBadges()).toEqual([])
   })
 
   it('should record when the badge was unlocked', () => {
-    const { addStarsTo, checkForNewBadges, badgeUnlockedAt } = useProgression()
+    const { checkForNewBadges, badgeUnlockedAt } = useProgression()
 
-    addStarsTo('sum-1', 8)
+    completa('sum-1')
     checkForNewBadges()
 
     // La bacheca mostra la data di conquista
@@ -322,9 +321,9 @@ describe('useProgression - badge', () => {
   })
 
   it('should persist unlocked badges', async () => {
-    const { addStarsTo, checkForNewBadges } = useProgression()
+    const { checkForNewBadges } = useProgression()
 
-    addStarsTo('sum-1', 8)
+    completa('sum-1')
     checkForNewBadges()
     await Promise.resolve()
 
@@ -334,7 +333,7 @@ describe('useProgression - badge', () => {
 
   it('should keep working with a progression saved before badges existed', () => {
     // Salvataggio della versione precedente: nessun campo badges
-    localStorage.setItem('mategioco-progression', JSON.stringify({ levelStars: { 'sum-1': 8 } }))
+    localStorage.setItem('mategioco-progression', JSON.stringify({ levelStars: { 'sum-1': soglia('sum-1') } }))
 
     const { loadProgression, checkForNewBadges, unlockedBadges } = useProgression()
     loadProgression()
@@ -417,5 +416,70 @@ describe('useProgression - totale delle stelline', () => {
     loadProgression()
 
     expect(totalStars.value).toBe(0)
+  })
+})
+
+
+describe('useProgression - soglia alzata', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    useProgression().resetProgression()
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('should require at least five perfect sessions per level', () => {
+    // Cinque esercizi per sessione, una stellina per risposta giusta
+    const sessioniPerfette = Math.ceil(soglia('sum-1') / 5)
+
+    expect(sessioniPerfette).toBeGreaterThanOrEqual(5)
+  })
+
+  it('should keep a level completed when the threshold is raised afterwards', () => {
+    // Progressione salvata quando la soglia era 8: il livello era stato superato e il suo
+    // Guardiano conquistato. Alzando la soglia a 25 non deve tornare bloccato
+    localStorage.setItem('mategioco-progression', JSON.stringify({
+      levelStars: { 'sum-1': 8 },
+      badges: { 'badge-crab': '2026-08-22T10:00:00.000Z' },
+      legacyStars: 0
+    }))
+
+    const { loadProgression, isCompleted, isUnlocked } = useProgression()
+    loadProgression()
+
+    expect(isCompleted('sum-1')).toBe(true)
+    expect(isUnlocked('sum-2')).toBe(true)
+  })
+
+  it('should not grant completion to a level whose badge was never earned', () => {
+    // Stelline sotto la soglia e nessun badge: il livello resta da finire
+    localStorage.setItem('mategioco-progression', JSON.stringify({
+      levelStars: { 'sum-1': 8 },
+      badges: {},
+      legacyStars: 0
+    }))
+
+    const { loadProgression, isCompleted, isUnlocked } = useProgression()
+    loadProgression()
+
+    expect(isCompleted('sum-1')).toBe(false)
+    expect(isUnlocked('sum-2')).toBe(false)
+  })
+
+  it('should carry the grandfathered completion down the chain', () => {
+    // Chi era arrivato alle sottrazioni con la soglia vecchia le mantiene sbloccate
+    localStorage.setItem('mategioco-progression', JSON.stringify({
+      levelStars: { 'sum-1': 8, 'sum-2': 8 },
+      badges: { 'badge-crab': '2026-08-22T10:00:00.000Z', 'badge-turtle': '2026-08-22T10:00:00.000Z' },
+      legacyStars: 0
+    }))
+
+    const { loadProgression, isUnlocked } = useProgression()
+    loadProgression()
+
+    expect(isUnlocked('sub-1')).toBe(true)
   })
 })
