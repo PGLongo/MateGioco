@@ -80,6 +80,7 @@ npm run generate       # build statica SSG, output in .output/public
 npm run preview        # anteprima locale della build
 npm run generate-assets # rigenera icone PWA da public/icon-1024x1024.svg
 npm run screenshots    # rigenera la galleria in docs/screenshots/ (build + cattura)
+npm run screenshots:report # costruisce il report autonomo (immagini e misure incorporate)
 ```
 
 I test sono **Vitest** in `tests/`, che rispecchia la struttura di `app/`, con i file

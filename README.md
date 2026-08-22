@@ -167,12 +167,19 @@ che è lo stesso comando usato dalla CI per il deploy.
 ```bash
 # Rigenera gli screenshot di ogni schermata su ogni risoluzione iPhone
 npm run screenshots
+
+# Costruisce il report autonomo: un file solo, con immagini e misure incorporate
+npm run screenshots:report
 ```
 
 Gli screenshot vivono in [`docs/screenshots/`](docs/screenshots/) e **sono versionati**: in
 una pull request mostrano cosa cambia visivamente, non solo nel codice. Per sfogliarli apri
 [`docs/screenshots/index.html`](docs/screenshots/index.html) in un browser, con selettore di
 tema e di scala.
+
+Il **report** (`docs/screenshots/report.html`, non versionato) è la stessa galleria in un
+unico file autonomo, con la tabella di verifica costruita dalle misure raccolte durante la
+cattura: si apre da telefono e si può condividere senza il repository.
 
 Sono riproducibili: due esecuzioni di fila producono file identici, perché lo script fissa
 progressione, lingua, tema, numeri casuali e animazioni, e fotografa la build statica invece

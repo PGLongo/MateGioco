@@ -4,14 +4,24 @@ Screenshot di ogni schermata di MateGioco su ogni risoluzione iPhone in circolaz
 Apri **`index.html`** in un browser per sfogliarli: c'è un selettore di tema e uno di scala,
 e le schermate sono affiancate per dispositivo.
 
-## Rigenerare
+## Due modi di guardarla
 
-```bash
-npm run screenshots
-```
+| | Comando | Cos'è |
+|---|---|---|
+| **Galleria** | `npm run screenshots` | `index.html` più i PNG. Vive nel repository, si apre da qui, e i PNG sono quelli che finiscono nel diff di una PR. |
+| **Report** | `npm run screenshots:report` | Un file solo (`report.html`, ~2,6 MB) con le immagini incorporate e la tabella di verifica. Non versionato: si apre da telefono e si può mandare a qualcuno senza il repository. |
 
-Fa la build statica, la serve su `http://localhost:4173/MateGioco/` e cattura tutto. Non
-modificare i file a mano: sono generati.
+La galleria fa la build statica, la serve su `http://localhost:4173/MateGioco/` e cattura
+tutto. Non modificare i file a mano: sono generati.
+
+## Le misure
+
+`measurements.json` è prodotto dalla stessa esecuzione che scatta gli screenshot: per ogni
+dispositivo e schermata registra se il contenuto sta in schermo (`scroll`), quanto respiro ha
+la card sopra la barra (`cardGap`) e quanto sono alti i tasti del tastierino (`keyHeight`).
+
+Il report legge quel file invece di riportare numeri scritti a mano: così non può affermare
+qualcosa che le immagini smentiscono.
 
 ## Perché sono versionati
 
