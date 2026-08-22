@@ -1,15 +1,19 @@
 import { ref, computed, watch } from 'vue'
 import type { LevelConfig } from '~/types/Level'
+import type { Badge } from '~/types/Badge'
 import { LEVELS, FIRST_LEVEL_ID, getLevel } from '~/config/levels.config'
+import { BADGES, getBadgeForLevel } from '~/config/badges.config'
 
 const STORAGE_KEY = 'mategioco-progression'
 
 interface ProgressionState {
   /** Stelline accumulate per livello: { 'sum-1': 12, 'sub-1': 5 } */
   levelStars: Record<string, number>
+  /** Badge conquistati, con la data di sblocco: { 'badge-crab': '2026-08-22T...' } */
+  badges: Record<string, string>
 }
 
-const defaultState = (): ProgressionState => ({ levelStars: {} })
+const defaultState = (): ProgressionState => ({ levelStars: {}, badges: {} })
 
 // Stato globale condiviso (singleton), come useStars e useSettings: mappa dei livelli,
 // header e pagina di gioco devono vedere la stessa progressione senza ricaricare
@@ -119,6 +123,38 @@ export const useProgression = () => {
     LEVELS.filter(level => isCompleted(level.id))
   )
 
+  /** Badge conquistato? */
+  const isBadgeUnlocked = (badgeId: string): boolean => badgeId in state.value.badges
+
+  /** Data di sblocco di un badge, se conquistato */
+  const badgeUnlockedAt = (badgeId: string): string | undefined => state.value.badges[badgeId]
+
+  /**
+   * Registra i badge dei livelli completati che non sono ancora stati conquistati e
+   * restituisce **solo quelli nuovi**, cosi' che chi chiama possa festeggiarli una volta
+   * sola. Chiamata a fine sessione: chiamarla due volte di seguito non produce doppioni.
+   */
+  const checkForNewBadges = (): Badge[] => {
+    const earned = BADGES.filter(badge => isCompleted(badge.levelId) && !isBadgeUnlocked(badge.id))
+    if (earned.length === 0) return []
+
+    const now = new Date().toISOString()
+    state.value.badges = {
+      ...state.value.badges,
+      ...Object.fromEntries(earned.map(badge => [badge.id, now]))
+    }
+
+    return earned
+  }
+
+  /** Badge conquistati, nell'ordine del percorso */
+  const unlockedBadges = computed<Badge[]>(() =>
+    BADGES.filter(badge => isBadgeUnlocked(badge.id))
+  )
+
+  /** Il badge in gioco sul livello corrente, se esiste */
+  const badgeForLevel = (levelId: string): Badge | undefined => getBadgeForLevel(levelId)
+
   const resetProgression = () => {
     state.value = defaultState()
   }
@@ -135,14 +171,20 @@ export const useProgression = () => {
     unlockedLevels,
     completedLevels,
 
+    unlockedBadges,
+
     // Query
     starsOn,
     isCompleted,
     isUnlocked,
     starsToNextLevel,
+    isBadgeUnlocked,
+    badgeUnlockedAt,
+    badgeForLevel,
 
     // Mutations
     addStarsTo,
+    checkForNewBadges,
     loadProgression,
     resetProgression
   }

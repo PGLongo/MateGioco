@@ -175,7 +175,8 @@ describe('useProgression', () => {
       await Promise.resolve()
 
       expect(JSON.parse(localStorage.getItem('mategioco-progression')!)).toEqual({
-        levelStars: { 'sum-1': 4 }
+        levelStars: { 'sum-1': 4 },
+        badges: {}
       })
     })
 
@@ -201,5 +202,101 @@ describe('useProgression', () => {
       expect(isUnlocked('sum-1')).toBe(true)
       expect(console.error).toHaveBeenCalled()
     })
+  })
+})
+
+describe('useProgression - badge', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    useProgression().resetProgression()
+    vi.spyOn(console, 'error').mockImplementation(() => {})
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('should award no badge before any level is completed', () => {
+    const { checkForNewBadges, unlockedBadges } = useProgression()
+
+    // Sette stelline: livello non completato, nessun badge
+    useProgression().addStarsTo('sum-1', 7)
+
+    expect(checkForNewBadges()).toEqual([])
+    expect(unlockedBadges.value).toEqual([])
+  })
+
+  it('should award the badge of a completed level', () => {
+    const { addStarsTo, checkForNewBadges, isBadgeUnlocked } = useProgression()
+
+    addStarsTo('sum-1', 8)
+    const nuovi = checkForNewBadges()
+
+    // Il granchio e' il guardiano del primo livello
+    expect(nuovi.map(b => b.id)).toEqual(['badge-crab'])
+    expect(isBadgeUnlocked('badge-crab')).toBe(true)
+  })
+
+  it('should return a new badge only once', () => {
+    const { addStarsTo, checkForNewBadges, unlockedBadges } = useProgression()
+
+    addStarsTo('sum-1', 8)
+    checkForNewBadges()
+
+    // Seconda sessione sullo stesso livello: niente da festeggiare di nuovo
+    expect(checkForNewBadges()).toEqual([])
+    expect(unlockedBadges.value).toHaveLength(1)
+  })
+
+  it('should award several badges at once when more levels are completed', () => {
+    const { addStarsTo, checkForNewBadges } = useProgression()
+
+    // Progressione caricata da un salvataggio con due livelli gia' completati
+    addStarsTo('sum-1', 8)
+    addStarsTo('sum-2', 8)
+
+    expect(checkForNewBadges().map(b => b.id)).toEqual(['badge-crab', 'badge-turtle'])
+  })
+
+  it('should not award a badge for a level completed out of order', () => {
+    const { addStarsTo, checkForNewBadges } = useProgression()
+
+    // sub-3 ha la soglia ma non era sbloccato: la catena stretta vale anche per i badge
+    addStarsTo('sub-3', 20)
+
+    expect(checkForNewBadges()).toEqual([])
+  })
+
+  it('should record when the badge was unlocked', () => {
+    const { addStarsTo, checkForNewBadges, badgeUnlockedAt } = useProgression()
+
+    addStarsTo('sum-1', 8)
+    checkForNewBadges()
+
+    // La bacheca mostra la data di conquista
+    expect(badgeUnlockedAt('badge-crab')).toMatch(/^\d{4}-\d{2}-\d{2}T/)
+  })
+
+  it('should persist unlocked badges', async () => {
+    const { addStarsTo, checkForNewBadges } = useProgression()
+
+    addStarsTo('sum-1', 8)
+    checkForNewBadges()
+    await Promise.resolve()
+
+    const salvato = JSON.parse(localStorage.getItem('mategioco-progression')!)
+    expect(Object.keys(salvato.badges)).toEqual(['badge-crab'])
+  })
+
+  it('should keep working with a progression saved before badges existed', () => {
+    // Salvataggio della versione precedente: nessun campo badges
+    localStorage.setItem('mategioco-progression', JSON.stringify({ levelStars: { 'sum-1': 8 } }))
+
+    const { loadProgression, checkForNewBadges, unlockedBadges } = useProgression()
+    loadProgression()
+
+    // Il badge arretrato viene assegnato, non perso
+    expect(checkForNewBadges().map(b => b.id)).toEqual(['badge-crab'])
+    expect(unlockedBadges.value).toHaveLength(1)
   })
 })
