@@ -96,7 +96,7 @@ const toggleTheme = () => {
   border: none;
   border-radius: 50%;
   background-color: var(--color-bg-white, #FFFFFF);
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   cursor: pointer;
   transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
 }

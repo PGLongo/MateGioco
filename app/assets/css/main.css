@@ -31,6 +31,16 @@
   /* Superfici semantiche: dicono *a cosa serve* il colore, non che colore e'.
      Sono queste che il tema scuro ridefinisce, e per questo il fondo dell'app,
      l'header e la barra di navigazione cambiano davvero invece di restare chiari. */
+  /* Testo semantico: come le superfici, sono questi che il tema scuro ridefinisce.
+     I token di palette (--color-dark-navy, --color-blue-*) descrivono un colore e
+     restano tarati sul fondo chiaro: usati come colore del testo diventano illeggibili
+     in tema scuro. */
+  --text-strong: var(--color-dark-navy);
+  /* titoli ed etichette */
+  --text-muted: var(--color-text-light);
+  --text-accent: var(--color-blue-dark);
+  /* numeri dell'esercizio */
+
   --surface-app: #78CBE8;
   /* fondo dell'applicazione */
   --surface-header: #78CBE8;
@@ -75,6 +85,10 @@
 
   /* Gerarchia di profondita': il fondo e' il piu' scuro, le card stanno sopra.
      Senza questi override il fondo dell'app restava azzurro e il footer bianco. */
+  --text-strong: #F0F4F8;
+  --text-muted: #A8B3BD;
+  --text-accent: #8FD3F0;
+
   --surface-app: #22282D;
   --surface-header: #2C3338;
   --surface-nav: rgba(44, 51, 56, 0.94);

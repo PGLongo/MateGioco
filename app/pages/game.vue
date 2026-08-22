@@ -268,7 +268,7 @@ onMounted(() => {
   position: absolute;
   top: 0;
   left: 0;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -303,7 +303,7 @@ onMounted(() => {
   text-align: center;
   font-size: 1.5rem; /* Reduced from 1.875rem */
   font-weight: 700;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   margin-bottom: 8px; /* Reduced from 16px */
   animation: bounce-small 2s infinite;
 }
@@ -349,7 +349,7 @@ onMounted(() => {
 .modal-message {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   margin-bottom: 24px;
 }
 
@@ -388,13 +388,13 @@ onMounted(() => {
 .badge-showcase-desc {
   font-size: 0.95rem;
   font-weight: 600;
-  color: var(--color-text-light, #7A7A8C);
+  color: var(--text-muted, #7A7A8C);
   margin-bottom: 8px;
 }
 
 .modal-btn.is-secondary {
   background-color: var(--color-blue-lighter, #E1F4FA);
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   box-shadow: none;
   margin-top: 8px;
 }

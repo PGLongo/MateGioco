@@ -109,7 +109,7 @@ defineEmits<{
   justify-content: center;
   font-size: 3.5rem;
   font-weight: 700;
-  color: var(--color-blue-dark);
+  color: var(--text-accent, #4F9BCC);
   font-style: normal;
   flex-shrink: 0;
   overflow: hidden;

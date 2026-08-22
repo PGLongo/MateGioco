@@ -92,7 +92,7 @@ const starsMissing = computed(() => Math.max(0, props.level.starsToUnlock - prop
 .world-icon {
   width: 100px;
   height: 100px;
-  color: var(--color-blue-primary, #78CBE8);
+  color: var(--text-accent, #4F9BCC);
 }
 
 .text-content {

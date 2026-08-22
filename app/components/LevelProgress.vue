@@ -39,7 +39,7 @@ const percentage = computed(() => Math.min(100, (props.current / props.total) * 
   margin-bottom: 8px;
   font-family: 'Fredoka', sans-serif;
   font-weight: 700;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
 }
 
 .progress-track {

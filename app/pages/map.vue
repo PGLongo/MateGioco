@@ -107,7 +107,7 @@ const playLevel = (level: LevelConfig) => {
 .map-title {
   font-size: 1.75rem;
   font-weight: 800;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   text-align: center;
 }
 
@@ -126,13 +126,13 @@ const playLevel = (level: LevelConfig) => {
 .world-icon {
   width: 28px;
   height: 28px;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
 }
 
 .world-name {
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
 }
 
 .level-list {
@@ -194,14 +194,14 @@ const playLevel = (level: LevelConfig) => {
 .level-hint {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--color-text-light, #7A7A8C);
+  color: var(--text-muted, #7A7A8C);
 }
 
 .level-badge {
   width: 32px;
   height: 32px;
   flex-shrink: 0;
-  color: var(--color-text-light, #7A7A8C);
+  color: var(--text-muted, #7A7A8C);
 }
 
 .level-badge.is-check {

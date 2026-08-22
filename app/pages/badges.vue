@@ -48,14 +48,14 @@ const earnedCount = computed(() => BADGES.filter(badge => isCompleted(badge.leve
 .badges-title {
   font-size: 1.75rem;
   font-weight: 800;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   text-align: center;
 }
 
 .badges-count {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   text-align: center;
   opacity: 0.75;
 }

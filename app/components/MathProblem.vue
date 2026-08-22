@@ -51,7 +51,7 @@ withDefaults(defineProps<MathProblemProps>(), {
 .number {
   font-size: 3.5rem;
   font-weight: 700;
-  color: var(--color-blue-primary);
+  color: var(--text-accent, #4F9BCC);
   font-style: normal;
   line-height: 1;
 }
@@ -67,7 +67,7 @@ withDefaults(defineProps<MathProblemProps>(), {
 .equals {
   font-size: 3rem;
   font-weight: 700;
-  color: var(--color-blue-primary);
+  color: var(--text-accent, #4F9BCC);
   font-style: normal;
   line-height: 1;
 }

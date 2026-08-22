@@ -37,7 +37,7 @@ defineProps<{
   font-family: 'Fredoka', sans-serif;
   font-size: 1.875rem; /* text-3xl */
   font-weight: 900;    /* font-black */
-  color: var(--color-dark-navy, #2A3C55); /* dark-navy fallback */
+  color: var(--text-strong, #2A3C55); /* dark-navy fallback */
   line-height: 1;
 }
 </style>

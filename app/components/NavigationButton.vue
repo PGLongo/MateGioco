@@ -68,7 +68,7 @@ const navigate = () => {
 .nav-icon {
   width: 36px; /* Larger icon */
   height: 36px;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   filter: drop-shadow(0 4px 0 rgba(42, 60, 85, 0.1)); /* Subtle shadow for depth without container */
 }
 
@@ -76,7 +76,7 @@ const navigate = () => {
   margin-top: 4px;
   font-size: 0.75rem; /* smaller label */
   font-weight: 800;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
   font-family: 'Fredoka', sans-serif;
   opacity: 0.8;
 }

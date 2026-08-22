@@ -82,19 +82,19 @@ const levelNameKey = computed(() => getLevel(props.badge.levelId)?.nameKey ?? 'l
 .badge-lock {
   width: 28px;
   height: 28px;
-  color: var(--color-text-light, #7A7A8C);
+  color: var(--text-muted, #7A7A8C);
 }
 
 .badge-name {
   font-size: 0.95rem;
   font-weight: 800;
-  color: var(--color-dark-navy, #2A3C55);
+  color: var(--text-strong, #2A3C55);
 }
 
 .badge-detail {
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--color-text-light, #7A7A8C);
+  color: var(--text-muted, #7A7A8C);
   line-height: 1.25;
 }
 
